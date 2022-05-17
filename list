@@ -21,3 +21,6 @@ single_doctor
 visits
 visits_history
 your_dogs
+
+------------------------------------------------
+po podłączeniu postgresa trzeba będzie jeszcze raz dodać grupy; owner, doctor

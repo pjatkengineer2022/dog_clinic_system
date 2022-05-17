@@ -18,4 +18,4 @@ class Doctor(models.Model):
 class Owner(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     def __str__(self):
-        return self.profile.name + 'owner'
+        return self.profile.name +'owner'
