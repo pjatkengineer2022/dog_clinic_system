@@ -1,0 +1,23 @@
+-------------account_edit
+add_diagnosis
+add_dog
+contact
+diseases
+diseases_history
+doctor_browse_patients
+doctor_check_visits--------------> w dekoratorach zmienić dla doctor_only przekierowanie z 'home' na 'doctor_check_visits'
+doctor_login
+doctors
+-------------password reset sites
+-------------navbar---------------> zmienić belkę dla lekarza
+-------------base
+-------------home
+-------------login-> we views.py  zmienić przekierowanie z 'home' na stronę 'twoje psy'
+medicines
+medicines_history
+-------------register-> we views.py po rejestracji zrobić przekierowanie  z 'home' na stronę 'twoje psy'
+reservation
+single_doctor
+visits
+visits_history
+your_dogs
