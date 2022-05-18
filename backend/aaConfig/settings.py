@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'phonenumber_field',
+    'pets.apps.PetsConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -136,3 +138,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'engineer2022db@gmail.com'
 EMAIL_HOST_PASSWORD =  'nqqlcoiyoisejfir' #'ngcjsuuqibifcqzd'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'aaMedia')
+MEDIA_URL = '/media/'

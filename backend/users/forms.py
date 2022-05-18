@@ -7,7 +7,7 @@ from phonenumber_field.formfields import PhoneNumberField
 
 #REGISTER USER (creating profile)
 class UserRegisterForm(UserCreationForm):
-    username = forms.CharField(max_length=15, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
+    username = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
     password1 = forms.CharField(max_length=30, widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'type password','type':"password"}))
     password2 = forms.CharField(max_length=30,widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'confirm password','type':"password"}))
     class Meta:
@@ -26,7 +26,7 @@ class ProfileRegisterForm(forms.ModelForm):
 
 #LOGIN USER
 class UserAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(max_length=20, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
+    username = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
     password = forms.CharField(max_length=30, widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'password','type':"password"}))
     class Meta:
         model = User
@@ -34,7 +34,7 @@ class UserAuthenticationForm(AuthenticationForm):
 
 # UPDATE PROFILE (&user)
 class UserUpdateForm(forms.ModelForm):
-    username = forms.CharField(max_length=15, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
+    username = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
     email = forms.EmailField(max_length=60, required=False, widget=EmailInput(attrs={'class': 'g__form-input input','placeholder': 'email','type':"email"}))
     class Meta:
         model=User
