@@ -14,7 +14,7 @@ from .forms import PetCreateUpdateForm  #, PetAvatarCreateUpdateForm, PetCreateF
 class PetListView(LoginRequiredMixin, ListView):
     model=Pet
     context_object_name = 'pets'
-    paginate_by = 5
+    paginate_by = 2
     template_name = 'pets/your_dogs2.html'
     def get_queryset(self):
         try:
