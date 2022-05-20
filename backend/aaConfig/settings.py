@@ -130,6 +130,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PHONENUMBER_DEFAULT_REGION = "PL"
 PHONENUMBER_DEFAULT_FORMAT = "NATIONAL"
 
+LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login_user'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

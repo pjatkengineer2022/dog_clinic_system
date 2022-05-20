@@ -4,7 +4,7 @@
 <section class="s__add-dog">
     <div class="l-container-big">
         <div class="g__head">
-            <h1 class="g__title">Dodawanie nowego psa</h1>
+            <h1 class="g__title">Edycja danych</h1>
         </div>
         <div class="dog__container">
             <div class="dog__wrapper">
@@ -12,7 +12,7 @@
                     {% csrf_token %}
                     <div class="dog__avatar column is-5-desktop is-full-touch">
                         <div class="g__avatar-box dog__photo-box">
-                            <img src="/media/dog_avatar.png" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
+                            <img src="{{pet.avatar.url}}" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
                         </div>
                         {{profile_form.avatar}}
                         {{profile_form.avatar.errors}}
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="dog__bottom">
-                            <button type="submit" class="g__btn">Dodaj psa</button>
+                            <button type="submit" class="g__btn">Edytuj dane</button>
                         </div>
                     </div>
                 </form>

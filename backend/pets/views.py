@@ -9,7 +9,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
 from .models import Pet
-from .forms import PetAvatarCreateUpdateForm, PetCreateUpdateForm
+from .forms import PetCreateUpdateForm  #, PetAvatarCreateUpdateForm, PetCreateForm
 
 class PetListView(LoginRequiredMixin, ListView):
     model=Pet
@@ -22,51 +22,45 @@ class PetListView(LoginRequiredMixin, ListView):
             owner = user.profile.owner  
             return Pet.objects.filter(owner=owner).order_by('name')     
         except:  
-            #messages.error(self.request, "nie można otworzyć strony your_dogs.html")
+            messages.error(self.request, "nie można otworzyć strony twoich pupilów")
             return redirect('home')
-           
+       
 @login_required
-def dog_profile_edit(request, id):
+def edit_dog_profile(request, id):
     try:
         pet = Pet.objects.get(id=id)
     except:
         messages.error(request, "can't edit your dog")
-        return redirect('home')#reverse('your_dogs', kwargs={'username':username}))
+        return redirect('your_dogs')
     profile_form=PetCreateUpdateForm(instance=pet)
-    avatar_form= PetAvatarCreateUpdateForm(instance=pet)
     if request.method == 'POST':
-        profile_form=PetCreateUpdateForm(request.POST, instance=pet)
-        avatar_form=PetAvatarCreateUpdateForm(request.POST, request.FILES,  instance=pet)
-        if profile_form.is_valid() and avatar_form.is_valid():
+        profile_form=PetCreateUpdateForm(request.POST, request.FILES, instance=pet)
+        if profile_form.is_valid():
             profile_form.save()
-            avatar_form.save()
-            messages.success(request, f'Profile {pet.name} został updatowany')
-            return redirect('') 
+            messages.success(request, f'Profil dla {pet.name} został updatowany')
+            return redirect(reverse('edit_dog', kwargs={'id':id})) 
         else:
-            messages.error(request, f'Profile {pet.name} nie został updatowany')
+            messages.error(request, f'Profil dla {pet.name} nie został updatowany')
     context={
+        'pet':pet,
         'profile_form': profile_form,
-        'avatar_form': avatar_form 
     }
-    return render(request, 'pets/add_dog.html', context)
+    return render(request, 'pets/edit_dog.html', context)
 
 @login_required
-def dog_profile_create(request):
+def add_dog_profile(request):
     profile_form=PetCreateUpdateForm()
-    avatar_form= PetAvatarCreateUpdateForm()
     if request.method == 'POST':
-        profile_form=PetCreateUpdateForm(request.POST)
-        avatar_form=PetAvatarCreateUpdateForm(request.POST, request.FILES)
-        if profile_form.is_valid() and avatar_form.is_valid():
-            profile_form.save()
-            avatar_form.save()
-            #messages.success(request, f'Profile {pet.name} został updatowany')
-            return redirect('') 
+        profile_form=PetCreateUpdateForm(request.POST,request.FILES)
+        if profile_form.is_valid():
+            profile = profile_form.save(commit=False)
+            profile.owner = request.user.profile.owner
+            profile.save()
+            messages.success(request, f'Profil dla {profile.name} został utworzony')
+            return redirect('your_dogs') 
         else:
-            pass
-            #messages.error(request, f'Profile {pet.name} nie został updatowany')
-    context={
-        'profile_form': profile_form,
-        'avatar_form': avatar_form 
-    }
+            messages.error(request, 'Profil nie został utworzony')
+    context={ 'profile_form': profile_form }
     return render(request, 'pets/add_dog.html', context)
+
+

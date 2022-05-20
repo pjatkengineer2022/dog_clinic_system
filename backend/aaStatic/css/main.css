@@ -10712,7 +10712,10 @@ body {
   color: #000000; }
 
 body button, body a {
-  transition: color .3s ease, background-color .3s ease, border-color .3s ease, opacity .3s ease; }
+  transition: color .3s ease,
+ background-color .3s ease,
+ border-color .3s ease,
+ opacity .3s ease; }
 
 body button:hover, body a:hover {
   opacity: 0.7; }
@@ -11231,7 +11234,17 @@ body button:hover, body a:hover {
   .s__your-dogs .dog__actions-btns-wrapper {
     display: inline-flex;
     flex-direction: column; }
+.s__your-dogs .dog__item-row {
+  display: flex;
+  flex-wrap: wrap; }
 
+.s__your-dogs .dog__item-label {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-right: .6rem; }
+
+.s__your-dogs .dog__item-value {
+  font-size: 1.4rem; }
 .s__add-dog {
   padding-bottom: 2rem; }
 
@@ -11251,6 +11264,9 @@ body button:hover, body a:hover {
 
 .s__add-dog .dog__wrapper {
   margin-bottom: 4rem; }
+
+.s__add-dog .dog__inputs-wrapper {
+  max-width: 24.375rem; }
 
 .s__reservation {
   padding-bottom: 3.5rem; }
@@ -12028,7 +12044,8 @@ body button:hover, body a:hover {
     transition-duration: 0.3s;
     transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
     .c__navigation .nav__hamburger-box .hamburger--spin .hamburger-inner::before {
-      transition: top 0.1s 0.34s ease-in, opacity 0.1s ease-in; }
+      transition: top 0.1s 0.34s ease-in,
+ opacity 0.1s ease-in; }
     .c__navigation .nav__hamburger-box .hamburger--spin .hamburger-inner::after {
       transition: bottom 0.1s 0.34s ease-in, transform 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
   .c__navigation .nav__hamburger-box .hamburger--spin.is-active .hamburger-inner {
@@ -12038,7 +12055,8 @@ body button:hover, body a:hover {
     .c__navigation .nav__hamburger-box .hamburger--spin.is-active .hamburger-inner::before {
       top: 0;
       opacity: 0;
-      transition: top 0.1s ease-out, opacity 0.1s 0.14s ease-out; }
+      transition: top 0.1s ease-out,
+ opacity 0.1s 0.14s ease-out; }
     .c__navigation .nav__hamburger-box .hamburger--spin.is-active .hamburger-inner::after {
       bottom: 0;
       transform: rotate(-90deg);
@@ -12047,7 +12065,8 @@ body button:hover, body a:hover {
     transition-duration: 0.3s;
     transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
     .c__navigation .nav__hamburger-box .hamburger--spin-r .hamburger-inner::before {
-      transition: top 0.1s 0.34s ease-in, opacity 0.1s ease-in; }
+      transition: top 0.1s 0.34s ease-in,
+ opacity 0.1s ease-in; }
     .c__navigation .nav__hamburger-box .hamburger--spin-r .hamburger-inner::after {
       transition: bottom 0.1s 0.34s ease-in, transform 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
   .c__navigation .nav__hamburger-box .hamburger--spin-r.is-active .hamburger-inner {
@@ -12057,7 +12076,8 @@ body button:hover, body a:hover {
     .c__navigation .nav__hamburger-box .hamburger--spin-r.is-active .hamburger-inner::before {
       top: 0;
       opacity: 0;
-      transition: top 0.1s ease-out, opacity 0.1s 0.14s ease-out; }
+      transition: top 0.1s ease-out,
+ opacity 0.1s 0.14s ease-out; }
     .c__navigation .nav__hamburger-box .hamburger--spin-r.is-active .hamburger-inner::after {
       bottom: 0;
       transform: rotate(90deg);
@@ -12066,7 +12086,8 @@ body button:hover, body a:hover {
     transition-duration: 0.1s;
     transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
     .c__navigation .nav__hamburger-box .hamburger--squeeze .hamburger-inner::before {
-      transition: top 0.1s 0.14s ease, opacity 0.1s ease; }
+      transition: top 0.1s 0.14s ease,
+ opacity 0.1s ease; }
     .c__navigation .nav__hamburger-box .hamburger--squeeze .hamburger-inner::after {
       transition: bottom 0.1s 0.14s ease, transform 0.1s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
   .c__navigation .nav__hamburger-box .hamburger--squeeze.is-active .hamburger-inner {
@@ -12076,7 +12097,8 @@ body button:hover, body a:hover {
     .c__navigation .nav__hamburger-box .hamburger--squeeze.is-active .hamburger-inner::before {
       top: 0;
       opacity: 0;
-      transition: top 0.1s ease, opacity 0.1s 0.14s ease; }
+      transition: top 0.1s ease,
+ opacity 0.1s 0.14s ease; }
     .c__navigation .nav__hamburger-box .hamburger--squeeze.is-active .hamburger-inner::after {
       bottom: 0;
       transform: rotate(-90deg);

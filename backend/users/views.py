@@ -42,6 +42,7 @@ def registerUser(request):
     else:
         return redirect('update_profile')
 
+'''
 def loginUser(request):
     if not request.user.is_authenticated:
         form= UserAuthenticationForm()
@@ -57,6 +58,7 @@ def loginUser(request):
         return render(request, "users/login.html", context)
     else:
         return redirect('home')
+'''
 
 @login_required
 def logoutUser(request):
