@@ -90,7 +90,7 @@
                         <div class="dog__container">
                             <div class="dog__wrapper">
                                 <form method="POST" action="" class=" is-multiline columns" enctype="multi/part/form-data">
-                                    {% csfr_token %}
+                                    <!-- {% csfr_token %}  -->
                                     <div class="dog__avatar column is-5-desktop is-full-touch">
                                         <div class="g__avatar-box dog__photo-box">
                                             <img src="{{pet.avatar.url}}" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
@@ -119,11 +119,11 @@
                                                 <!-- <input type="number" name="" class="g__form-input input" required> -->
                                             </div>
                                         </div>
+                                        <div class="dog__bottom">
+                                            <button class="g__btn">Dodaj psa</button>
+                                        </div>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="dog__bottom">
-                                <button class="g__btn">Edytuj dane</button>
                             </div>
                         </div>
                     </div>
