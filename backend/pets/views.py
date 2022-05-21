@@ -8,14 +8,14 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
-from .models import Pet
+from .models import Medicine, Pet
 from .forms import PetCreateUpdateForm  #, PetAvatarCreateUpdateForm, PetCreateForm
 
 class PetListView(LoginRequiredMixin, ListView):
     model=Pet
     context_object_name = 'pets'
     paginate_by = 2
-    template_name = 'pets/your_dogs2.html'
+    template_name = 'pets/your_dogs.html'
     def get_queryset(self):
         try:
             user = self.request.user #User.objects.get(username=self.kwargs.get('username'))#self.kwargs.get('username') - pobiera z paska przeglądarki (z protokołu GET) atrybut 'username'
@@ -63,4 +63,26 @@ def add_dog_profile(request):
     context={ 'profile_form': profile_form }
     return render(request, 'pets/add_dog.html', context)
 
+@login_required
+def dog_diseases_list(request, id):
+    try:
+        pet = Pet.objects.get(id=id)
+    except:
+        messages.error(request, 'dog is not exist')
+        return redirect('your_dogs')
+    treatments = pet.treatment_set.all()
+    context={'treatments':treatments}
+    return render(request, 'pets/disease.html', context)
 
+@login_required
+def dog_medicines_list(request, id):
+    try:
+        pet = Pet.objects.get(id=id)
+    except:
+        messages.error(request, 'dog is not exist')
+        return redirect('your_dogs')
+    treatments = pet.treatment_set.all()
+    medicines = Medicine.objects.all()
+    #dog_medicines = [medicine if medicine in treatment.medicine.all() else None for medicine in medicines for treatment in treatments]
+    context={'treatments':treatments, 'medicines':medicines}
+    return render(request, 'pets/medicines.html', context)

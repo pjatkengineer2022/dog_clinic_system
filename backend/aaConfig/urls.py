@@ -26,6 +26,7 @@ urlpatterns = [
     path('contact/', basicViews.contact, name='home'),
     path('users/', include("users.urls")),
     path('pets/', include("pets.urls")),
+    path('doctors/', include("doctors.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

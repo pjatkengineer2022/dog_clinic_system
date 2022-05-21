@@ -34,13 +34,12 @@ class Producer(models.Model):
 
 class Medicine(models.Model):
     name = models.CharField(max_length=70)
-    producer = models.ManyToManyField(Producer, null=True, blank=True)
+    producer = models.ForeignKey(Producer, on_delete = models.SET_NULL, null=True, blank=True)
     description = models.CharField(max_length=1000, null=True, blank=True)
 
 #diagnoza
 class Treatment(models.Model):
-    start = models.DateTimeField(auto_now_add= True)     
-    end = models.DateTimeField(default=timezone.now ,null=True, blank=True)   
+    start = models.DateField(auto_now_add= True)      
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     disease = models.ForeignKey(Disease, on_delete=models.SET_NULL, null=True, blank=True)
     medicine = models.ManyToManyField(Medicine, null=True, blank=True)

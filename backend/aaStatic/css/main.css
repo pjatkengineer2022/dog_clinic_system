@@ -11234,6 +11234,7 @@ body button:hover, body a:hover {
   .s__your-dogs .dog__actions-btns-wrapper {
     display: inline-flex;
     flex-direction: column; }
+
 .s__your-dogs .dog__item-row {
   display: flex;
   flex-wrap: wrap; }
@@ -11245,6 +11246,7 @@ body button:hover, body a:hover {
 
 .s__your-dogs .dog__item-value {
   font-size: 1.4rem; }
+
 .s__add-dog {
   padding-bottom: 2rem; }
 
@@ -11260,13 +11262,15 @@ body button:hover, body a:hover {
   align-items: center; }
 
 .s__add-dog .dog__bottom {
-  text-align: center; }
+  text-align: right;
+  margin-top: 2rem; }
 
 .s__add-dog .dog__wrapper {
   margin-bottom: 4rem; }
 
 .s__add-dog .dog__inputs-wrapper {
-  max-width: 24.375rem; }
+  max-width: 28.375rem;
+  margin-left: auto; }
 
 .s__reservation {
   padding-bottom: 3.5rem; }
