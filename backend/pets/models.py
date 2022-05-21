@@ -27,22 +27,28 @@ class Pet(models.Model):
 class Disease(models.Model):
     name = models.CharField(max_length=70)
     description = models.CharField(max_length=1000, null=True, blank=True)
+    def __str__(self):
+        return self.name
 
 class Producer(models.Model):
     name = models.CharField(max_length=70)
     address = models.CharField(max_length=1000, null=True, blank=True)
+    def __str__(self):
+        return self.name
 
 class Medicine(models.Model):
     name = models.CharField(max_length=70)
     producer = models.ForeignKey(Producer, on_delete = models.SET_NULL, null=True, blank=True)
     description = models.CharField(max_length=1000, null=True, blank=True)
-
+    def __str__(self):
+        return self.name
 #diagnoza
 class Treatment(models.Model):
     start = models.DateField(auto_now_add= True)      
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     disease = models.ForeignKey(Disease, on_delete=models.SET_NULL, null=True, blank=True)
     medicine = models.ManyToManyField(Medicine, null=True, blank=True)
-    
+    def __str__(self):
+        return self.pet.owner.profile.user.username+" "+self.pet.name +" "+self.disease.name
 
 

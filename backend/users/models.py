@@ -9,13 +9,10 @@ class Profile(models.Model):
     name = models.CharField(max_length=60, unique=False, null=False)
     mobileNumber = PhoneNumberField(unique=False, null=False)
     def __str__(self):
-        return self.name
+        return self.user.username + " profile"
 
-class Doctor(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.profile.name + 'doctor'
+
 class Owner(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     def __str__(self):
-        return self.profile.name +'owner'
+        return self.profile.user.username +' owner'
