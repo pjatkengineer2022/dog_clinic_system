@@ -1,5 +1,4 @@
-from .forms import UserRegisterForm
-from .forms import UserAuthenticationForm, ProfileRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserAuthenticationForm, ProfileRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -42,7 +41,6 @@ def registerUser(request):
     else:
         return redirect('update_profile')
 
-'''
 def loginUser(request):
     if not request.user.is_authenticated:
         form= UserAuthenticationForm()
@@ -51,14 +49,16 @@ def loginUser(request):
             if form.is_valid():
                 user = form.get_user()                 
                 login(request, user)
-                return redirect('home')
+                if 'next' in request.POST:
+                    return redirect(request.POST.get('next'))
+                else:
+                    return redirect('home')
             else:
                 messages.error(request, 'Zła nazwa użytkownika lub hasło')
         context={'form':form}
         return render(request, "users/login.html", context)
     else:
         return redirect('home')
-'''
 
 @login_required
 def logoutUser(request):

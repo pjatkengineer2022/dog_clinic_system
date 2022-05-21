@@ -1,0 +1,80 @@
+{% load static %}
+<nav class="c__navigation js-navigation">
+    <div class="l-container-big">
+        <div class="nav__wrapper">
+            <div class="nav__side-left">
+                <div class="nav__logo-box">
+                    <a href="#pupile" class="">
+                        <img src="{% static 'assets/svg/dog-icon.svg' %}" alt="Logo">
+                    </a>
+                </div>
+            </div>
+            <div class="nav__side-right">
+                <div class="nav__links-box">
+                    <div class="nav__link-list">
+                        <a href="../doctor_check_visits/doctor_check_visits.html" class="nav__link-item">Sprawdź wizyty</a>
+                        <a href="../doctor_browse_patients/doctor_browse_patients.html" class="nav__link-item">Przeglądaj pacjentów</a>
+                        <a href="../reservation/reservation.html" class="nav__link-item">Zarezerwuj wizytę dla pacjenta</a>
+                    </div>
+                </div>
+                <div class="nav__account-box">
+                    {% if request.user.is_authenticated %}
+                    <div class="nav__account-links">
+                        <a href="#" class="nav__account-link-item">{{request.user.username}}</a>
+                        <a href="{% url 'logout_doctor' %}" class="nav__account-link-item">wyloguj</a>
+                    </div>
+                    {% else %}
+                    <div class="nav__account-links">
+                        <a href="{% url 'login_doctor' %}" class="nav__account-link-item">zaloguj</a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="nav__mobile-menu-wrapper">
+                    <div class="nav__mobile-menu-trigger">
+                        <div class="nav__hamburger-box hamburger-init-hidden">
+                            <div class="hamburger hamburger--spin js-menu-trigger-mobile hamburger__mobile">
+                                <div class="hamburger-box">
+                                    <div class="hamburger-inner"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <aside class="c__menu-mobile js-menu-mobile">
+                        <div class="menu-mobile__container">
+                            <div class="menu-mobile__container">
+                                <div class="menu__page-list">
+                                    <a href="../doctor_check_visits/doctor_check_visits.html" class="menu__page-link">Sprawdź wizyty</a>
+                                    <a href="../doctor_browse_patients/doctor_browse_patients.html" class="menu__page-link">Przeglądaj pacjentów</a>
+                                    <a href="../reservation/reservation.html" class="menu__page-link">Zarezerwuj wizytę dla pacjenta</a>
+                                </div>
+                                <div class="menu__account-links">
+                                    <a href="../doctor_login/doctor_login.html" class="menu__page-account-link">Zaloguj</a>
+                                </div>
+                            </div>
+                            {% if request.user.is_authenticated %}
+                            <div class="menu__account-links">
+                                <a href="#" class="menu__page-account-link">{{request.user.username}}</a>
+                                <a href="{% url 'logout_user' %}" class="menu__page-account-link">wyloguj</a>
+                            </div>
+                            {% else %} 
+                            <div class="menu__account-links">
+                                <a href="{% url 'login_user' %}" class="menu__page-account-link">zaloguj</a>
+                                <a href="{% url 'register_user' %}" class="menu__page-account-link">zarejestruj</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<section class="c__breadcrumb">
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</section>
