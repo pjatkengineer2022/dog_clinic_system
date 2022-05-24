@@ -4,12 +4,14 @@ from django.forms.widgets import PasswordInput, TextInput, EmailInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm #, PasswordChangeForm
 from phonenumber_field.formfields import PhoneNumberField
+from captcha.fields import CaptchaField
 
 #REGISTER USER (creating profile)
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
     password1 = forms.CharField(max_length=30, widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'type password','type':"password"}))
     password2 = forms.CharField(max_length=30,widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'confirm password','type':"password"}))
+    captcha = CaptchaField()
     class Meta:
         model=User
         fields = ['username','password1','password2']

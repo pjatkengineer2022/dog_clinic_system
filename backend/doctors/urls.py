@@ -11,5 +11,7 @@ urlpatterns =[
     path('logout/', users_views.logoutUser, name='logout_doctor'),
     path('doctors/', views.DoctorList.as_view(), name='doctors'),
     path('doctor_browse_patients/', views.DoctorBrowsePatientList.as_view(), name='doctor_browse_patients'),
+    path('diseases_history/<int:id>/', views.dog_diseases_history_list, name='diseases_history'),
+    path('medicines_history/<int:id>/', views.dog_medicines_history_list, name='medicines_history'),
 
 ]

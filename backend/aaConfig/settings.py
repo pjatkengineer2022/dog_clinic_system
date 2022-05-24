@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'pets.apps.PetsConfig',
     'doctors.apps.DoctorsConfig',
+    'captcha',
+    
     
 ]
 

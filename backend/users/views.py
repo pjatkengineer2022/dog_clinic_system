@@ -13,6 +13,7 @@ def registerUser(request):
             userForm = UserRegisterForm(request.POST)
             profileRegisterForm = ProfileRegisterForm(request.POST) #needed for checking typed data in next line (if profileRegisterForm.is_valid()) 
             if userForm.is_valid() and profileRegisterForm.is_valid():
+                human=True
                 #Save User & create profile by signals
                 user = userForm.save(commit=False)
                 user.username = user.username.lower()

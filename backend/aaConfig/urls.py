@@ -28,6 +28,9 @@ urlpatterns = [
     path('pets/', include("pets.urls")),
     path('doctors/', include("doctors.urls")),
 ]
+urlpatterns += [
+    path('captcha/', include('captcha.urls')),
+]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
