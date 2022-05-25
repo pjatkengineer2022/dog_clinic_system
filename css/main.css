@@ -10962,6 +10962,10 @@ body button:hover, body a:hover {
   font-weight: 700;
   margin-right: .5rem; }
 
+.datepicker-dropdown {
+  background-color: white;
+  text-align: center; }
+
 @keyframes shadow-pulse {
   0% {
     box-shadow: 0 0 0 0px rgba(60, 218, 201, 0.3); }
@@ -11490,6 +11494,18 @@ body button:hover, body a:hover {
 .s__single-doctor .doctor__container {
   max-width: 48rem;
   margin: 0 auto; }
+
+.s__add-visit-hours {
+  padding-bottom: 2rem; }
+
+.s__add-visit-hours .visit__hours-form-fields {
+  margin-bottom: 1rem; }
+
+.s__add-visit-hours .visit__hours-form-submit-wrapper {
+  text-align: right; }
+
+.s__add-visit-hours .datepicker {
+  background-color: white; }
 
 .c__navigation {
   background-color: #3CDAC9;
