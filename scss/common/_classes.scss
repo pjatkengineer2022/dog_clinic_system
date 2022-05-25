@@ -40,6 +40,10 @@
     &:not(:last-of-type) {
       margin-bottom: 1rem;
     }
+
+    select {
+      width: 100%;
+    }
   }
 
   &-row-submit {
@@ -49,6 +53,7 @@
   &-label {
     font-size: 1.25rem;
     font-weight: 700;
+    margin-bottom: .4rem;
   }
 
   &-input {

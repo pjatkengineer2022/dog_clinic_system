@@ -7,7 +7,7 @@ $(document).ready(function(){
     // });
 
     $('.datepicker').datepicker({
-        format: 'mm/dd/yyyy',
+        format: 'yyyy-mm-dd',
         startDate: '-1d',
         multidate: true,
     });

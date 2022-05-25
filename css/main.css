@@ -10808,11 +10808,14 @@ body button:hover, body a:hover {
     flex-direction: column; }
     .g__form-row:not(:last-of-type) {
       margin-bottom: 1rem; }
+    .g__form-row select {
+      width: 100%; }
   .g__form-row-submit {
     margin-top: 2.7rem; }
   .g__form-label {
     font-size: 1.25rem;
-    font-weight: 700; }
+    font-weight: 700;
+    margin-bottom: .4rem; }
   .g__form-input {
     background-color: #ffffff;
     border: none;
@@ -11506,6 +11509,17 @@ body button:hover, body a:hover {
 
 .s__add-visit-hours .datepicker {
   background-color: white; }
+
+.s__add-visit-hours .visit__hours-form {
+  max-width: 50rem;
+  margin: 0 auto; }
+
+.s__add-medicines {
+  padding-bottom: 2rem; }
+
+.s__add-medicines .add__medicines-form {
+  max-width: 50rem;
+  margin: 0 auto; }
 
 .c__navigation {
   background-color: #3CDAC9;

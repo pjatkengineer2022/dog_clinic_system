@@ -87,6 +87,9 @@ $gap: 32px;
 .s__add-visit-hours {
     @import 'pages/add_visit_hours/add_visit_hours';
 }
+.s__add-medicines {
+    @import 'pages/add_medicines/add_medicines';
+}
 
 // components
 .c__navigation {
