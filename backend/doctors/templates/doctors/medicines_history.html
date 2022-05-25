@@ -84,6 +84,21 @@
                     </li>
                     {% endfor %}
                 {% endfor %}
+                {% if treatments.has_previous %}
+                    <a href="?page=1">First</a>
+                    <a href="?page={{ treatments.previous_page_number }}">Previous</a>
+                {% endif %}
+                {% for num in treatments.paginator.page_range %}
+                    {% if treatments.number == num %}
+                        <a href="?page={{ num }}">{{ num }}</a>
+                    {% elif num > treatments.number|add:'-3' and num < treatments.number|add:'3' %}
+                        <a href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if treatments.has_next %}
+                    <a href="?page={{ treatments.next_page_number }}">Next</a>
+                    <a href="?page={{ treatments.paginator.num_pages}}">Last</a>
+                {% endif %}
             </ul>
         </div>
     </div>

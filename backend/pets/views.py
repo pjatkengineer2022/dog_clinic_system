@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
@@ -71,6 +71,15 @@ def dog_diseases_list(request, id):
         messages.error(request, 'dog is not exist')
         return redirect('your_dogs')
     treatments = pet.treatment_set.all()
+    #pagination
+    page = request.GET.get('page', 1)
+    paginator = Paginator(treatments, 2) # 5 users per page
+    try:
+        treatments = paginator.get_page(page)
+    except PageNotAnInteger:
+        treatments = paginator.page(1)
+    except EmptyPage:
+        treatments = paginator.page(1)
     context={'treatments':treatments}
     return render(request, 'pets/disease.html', context)
 
@@ -84,5 +93,14 @@ def dog_medicines_list(request, id):
     treatments = pet.treatment_set.all()
     medicines = Medicine.objects.all()
     #dog_medicines = [medicine if medicine in treatment.medicine.all() else None for medicine in medicines for treatment in treatments]
+    #pagination
+    page = request.GET.get('page', 1)
+    paginator = Paginator(treatments, 2) # 5 users per page
+    try:
+        treatments = paginator.get_page(page)
+    except PageNotAnInteger:
+        treatments = paginator.page(1)
+    except EmptyPage:
+        treatments = paginator.page(1)
     context={'treatments':treatments, 'medicines':medicines}
     return render(request, 'pets/medicines.html', context)
