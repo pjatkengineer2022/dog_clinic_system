@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from users.models import Profile
 from PIL import Image
 
@@ -15,3 +16,5 @@ class Doctor(models.Model):
             output_size= (300,300)
             img.thumbnail(output_size) 			
             img.save(self.image.path)
+    def get_absolute_url(self):
+        return reverse('single_doctor', kwargs={'pk':self.pk})

@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views, authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from doctors.models import Doctor
 from pets.models import Pet, Medicine, Treatment
 from users.forms import UserAuthenticationForm
@@ -28,10 +28,15 @@ def loginDoctor(request):
     else:
         return redirect('home')
 
-class DoctorList(LoginRequiredMixin, ListView):
+class DoctorList(ListView):
     model = Doctor
     template_name = 'doctors/doctors.html'
     context_object_name = 'doctors'
+
+class DoctorDetail(DetailView):
+    model = Doctor
+    template_name = 'doctors/single_doctor.html'
+    context_object_name = 'doctor'
 
 class DoctorBrowsePatientList(LoginRequiredMixin, ListView):
     model=Pet
