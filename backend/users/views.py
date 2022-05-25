@@ -53,7 +53,7 @@ def loginUser(request):
                 if 'next' in request.POST:
                     return redirect(request.POST.get('next'))
                 else:
-                    return redirect('home')
+                    return redirect('your_dogs')
             else:
                 messages.error(request, 'Zła nazwa użytkownika lub hasło')
         context={'form':form}

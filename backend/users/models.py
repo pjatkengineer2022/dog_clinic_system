@@ -14,10 +14,9 @@ class Profile(models.Model):
 
 class Owner(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    interestings = models.CharField(max_length=3000,null=True, blank=True)
     def __str__(self):
         return self.profile.user.username +' owner'
     def save(self, *args, **kwargs):
         super().save( *args, **kwargs)
-        group, was_created = Group.get_or_create(name='owner')
+        group, was_created = Group.objects.get_or_create(name='owner')
         self.profile.user.groups.add(group)

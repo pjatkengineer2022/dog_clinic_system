@@ -33,7 +33,7 @@ def loginDoctor(request):
                 if 'next' in request.POST:
                     return redirect(request.POST.get('next'))
                 else:
-                    return redirect('home')#zmienić doctor_browse_patient
+                    return redirect('doctor_browse_patient')
             else:
                 messages.error(request, 'Zła nazwa użytkownika lub hasło')
         context={'form':form}
@@ -41,13 +41,26 @@ def loginDoctor(request):
     else:
         return redirect('home')
 
-class DoctorBrowsePatientListView(LoginRequiredMixin, ListView):
-    model=Pet
-    template_name = 'doctors/doctor_browse_patients.html'
-    context_object_name = 'pets'
-    paginate_by = 2
-    login_url = 'login_doctor'
-
+# class DoctorBrowsePatientListView(LoginRequiredMixin, ListView):
+#     model=Pet
+#     template_name = 'doctors/doctor_browse_patients.html'
+#     context_object_name = 'pets'
+#     paginate_by = 2
+#     login_url = 'login_doctor'
+@login_required(login_url='login_doctor')
+def doctor_browse_patients(request, id):
+    pets = Pet.objects.all()
+    #paginations
+    page = request.GET.get('page', 1)
+    paginator = Paginator(pets, 2) # 5 pets per page
+    try:
+        pets = paginator.get_page(page)
+    except PageNotAnInteger:
+        pets = paginator.page(1)
+    except EmptyPage:
+        pets = paginator.page(1)
+    context={'pets':pets}
+    return render(request, 'doctors/doctor_browse_patients.html', context)
 
 @login_required(login_url='login_doctor')
 def dog_diseases_history_list(request, id):

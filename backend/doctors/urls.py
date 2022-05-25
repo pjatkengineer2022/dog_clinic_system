@@ -11,7 +11,8 @@ urlpatterns =[
     path('logout/', users_views.logoutUser, name='logout_doctor'),
     path('', views.DoctorList.as_view(), name='doctors'),
     path('doctor/<pk>/', views.SingleDoctorDetail.as_view(), name='single_doctor'),
-    path('doctor_browse_patients/', views.DoctorBrowsePatientListView.as_view(), name='doctor_browse_patients'),
+    # path('doctor_browse_patients/', views.DoctorBrowsePatientListView.as_view(), name='doctor_browse_patients'),
+    path('doctor_browse_patients/', views.doctor_browse_patients, name='doctor_browse_patients'),
     path('diseases_history/<int:id>/', views.dog_diseases_history_list, name='diseases_history'),
     path('medicines_history/<int:id>/', views.dog_medicines_history_list, name='medicines_history'),
 
