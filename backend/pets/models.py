@@ -47,7 +47,7 @@ class Treatment(models.Model):
     start = models.DateField(auto_now_add= True)      
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     disease = models.ForeignKey(Disease, on_delete=models.SET_NULL, null=True, blank=True)
-    medicine = models.ManyToManyField(Medicine, null=True, blank=True)
+    medicine = models.ManyToManyField(Medicine)
     def __str__(self):
         return self.pet.owner.profile.user.username+" "+self.pet.name +" "+self.disease.name
 

@@ -1,7 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from phonenumber_field.modelfields import PhoneNumberField
-
 # Create your models here.
 
 class Profile(models.Model):
@@ -12,7 +11,13 @@ class Profile(models.Model):
         return self.user.username + " profile"
 
 
+
 class Owner(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    interestings = models.CharField(max_length=3000,null=True, blank=True)
     def __str__(self):
         return self.profile.user.username +' owner'
+    def save(self, *args, **kwargs):
+        super().save( *args, **kwargs)
+        group, was_created = Group.get_or_create(name='owner')
+        self.profile.user.groups.add(group)
