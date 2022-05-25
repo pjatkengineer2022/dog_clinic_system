@@ -15,5 +15,5 @@ urlpatterns =[
     path('doctor_browse_patients/', views.doctor_browse_patients, name='doctor_browse_patients'),
     path('diseases_history/<int:id>/', views.dog_diseases_history_list, name='diseases_history'),
     path('medicines_history/<int:id>/', views.dog_medicines_history_list, name='medicines_history'),
-
+    path('visits_history/<int:id>/', views.dog_visits_history_list, name='dog_history_visits'),
 ]

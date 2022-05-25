@@ -9,14 +9,12 @@ class Profile(models.Model):
     mobileNumber = PhoneNumberField(unique=False, null=False)
     def __str__(self):
         return self.user.username + " profile"
-
-
-
+    
 class Owner(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     def __str__(self):
         return self.profile.user.username +' owner'
     def save(self, *args, **kwargs):
         super().save( *args, **kwargs)
-        group, was_created = Group.objects.get_or_create(name='owner')
+        group, was_created = Group.get_or_create(name='owner')
         self.profile.user.groups.add(group)

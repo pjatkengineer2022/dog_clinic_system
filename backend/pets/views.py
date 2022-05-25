@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
+from visits.models import Visit
 
 from .models import Medicine, Pet
 from .forms import PetCreateUpdateForm  #, PetAvatarCreateUpdateForm, PetCreateForm
@@ -104,3 +105,23 @@ def dog_medicines_list(request, id):
         treatments = paginator.page(1)
     context={'treatments':treatments, 'medicines':medicines}
     return render(request, 'pets/medicines.html', context)
+
+@login_required
+def dog_visits_list(request, id):
+    try:
+        pet = Pet.objects.get(id=id)
+    except:
+        messages.error(request, 'dog is not exist')
+        return redirect('your_dogs')
+    visits = Visit.objects.filter(pet = pet)
+    #pagination
+    page = request.GET.get('page', 1)
+    paginator = Paginator(visits, 2) # 5 per page
+    try:
+        visits = paginator.get_page(page)
+    except PageNotAnInteger:
+        visits = paginator.page(1)
+    except EmptyPage:
+        visits = paginator.page(1)
+    context={'visits':visits}
+    return render(request, 'pets/visits.html', context)

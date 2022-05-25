@@ -9,6 +9,7 @@ from django.views.generic import ListView, DetailView
 from doctors.models import Doctor
 from pets.models import Pet, Medicine, Treatment
 from users.forms import UserAuthenticationForm
+from visits.models import Visit
 
 class DoctorList(ListView):
     model = Doctor
@@ -33,7 +34,7 @@ def loginDoctor(request):
                 if 'next' in request.POST:
                     return redirect(request.POST.get('next'))
                 else:
-                    return redirect('doctor_browse_patient')
+                    return redirect('doctor_browse_patients')
             else:
                 messages.error(request, 'Zła nazwa użytkownika lub hasło')
         context={'form':form}
@@ -48,11 +49,11 @@ def loginDoctor(request):
 #     paginate_by = 2
 #     login_url = 'login_doctor'
 @login_required(login_url='login_doctor')
-def doctor_browse_patients(request, id):
+def doctor_browse_patients(request):
     pets = Pet.objects.all()
     #paginations
     page = request.GET.get('page', 1)
-    paginator = Paginator(pets, 2) # 5 pets per page
+    paginator = Paginator(pets, 8) # 5 pets per page
     try:
         pets = paginator.get_page(page)
     except PageNotAnInteger:
@@ -103,3 +104,23 @@ def dog_medicines_history_list(request, id):
         treatments = paginator.page(1)
     context={'treatments':treatments, 'medicines':medicines, 'pet':pet}
     return render(request, 'doctors/medicines_history.html', context)
+
+@login_required(login_url='login_doctor')
+def dog_visits_history_list(request, id):
+    try:
+        pet = Pet.objects.get(id=id)
+    except:
+        messages.error(request, 'dog is not exist')
+        return redirect('doctor_browse_patients')
+    visits = Visit.objects.filter(pet = pet)
+    #pagination
+    page = request.GET.get('page', 1)
+    paginator = Paginator(visits, 2) # 5 per page
+    try:
+        visits = paginator.get_page(page)
+    except PageNotAnInteger:
+        visits = paginator.page(1)
+    except EmptyPage:
+        visits = paginator.page(1)
+    context={'visits':visits}
+    return render(request, 'doctors/visits_history.html', context)
