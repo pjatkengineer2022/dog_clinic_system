@@ -18,3 +18,17 @@ class Doctor(models.Model):
             img.save(self.image.path)
     def get_absolute_url(self):
         return reverse('single_doctor', kwargs={'pk':self.pk})
+
+class Shift(models.Model):
+    name = models.CharField(max_length=1000)
+    startTime = models.TimeField(default=None)
+    endTime = models.TimeField(default=None)
+    def __str__(self):
+        return self.name
+
+class DoctorShift(models.Model):
+    shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    date = models.DateField(default=None)
+    def __str__(self):
+        return str(self.date) + ': '+ self.shift.name +' - '+ self.doctor.profile.name
