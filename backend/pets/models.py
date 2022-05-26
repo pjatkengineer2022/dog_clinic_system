@@ -52,9 +52,8 @@ class Treatment(models.Model):
         return self.pet.owner.profile.user.username+" "+self.pet.name +" "+self.disease.name
 
 class MedicineHistory(models.Model):
-    startDate = models.DateField(default = timezone.now)   
-    expectedEnd = models.DateField(null= True, blank=True)   
-    medicine = models.ForeignKey(Medicine, on_delete=models.SET_NULL, null=True, blank=True)
-    treatment = models.ForeignKey(Treatment, on_delete=models.SET_NULL, null=True, blank=True)
+    startDate = models.DateField(default = timezone.now)  
+    medicine = models.ForeignKey(Medicine, on_delete=models.SET_NULL, null=True, blank=True)#, related_name="medicine")
+    treatment = models.ForeignKey(Treatment, on_delete=models.SET_NULL, null=True, blank=True)#, related_name="treatment")
     def __str__(self):
         return self.medicine.name +" "+str(self.startDate)+" - "+ self.treatment.disease.name +": "+ self.treatment.pet.name +" - "+self.treatment.pet.owner.profile.name

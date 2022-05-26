@@ -82,7 +82,9 @@ def dog_diseases_history_list(request, id):
         treatments = paginator.page(1)
     except EmptyPage:
         treatments = paginator.page(1)
-    context={'treatments':treatments, 'pet': pet}
+    for t in treatments:
+        tr = t
+    context={'treatments':treatments, 'pet': pet, 'tr':tr}
     return render(request, 'doctors/disease_history.html', context)
 
 @login_required(login_url='login_doctor')

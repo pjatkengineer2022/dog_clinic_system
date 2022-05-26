@@ -50,13 +50,13 @@
         <div class="visits__container">
             <ul class="visit__list">
                 {% for treatment in treatments %}
-                    {% for medicine in treatment.medicine.all%}
+                    {% for medicinehistory in treatment.medicinehistory_set.all %}
                     <li class="g__row-box">
                         <h2 class="g__row-box-header">
-                            {{medicine.name}}
+                            {{medicinehistory.medicine.name}} - producent:{{medicinehistory.medicine.producer.name}}
                         </h2>
                         <div class="g__row-box-content is-multiline columns">
-                            <div class="g__row-box-column column is-3-desktop is-full-touch">
+                            <div class="g__row-box-column column is-2-desktop is-full-touch">
                                 <div class="g__row-box-subheader">
                                     Start terapii:
                                 </div>
@@ -64,7 +64,7 @@
                                     {{treatment.start|date:'Y-m-d'}}
                                 </div>
                             </div>
-                            <div class="g__row-box-column column is-5-desktop is-full-touch">
+                            <div class="g__row-box-column column is-4-desktop is-full-touch">
                                 <div class="g__row-box-subheader">
                                     Opis leku:
                                 </div>
@@ -72,12 +72,26 @@
                                     {{medicine.description}}
                                 </div>
                             </div>
-                            <div class="g__row-box-column column is-4-desktop is-full-touch">
+                            <div class="g__row-box-column column is-2-desktop is-full-touch">
                                 <div class="g__row-box-subheader">
-                                    Producent:
+                                    Choroba:
                                 </div>
                                 <div class="g__row-box-desc">
-                                    {{medicine.producer.name}}
+                                    {{treatment.disease.name}}
+                                </div>
+                            </div>
+                            <div class="g__row-box-column column is-4-desktop is-full-touch">
+                                <div class="g__row-box-subheader">
+                                    Diagnozy do choroby:
+                                </div>
+                                <div class="g__row-box-desc">
+                                    {% if treatment.diagnosis_set.all%}
+                                        {% for diagnosis in treatment.diagnosis_set.all %}
+                                            {{ diagnosis.description }}
+                                        {% endfor %}
+                                    {% else %}
+                                        ------------------
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

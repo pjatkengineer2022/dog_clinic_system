@@ -13,23 +13,57 @@
         <div class="diseases__container">
             <ul class="disease__list">
                 {% for treatment in treatments %}
-                    <li class="g__row-box">
-                        <h2 class="g__row-box-header">
-                            {{treatment.disease.name}}
-                        </h2>
-                        <div class="g__row-box-content is-multiline columns">
-                            <div class="g__row-box-column column is-5-desktop is-full-touch">
-                                <div class="g__row-box-subheader">
-                                    Start choroby: {{treatment.start|date:'Y-m-d'}}
-                                </div>
+                <li class="g__row-box">
+                    <h2 class="g__row-box-header">
+                        {{treatment.disease.name}}
+                    </h2>
+                    <div class="g__row-box-content is-multiline columns">
+                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Start choroby: <!-- {{treatment.start|date:'Y-m-d'}} -->
                             </div>
-                            <div class="g__row-box-column column is-7-desktop is-full-touch">
-                                <div class="g__row-box-subheader">
-                                    Opis choroby: {{treatment.disease.description}}
-                                </div>
+                            <div class="g__row-box-desc">
+                                {{treatment.start|date:'Y-m-d'}}
                             </div>
                         </div>
-                    </li>
+                        <div class="g__row-box-column column is-4-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Opis choroby: <!-- {{treatment.disease.description}} -->
+                            </div>
+                            <div class="g__row-box-desc">
+                                {{treatment.disease.description}}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Lista Leków:
+                            </div>
+                            <div class="g__row-box-desc">
+                                {% if treatment.medicinehistory_set.all%}
+                                    {% for medicinehistory in treatment.medicinehistory_set.all %}
+                                        {{ medicinehistory.medicine.name }}
+                                    {% endfor %}
+                                {% else %}
+                                    ------------------
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-4-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Diagnozy do choroby:
+                            </div>
+                            <div class="g__row-box-desc">
+                                {% if treatment.diagnosis_set.all%}
+                                    {% for diagnosis in treatment.diagnosis_set.all %}
+                                        {{ diagnosis.description }}
+                                    {% endfor %}
+                                {% else %}
+                                    ------------------
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 {% endfor %}
                 {% if treatments.has_previous or treatments.has_next %}
                     {% if treatments.has_previous %}
