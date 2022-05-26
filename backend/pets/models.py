@@ -42,6 +42,11 @@ class Medicine(models.Model):
     description = models.CharField(max_length=1000, null=True, blank=True)
     def __str__(self):
         return self.name
+
+class MedicineHistory(models.Model):
+    startDate = models.DateField(auto_now_add= True)   
+    expectedEnd = models.DateField(null= True, blank=True)   
+
 #diagnoza
 class Treatment(models.Model):
     start = models.DateField(auto_now_add= True)      

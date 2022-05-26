@@ -1,8 +1,10 @@
+from datetime import date
 from django.contrib import messages
 from django.contrib.auth import views as auth_views, authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
+from django.db.models import Q	
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
@@ -112,7 +114,22 @@ def dog_visits_history_list(request, id):
     except:
         messages.error(request, 'dog is not exist')
         return redirect('doctor_browse_patients')
-    visits = Visit.objects.filter(pet = pet)
+    visits = Visit.objects.filter(Q(pet = pet))
+    #pagination
+    page = request.GET.get('page', 1)
+    paginator = Paginator(visits, 2) # 5 per page
+    try:
+        visits = paginator.get_page(page)
+    except PageNotAnInteger:
+        visits = paginator.page(1)
+    except EmptyPage:
+        visits = paginator.page(1)
+    context={'visits':visits, 'pet':pet}
+    return render(request, 'doctors/visits_history.html', context)
+
+@login_required(login_url='login_doctor')
+def doctor_check_visits_list(request):
+    visits = Visit.objects.filter(Q(doctor=request.user.profile.doctor) & Q(date__gte=date.today())).order_by('date')
     #pagination
     page = request.GET.get('page', 1)
     paginator = Paginator(visits, 2) # 5 per page
@@ -123,4 +140,4 @@ def dog_visits_history_list(request, id):
     except EmptyPage:
         visits = paginator.page(1)
     context={'visits':visits}
-    return render(request, 'doctors/visits_history.html', context)
+    return render(request, 'doctors/doctor_check_visits.html', context)

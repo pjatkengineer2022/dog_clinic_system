@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+<section 
+    class="c__intro" 
+    style="background-image: url('../../assets/img/check_visits_bg.jpg');">
+    <div class="intro__content">
+        <h1 class="intro__title animated fadeInDown">Sprawdź wizyty</h1>
+    </div>
+</section>
+<section class="s__doctor-check-visits">
+    <div class="l-container-big">
+        <div class="g__head"></div>
+        <div class="diseases__container">
+            <ul class="disease__list">
+                {% for visit in visits %}
+                <li class="g__row-box">
+                    <h2 class="g__row-box-header">
+                        {{ visit.date|date:'Y-m-d H:i'}}
+                    </h2>
+                    <div class="g__row-box-content is-multiline columns">
+                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Pacjent: 
+                            </div>
+                            <div class="g__row-box-desc">
+                                {{visit.pet.name}}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Właściciel:
+                            </div>
+                            <div class="g__row-box-desc">
+                                {% if visit.pet.owner.profile.name %}
+                                <span class="g__patient-text-value">{{visit.pet.owner.profile.name}}</span>
+                                {% else %}
+                                <span class="g__patient-text-value">{{visit.pet.owner.profile.user.username}}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Lista usług:
+                            </div>
+                            <div class="g__row-box-desc">
+                                {% if visit.service %}
+                                <span class="g__patient-text-value">{{visit.service.all}}</span>
+                                <!-- {% for service in visit.service_set.all %}
+                                    {{service.name}}
+                                {% endfor %} -->
+                                {% else %}
+                                <span class="g__patient-text-value">------------------</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-4-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Uwagi od pacjenta:
+                            </div>
+                            <div class="g__row-box-desc">
+                                {{visit.ownerComment}}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Akcje:
+                            </div>
+                            <div class="g__actions-box">
+                                <a class="g__btn-action" href="../add_diagnosis/add_diagnosis.html">Dodaj diagnozę</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                {% if visits.has_previous or visits.has_next %}
+                    {% if visits.has_previous %}
+                        <a href="?page=1">First</a>
+                        <a href="?page={{ visits.previous_page_number }}">Previous</a>
+                    {% endif %}
+                    {% for num in visits.paginator.page_range %}
+                        {% if visits.number == num %}
+                            <a href="?page={{ num }}">{{ num }}</a>
+                        {% elif num > visits.number|add:'-3' and num < visits.number|add:'3' %}
+                            <a href="?page={{ num }}">{{ num }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if visits.has_next %}
+                        <a href="?page={{ visits.next_page_number }}">Next</a>
+                        <a href="?page={{ visits.paginator.num_pages}}">Last</a>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</section>
+<section 
+    class="c__parallax" 
+    style="background-image: url('../../assets/img/parallax5.jpg');">
+</section>
+{% endblock content %}
