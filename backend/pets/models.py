@@ -43,17 +43,18 @@ class Medicine(models.Model):
     def __str__(self):
         return self.name
 
-class MedicineHistory(models.Model):
-    startDate = models.DateField(auto_now_add= True)   
-    expectedEnd = models.DateField(null= True, blank=True)   
-
 #diagnoza
 class Treatment(models.Model):
     start = models.DateField(auto_now_add= True)      
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     disease = models.ForeignKey(Disease, on_delete=models.SET_NULL, null=True, blank=True)
-    medicine = models.ManyToManyField(Medicine)
     def __str__(self):
         return self.pet.owner.profile.user.username+" "+self.pet.name +" "+self.disease.name
 
-
+class MedicineHistory(models.Model):
+    startDate = models.DateField(default = timezone.now)   
+    expectedEnd = models.DateField(null= True, blank=True)   
+    medicine = models.ForeignKey(Medicine, on_delete=models.SET_NULL, null=True, blank=True)
+    treatment = models.ForeignKey(Treatment, on_delete=models.SET_NULL, null=True, blank=True)
+    def __str__(self):
+        return self.medicine.name +" "+str(self.startDate)+" - "+ self.treatment.disease.name +": "+ self.treatment.pet.name +" - "+self.treatment.pet.owner.profile.name

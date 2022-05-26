@@ -36,7 +36,7 @@ def loginDoctor(request):
                 if 'next' in request.POST:
                     return redirect(request.POST.get('next'))
                 else:
-                    return redirect('doctor_browse_patients')
+                    return redirect('doctor_check_visits')
             else:
                 messages.error(request, 'Zła nazwa użytkownika lub hasło')
         context={'form':form}

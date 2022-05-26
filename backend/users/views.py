@@ -33,7 +33,7 @@ def registerUser(request):
                         login(request, user)
                         #messages.add_message(request, messages.INFO, 'Użytkownik utworzony i zalogowany')
                         messages.info(request, 'Użytkownik utworzony i zalogowany')
-                        return redirect('update_profile')
+                        return redirect('your_dogs')
                 except:
                     messages.error(request, 'Użytkownik utworzony ale nie można było się zalogować')
                     return redirect('login_user')
