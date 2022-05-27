@@ -38,7 +38,7 @@ class Producer(models.Model):
 
 class Medicine(models.Model):
     name = models.CharField(max_length=70)
-    producer = models.ForeignKey(Producer, on_delete = models.SET_NULL, null=True, blank=True)
+    producer = models.ForeignKey(Producer, on_delete = models.CASCADE)
     description = models.CharField(max_length=1000, null=True, blank=True)
     def __str__(self):
         return self.name

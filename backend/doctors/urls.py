@@ -17,4 +17,6 @@ urlpatterns =[
     path('medicines_history/<int:id>/', views.dog_medicines_history_list, name='medicines_history'),
     path('visits_history/<int:id>/', views.dog_visits_history_list, name='dog_history_visits'),
     path('doctor_check_visits/', views.doctor_check_visits_list, name='doctor_check_visits'),
+    path('add_medicines/', views.add_medicines, name='add_medicines'),
+    path('add_doctor_shift/', views.add_doctor_shift, name='add_doctor_shift'),
 ]

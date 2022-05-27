@@ -15,6 +15,7 @@ class PetCreateUpdateForm(forms.ModelForm):
         model=Pet
         fields = ['name','race','year_birth','avatar']
 
+
 # class PetCreateUpdateForm(forms.ModelForm):
 #     name = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'dog name','type':"text"}))
 #     race = forms.CharField(max_length=30, required=False, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'dog race','type':"text"}))

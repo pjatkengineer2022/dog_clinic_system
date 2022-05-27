@@ -43,6 +43,16 @@
     }
 }
 
+.diagnosis__diseases-row {
+    opacity: .4;
+    pointer-events: none;
+
+    &.--active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
 .g__patient-text-row {
     font-size: 20px;
 }

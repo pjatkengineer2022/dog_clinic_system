@@ -8,6 +8,7 @@ class Status(models.Model):
     STATUS = (
         ('odbyta','odbyta'),
         ('nieodbyta','nieodbyta'),
+        ('anulowane','anulowana')
     )
     name = models.CharField(max_length=100, choices = STATUS, default='nieodbyta', unique=True)
     def __str__(self):

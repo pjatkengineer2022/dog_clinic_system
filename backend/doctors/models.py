@@ -28,7 +28,7 @@ class Shift(models.Model):
     startTime = models.TimeField(default=None)
     endTime = models.TimeField(default=None)
     def __str__(self):
-        return self.name
+        return self.name + ": "+str(self.startTime.strftime("%H:%M"))+" - "+str(self.endTime.strftime("%H:%M"))
 
 class DoctorShift(models.Model):
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE)

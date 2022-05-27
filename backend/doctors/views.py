@@ -8,10 +8,14 @@ from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
+
 from doctors.models import Doctor
 from pets.models import Pet, Medicine, Treatment
-from users.forms import UserAuthenticationForm
 from visits.models import Visit
+from .forms import MedicineCreationForm, DoctorShiftCreationForm
+from users.forms import UserAuthenticationForm
+
+
 
 class DoctorList(ListView):
     model = Doctor
@@ -23,7 +27,6 @@ class SingleDoctorDetail(DetailView):
     model = Doctor
     template_name = 'doctors/single_doctor.html'
     context_object_name = 'doctor'
-
 
 def loginDoctor(request):
     if not request.user.is_authenticated:
@@ -143,3 +146,35 @@ def doctor_check_visits_list(request):
         visits = paginator.page(1)
     context={'visits':visits}
     return render(request, 'doctors/doctor_check_visits.html', context)
+
+@login_required(login_url='login_doctor')
+def add_medicines(request):
+    form = MedicineCreationForm()
+    if request.method == "POST":
+        form = MedicineCreationForm(request.POST)
+        if form.is_valid():
+            medicine = form.save()
+            messages.info(request, 'lek poprawnie dodano')
+            return redirect('add_medicines')
+        else:
+            messages.error(request, 'nie można było dodać leku')
+    context={'form':form}
+    return render(request, "doctors/add_medicines.html", context)
+
+@login_required(login_url='login_doctor')
+def add_doctor_shift(request):
+    form = DoctorShiftCreationForm
+    if request.method == "POST":
+        form = DoctorShiftCreationForm(request.POST)
+        dates = request.POST.get()
+        if form.is_valid():
+            
+
+
+
+            messages.info(request, 'poprawnie dodano dyżury')
+            return redirect('home')# zmienić na jakąś stronkę co wyswietla wszystkie dyżury 
+        else:
+            messages.error(request, 'nie ustawiono dyżurów')
+    context={'form':form}
+    return render(request, "doctors/add_doctor_shift.html", context)
