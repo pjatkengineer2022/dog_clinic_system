@@ -90,6 +90,9 @@ $gap: 32px;
 .s__add-medicines {
     @import 'pages/add_medicines/add_medicines';
 }
+.s__shift-list {
+    @import 'pages/shift_list/shift_list';
+}
 
 // components
 .c__navigation {
