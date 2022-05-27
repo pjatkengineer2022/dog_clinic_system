@@ -1,0 +1,84 @@
+{% extends "base_doctor.html" %}
+{% block content %}
+<section class="c__breadcrumb"></section>
+<section class="s__add-diagnosis">
+    <div class="l-container-big">
+        <div class="g__head">
+            <h1 class="g__title has-text-centered">Dodawanie diagnozy</h1>
+        </div>
+        <div class="l-container-small add__diagnosis-container">
+            <div class="add__diagnosis-wrapper">
+                <div class="add__diagnosis-form-box">
+                    <form method="POST" action="" class="add__diagnosis-form">
+                        {% csrf_token %}
+                        <div class="add__diagnosis-form-row">
+                            <label class="add__diagnosis-form-label">Objawy (diagnoza):</label>
+                            <textarea class="textarea"></textarea>
+                        </div>
+                        <div class="add__diagnosis-form-row">
+                            <label class="add__diagnosis-form-label">Leczenie</label>
+                            <div class="select">
+                                <select id="treatment-type" name="" class="js-treatment-select">
+                                    <option value="1">Nowe leczenie</option>
+                                    <option value="2">Wcześniejsze leczenie</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="add__diagnosis-form-row diagnosis__diseases-row js-new-diseases-row">
+                            <label class="add__diagnosis-form-label">Nowa choroba:</label>
+                            <input id="js-select-diseases" type="text" class="input">
+                        </div>
+                        <div class="add__diagnosis-form-row diagnosis__diseases-row js-old-diseases-row">
+                            <label class="add__diagnosis-form-label">Stare choroby:</label>
+                            <select id="js-select-old-diseases" name="old_diseases" multiple="" class="ui fluid dropdown">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <div class="add__diagnosis-form-row">
+                            <label class="add__diagnosis-form-label">Leki:</label>
+                            <select id="js-select-medicines" name="medicines" multiple="" class="ui fluid dropdown">
+                                <option value="lek1">Lek 1</option>
+                                <option value="lek2">Lek 2</option>
+                                <option value="lek3">Lek 3</option>
+                                <option value="lek4">Lek 4</option>
+                            </select>
+                        </div>
+                        <div class="add__diagnosis-form-row has-text-right">
+                            <button type="submit" class="g__btn">Zapisz</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="add__diagnosis-patient-info-box">
+                    <div class="g__patient-intro">
+                        <div class="g__patient-text-wrapper add__diagnosis-patient-intro-text-wrapper">
+                            <div class="g__patient-text-row">
+                                <span class="g__patient-text-label">Imię:</span>
+                                <span class="g__patient-text-value">Alex</span>
+                            </div>
+                            <div class="g__patient-text-row">
+                                <span class="g__patient-text-label">Rasa:</span>
+                                <span class="g__patient-text-value">Mieszaniec</span>
+                            </div>
+                            <div class="g__patient-text-row">
+                                <span class="g__patient-text-label">Data urodzenia:</span>
+                                <span class="g__patient-text-value">20.12.2016</span>
+                            </div>
+                            <div class="g__patient-text-row">
+                                <span class="g__patient-text-label">Właściciel:</span>
+                                <span class="g__patient-text-value">Jan Kowalski</span>
+                            </div>
+                        </div>
+                        <div class="g__patient-photo-wrapper">
+                            <div class="g__avatar-box patient__photo-box">
+                                <img src="../../assets/svg/dog_avatar.svg" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

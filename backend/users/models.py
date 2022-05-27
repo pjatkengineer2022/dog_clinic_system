@@ -16,5 +16,5 @@ class Owner(models.Model):
         return self.profile.user.username +' owner'
     def save(self, *args, **kwargs):
         super().save( *args, **kwargs)
-        group, was_created = Group.get_or_create(name='owner')
+        group, was_created = Group.objects.get_or_create(name='owner')
         self.profile.user.groups.add(group)

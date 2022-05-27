@@ -1,14 +1,34 @@
 {%extends "base_doctor.html" %}
 {% block content %}
-{% for dsft in doctorShifts %}
-    <p>
-        <!-- <form method="POST">
-            {% csrf_token %}
-            {{dsft.date}}
-            <button type="submit">Usuń</button>
-        </form> -->
-        {{dsft.date}} - {{dsft.shift.name}}: {{dsft.shift.startTime}} - {{dsft.shift.endTime}}
-        <button><a href="{% url 'remove_doctor_shift' dsft.id %}">Usuń</a></button>
-    </p>
-{% endfor %}
+<section class="c__breadcrumb"></section>
+<section class="s__shift-list">
+    <div class="l-container-big">
+        <div class="g__head">
+            <h1 class="g__title">Lista dyżurów</h1>
+        </div>
+        <div class="l-container-small">
+            <div class="shift__add-box">
+                <a href="{% url 'add_doctor_shift' %}" class="g__btn shift__add-box-btn">Dodaj nowy dyżur</a>
+            </div>
+            <ul class="shift__list">
+                {% for dsft in doctorShifts %}
+                    <li class="shift__item box">
+                        <div class="shift__item-content">
+                            <span class="shift__date">{{dsft.date}}</span>
+                            <span class="shift__type"> 
+                                - {{dsft.shift.name}}
+                                ({{dsft.shift.startTime}} - {{dsft.shift.endTime}})
+                            </span>
+                        </div>
+                        <div class="shift__item-delete-box">
+                            <button class="shift__item-delete-btn">
+                                <a href="{% url 'remove_doctor_shift' dsft.id %}">Usuń<i class="mdi mdi-trash-can-outline"></i></a>
+                            </button>
+                        </div>
+                    </li> 
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
 {% endblock content %}

@@ -4,7 +4,7 @@
         <div class="nav__wrapper">
             <div class="nav__side-left">
                 <div class="nav__logo-box">
-                    <a href="#pupile" class="">
+                    <a href="{% url 'doctor_check_visits' %}" class="">
                         <img src="{% static 'assets/svg/dog-icon.svg' %}" alt="Logo">
                     </a>
                 </div>
@@ -12,16 +12,18 @@
             <div class="nav__side-right">
                 <div class="nav__links-box">
                     <div class="nav__link-list">
-                        <a href="../doctor_check_visits/doctor_check_visits.html" class="nav__link-item">Sprawdź wizyty</a>
-                        <a href="../doctor_browse_patients/doctor_browse_patients.html" class="nav__link-item">Przeglądaj pacjentów</a>
+                        <a href="{% url 'doctor_check_visits' %}" class="nav__link-item">Sprawdź wizyty</a>
+                        <a href="{% url 'doctor_browse_patients' %}" class="nav__link-item">Przeglądaj pacjentów</a>
                         <a href="../reservation/reservation.html" class="nav__link-item">Zarezerwuj wizytę dla pacjenta</a>
-                        <a href="../reservation/reservation.html" class="nav__link-item">Dodaj lek</a>
+                        <a href="{% url 'add_medicines' %}" class="nav__link-item">Dodaj lek</a>
+                        <a href="{% url 'doctor_shift_list' %}" class="nav__link-item">Dyżury</a>
+
                     </div>
                 </div>
                 <div class="nav__account-box">
                     {% if request.user.is_authenticated %}
                     <div class="nav__account-links">
-                        <a href="#" class="nav__account-link-item">{{request.user.username}}</a>
+                        <a href="{% url 'doctor_check_visits' %}" class="nav__account-link-item">{{request.user.username}}</a>
                         <a href="{% url 'logout_doctor' %}" class="nav__account-link-item">wyloguj</a>
                     </div>
                     {% else %}
@@ -44,9 +46,10 @@
                         <div class="menu-mobile__container">
                             <div class="menu-mobile__container">
                                 <div class="menu__page-list">
-                                    <a href="../doctor_check_visits/doctor_check_visits.html" class="menu__page-link">Sprawdź wizyty</a>
-                                    <a href="../doctor_browse_patients/doctor_browse_patients.html" class="menu__page-link">Przeglądaj pacjentów</a>
+                                    <a href="{% url 'doctor_check_visits' %}" class="menu__page-link">Sprawdź wizyty</a>
+                                    <a href="{% url 'doctor_browse_patients' %}" class="menu__page-link">Przeglądaj pacjentów</a>
                                     <a href="../reservation/reservation.html" class="menu__page-link">Zarezerwuj wizytę dla pacjenta</a>
+                                    <a href="{% url 'add_medicines' %}" class="menu__page-link">Dodaj Lek</a>
                                 </div>
                                 <div class="menu__account-links">
                                     <a href="../doctor_login/doctor_login.html" class="menu__page-account-link">Zaloguj</a>
@@ -54,13 +57,12 @@
                             </div>
                             {% if request.user.is_authenticated %}
                             <div class="menu__account-links">
-                                <a href="#" class="menu__page-account-link">{{request.user.username}}</a>
-                                <a href="{% url 'logout_user' %}" class="menu__page-account-link">wyloguj</a>
+                                <a href="{% url 'doctor_check_visits' %}" class="menu__page-account-link">{{request.user.username}}</a>
+                                <a href="{% url 'logout_doctor' %}" class="menu__page-account-link">wyloguj</a>
                             </div>
                             {% else %} 
                             <div class="menu__account-links">
-                                <a href="{% url 'login_user' %}" class="menu__page-account-link">zaloguj</a>
-                                <a href="{% url 'register_user' %}" class="menu__page-account-link">zarejestruj</a>
+                                <a href="{% url 'login_doctor' %}" class="menu__page-account-link">zaloguj</a>
                             </div>
                             {% endif %}
                         </div>

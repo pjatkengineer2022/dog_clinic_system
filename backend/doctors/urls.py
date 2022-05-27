@@ -21,4 +21,5 @@ urlpatterns =[
     path('add_doctor_shift/', views.add_doctor_shift, name='add_doctor_shift'),
     path('remove_doctor_shift/<int:id>/',views.remove_doctor_shift, name='remove_doctor_shift'),
     path('doctor_shift_list/',views.doctor_shift_list, name='doctor_shift_list'),
+    
 ]

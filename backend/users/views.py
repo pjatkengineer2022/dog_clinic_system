@@ -71,7 +71,7 @@ def logoutUser(request):
     return redirect('home')
 
 @login_required
-def updateProfile(request,):
+def updateProfile(request):
     userUpdateForm = UserUpdateForm(instance=request.user)
     profileUpdateForm = ProfileUpdateForm(instance=request.user.profile)
     if request.method == 'POST':

@@ -9,6 +9,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 
+from aaConfig.decorators import allowed_users, doctor_only
 from doctors.models import Doctor, DoctorShift, Shift
 from pets.models import Pet, Medicine, Treatment
 from visits.models import Visit
@@ -45,7 +46,7 @@ def loginDoctor(request):
         context={'form':form}
         return render(request, "users/login.html", context)
     else:
-        return redirect('home')
+        return redirect('doctor_check_visits')
 
 # class DoctorBrowsePatientListView(LoginRequiredMixin, ListView):
 #     model=Pet
@@ -53,6 +54,7 @@ def loginDoctor(request):
 #     context_object_name = 'pets'
 #     paginate_by = 2
 #     login_url = 'login_doctor'
+@doctor_only
 @login_required(login_url='login_doctor')
 def doctor_browse_patients(request):
     pets = Pet.objects.all()
@@ -68,6 +70,7 @@ def doctor_browse_patients(request):
     context={'pets':pets}
     return render(request, 'doctors/doctor_browse_patients.html', context)
 
+@doctor_only
 @login_required(login_url='login_doctor')
 def dog_diseases_history_list(request, id):
     try:
@@ -90,6 +93,7 @@ def dog_diseases_history_list(request, id):
     context={'treatments':treatments, 'pet': pet, 'tr':tr}
     return render(request, 'doctors/disease_history.html', context)
 
+@doctor_only
 @login_required(login_url='login_doctor')
 def dog_medicines_history_list(request, id):
     try:
@@ -112,6 +116,7 @@ def dog_medicines_history_list(request, id):
     context={'treatments':treatments, 'medicines':medicines, 'pet':pet}
     return render(request, 'doctors/medicines_history.html', context)
 
+@doctor_only
 @login_required(login_url='login_doctor')
 def dog_visits_history_list(request, id):
     try:
@@ -132,6 +137,7 @@ def dog_visits_history_list(request, id):
     context={'visits':visits, 'pet':pet}
     return render(request, 'doctors/visits_history.html', context)
 
+@doctor_only
 @login_required(login_url='login_doctor')
 def doctor_check_visits_list(request):
     visits = Visit.objects.filter(Q(doctor=request.user.profile.doctor) & Q(date__gte=date.today())).order_by('date')
@@ -147,6 +153,7 @@ def doctor_check_visits_list(request):
     context={'visits':visits}
     return render(request, 'doctors/doctor_check_visits.html', context)
 
+@doctor_only
 @login_required(login_url='login_doctor')
 def add_medicines(request):
     form = MedicineCreationForm()
@@ -161,6 +168,7 @@ def add_medicines(request):
     context={'form':form}
     return render(request, "doctors/add_medicines.html", context)
 
+@doctor_only
 @login_required(login_url='login_doctor')
 def add_doctor_shift(request):
     form = DoctorShiftCreationForm
@@ -201,6 +209,7 @@ def add_doctor_shift(request):
     context={'form':form}
     return render(request, "doctors/add_doctor_shift.html", context)
 
+@doctor_only
 @login_required(login_url='login_doctor')
 def remove_doctor_shift(request, id): 
     try:
@@ -214,6 +223,7 @@ def remove_doctor_shift(request, id):
         messages.info(request,'dyżur został usunięty')
     return redirect('doctor_shift_list')
 
+@doctor_only
 @login_required(login_url='login_doctor')
 def doctor_shift_list(request):
     doctorShifts = DoctorShift.objects.filter(date__gte =datetime.today()).order_by('date','shift__startTime')

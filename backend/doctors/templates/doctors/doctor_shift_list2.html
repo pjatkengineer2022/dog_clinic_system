@@ -1,0 +1,14 @@
+{%extends "base_doctor.html" %}
+{% block content %}
+{% for dsft in doctorShifts %}
+    <p>
+        <!-- <form method="POST">
+            {% csrf_token %}
+            {{dsft.date}}
+            <button type="submit">Usuń</button>
+        </form> -->
+        {{dsft.date}} - {{dsft.shift.name}}: {{dsft.shift.startTime}} - {{dsft.shift.endTime}}
+        <button><a href="{% url 'remove_doctor_shift' dsft.id %}">Usuń</a></button>
+    </p>
+{% endfor %}
+{% endblock content %}
