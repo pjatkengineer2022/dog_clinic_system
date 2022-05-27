@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime, timedelta
 from django.contrib import messages
 from django.contrib.auth import views as auth_views, authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -9,7 +9,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 
-from doctors.models import Doctor
+from doctors.models import Doctor, DoctorShift, Shift
 from pets.models import Pet, Medicine, Treatment
 from visits.models import Visit
 from .forms import MedicineCreationForm, DoctorShiftCreationForm
@@ -166,15 +166,57 @@ def add_doctor_shift(request):
     form = DoctorShiftCreationForm
     if request.method == "POST":
         form = DoctorShiftCreationForm(request.POST)
-        dates = request.POST.get()
-        if form.is_valid():
-            
-
-
-
-            messages.info(request, 'poprawnie dodano dyżury')
-            return redirect('home')# zmienić na jakąś stronkę co wyswietla wszystkie dyżury 
+        datepicker = request.POST.get('datepicker')
+        if datepicker is not None:
+            dates = [datetime.strptime(strD, '%Y-%m-%d') for strD in datepicker.split(',')]
+            if form.is_valid():
+                doctor = request.user.profile.doctor
+                shift = form.cleaned_data['shift']
+                for date in dates:
+                    print(doctor, shift, date)
+                    #check if date is before today
+                    if date.date() < datetime.today().date():
+                        messages.error(request, 'nie można dodać wcześniejszej daty niż dzisiejsza')
+                        context = {'form':form}
+                        return render(request, "doctors/add_doctor_shift.html", context)
+                    #check if doctorshift exist
+                    for dsft in DoctorShift.objects.all():
+                        if dsft.date == date.date() and dsft.shift.name == shift.name and dsft.shift.startTime == shift.startTime and dsft.shift.endTime == shift.endTime:
+                            messages.error(request, f'Dyżur {shift.name}, dnia {date.strftime("%Y-%m-%d")} już istnieje!')
+                            context = {'form':form}
+                            return render(request, "doctors/add_doctor_shift.html", context)
+                    #create and save new DoctorShift
+                    try:
+                        DoctorShift.objects.create(shift=shift ,doctor=doctor, date=date)
+                    except:
+                        messages.error(request, f'nie można dodać dyżurów')
+                        context = {'form':form}
+                        return render(request, "doctors/add_doctor_shift.html", context)
+                messages.info(request, 'poprawnie dodano dyżury')
+                return redirect('doctor_shift_list')# zmienić na jakąś stronkę co wyswietla wszystkie dyżury 
+            else:
+                messages.error(request, 'nie ustawiono dyżurów')
         else:
-            messages.error(request, 'nie ustawiono dyżurów')
+            messages.error(request, 'musisz wybrać chociaż jedną datę')
     context={'form':form}
     return render(request, "doctors/add_doctor_shift.html", context)
+
+@login_required(login_url='login_doctor')
+def remove_doctor_shift(request, id): 
+    try:
+        dsft = DoctorShift.objects.get(id=id)
+        dsft.delete()
+    except DoctorShift.DoesNotExist:
+        messages.error(request, 'dyżur nie istnieje')
+    except:
+        messages.error(request, 'nie można usunąć dyżuru')
+    else:
+        messages.info(request,'dyżur został usunięty')
+    return redirect('doctor_shift_list')
+
+@login_required(login_url='login_doctor')
+def doctor_shift_list(request):
+    doctorShifts = DoctorShift.objects.filter(date__gte =datetime.today()).order_by('date','shift__startTime')
+    context={'doctorShifts':doctorShifts}
+    return render(request, "doctors/doctor_shift_list.html", context)
+

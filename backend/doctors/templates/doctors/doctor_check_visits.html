@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_doctor.html" %}
 {% block content %}
 <section 
     class="c__intro" 
@@ -18,7 +18,7 @@
                         Wizyta {{ visit.date|date:'Y-m-d'}}
                     </h2>
                     <div class="g__row-box-content is-multiline columns">
-                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                        <div class="g__row-box-column column is-1-desktop is-full-touch">
                             <div class="g__row-box-subheader">
                                 Godzina: 
                             </div>
@@ -53,14 +53,14 @@
                             <div class="g__row-box-desc">
                                 {% if visit.service %}
                                 {% for service in visit.service_set.all %}
-                                    <span class="g__patient-text-value">{{visit.service.all}}</span>
+                                    <p><span class="g__patient-text-value">{{visit.service.all}}</span></p>
                                 {% endfor %}
                                 {% else %}
                                 <span class="g__patient-text-value">------------------</span>
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="g__row-box-column column is-4-desktop is-full-touch">
+                        <div class="g__row-box-column column is-3-desktop is-full-touch">
                             <div class="g__row-box-subheader">
                                 Uwagi właściciela:
                             </div>

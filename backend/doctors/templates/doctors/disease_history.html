@@ -63,7 +63,7 @@
                                 {{treatment.start|date:'Y-m-d'}}
                             </div>
                         </div>
-                        <div class="g__row-box-column column is-4-desktop is-full-touch">
+                        <div class="g__row-box-column column is-3-desktop is-full-touch">
                             <div class="g__row-box-subheader">
                                 Opis choroby: <!-- {{treatment.disease.description}} -->
                             </div>
@@ -78,21 +78,21 @@
                             <div class="g__row-box-desc">
                                 {% if treatment.medicinehistory_set.all%}
                                     {% for medicinehistory in treatment.medicinehistory_set.all %}
-                                        {{ medicinehistory.medicine.name }}
+                                        <p>{{ medicinehistory.medicine.name }}</p>
                                     {% endfor %}
                                 {% else %}
                                     ------------------
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="g__row-box-column column is-4-desktop is-full-touch">
+                        <div class="g__row-box-column column is-5-desktop is-full-touch">
                             <div class="g__row-box-subheader">
                                 Diagnozy do choroby:
                             </div>
                             <div class="g__row-box-desc">
                                 {% if treatment.diagnosis_set.all%}
                                     {% for diagnosis in treatment.diagnosis_set.all %}
-                                        {{ diagnosis.description }}
+                                        <p>{{diagnosis.visit.date.date }} : {{ diagnosis.description }}</p>
                                     {% endfor %}
                                 {% else %}
                                     ------------------

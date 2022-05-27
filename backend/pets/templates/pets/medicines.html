@@ -50,7 +50,7 @@
                                 <div class="g__row-box-desc">
                                     {% if treatment.diagnosis_set.all%}
                                         {% for diagnosis in treatment.diagnosis_set.all %}
-                                            {{ diagnosis.description }}
+                                            <p>{{diagnosis.visit.date.date }} : {{ diagnosis.description }}</p>
                                         {% endfor %}
                                     {% else %}
                                         ------------------

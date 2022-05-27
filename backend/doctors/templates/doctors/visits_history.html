@@ -74,7 +74,7 @@
                             <div class="g__row-box-desc">
                                 {% if visit.diagnosis_set.all %}
                                     {% for diagnosis in visit.diagnosis_set.all %}
-                                        {{diagnosis.description }}
+                                        <p>{{diagnosis.visit.date.date }} : {{ diagnosis.description }}</p>
                                     {% endfor %}
                                 {% else %}
                                     ---------------
@@ -88,7 +88,7 @@
                             <div class="g__row-box-desc">
                                 {% if visit.diagnosis_set.all %}
                                     {% for diagnosis in visit.diagnosis_set.all %}
-                                        {{diagnosis.treatment.disease.name}}
+                                        <p>{{diagnosis.treatment.start}} : {{diagnosis.treatment.disease.name}}</p>
                                     {% endfor %}
                                 {% else %}
                                     ---------------

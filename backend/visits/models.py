@@ -29,12 +29,14 @@ class Visit(models.Model):
     service = models.ManyToManyField(Service)
     ownerComment = models.CharField(max_length=2000, null=True, blank=True)
     def __str__(self):
-        return str(self.date) + " " + self.pet.name
+        return str(self.date) + " : " + self.pet.name
 
 class Diagnosis(models.Model):
     visit = models.ForeignKey(Visit, on_delete=models.CASCADE)
     treatment = models.ForeignKey(Treatment, on_delete=models.SET_NULL, null=True)
     description = models.CharField(max_length=4000, null=True, blank=True)
+    def __str__(self):
+        return "visit: "+ str(self.visit.date.date()) +"; treatment: "+ self.treatment.disease.name+", "+ self.treatment.pet.name+", "+self.treatment.pet.owner.profile.name 
 
 
 
