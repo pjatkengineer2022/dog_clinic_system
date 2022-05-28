@@ -34,7 +34,7 @@
                             <label class="add__diagnosis-form-label">Stara choroba (Stare leczenie):</label>
                             <select name="old_disease" id="js-select-old-diseases" class="ui fluid dropdown">
                                 {% for treatment in petTreatments %}
-                                    <option value="{{ treatment.id }}" >{{ treatment.disease.name }}</option>  <!-- value="1"-->
+                                    <option value="{{ treatment.id }}" >{{ treatment.disease.name }} - {{treatment.start|date}}</option>  <!-- value="1"-->
                                 {% endfor %}
                             </select>
                         </div>

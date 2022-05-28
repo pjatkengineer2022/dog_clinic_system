@@ -45,7 +45,7 @@ class Medicine(models.Model):
 
 #diagnoza
 class Treatment(models.Model):
-    start = models.DateField(auto_now_add= True)      
+    start = models.DateField(default = timezone.now)     
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     disease = models.ForeignKey(Disease, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):

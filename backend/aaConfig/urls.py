@@ -28,6 +28,7 @@ urlpatterns = [
     path('pets/', include("pets.urls")),
     path('doctors/', include("doctors.urls")),
     path('visits/', include("visits.urls")),
+    path('api/', include("api.urls")),
 ]
 urlpatterns += [
     path('captcha/', include('captcha.urls')),
