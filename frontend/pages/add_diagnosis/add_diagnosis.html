@@ -93,16 +93,28 @@
                                 <div class="add__diagnosis-form-box">
                                     <form action="" class="add__diagnosis-form">
                                         <div class="add__diagnosis-form-row">
-                                            <label class="add__diagnosis-form-label">Uwagi pacjenta do wizyty:</label>
-                                            <textarea class="textarea"></textarea>
-                                        </div>
-                                        <div class="add__diagnosis-form-row">
                                             <label class="add__diagnosis-form-label">Objawy (diagnoza):</label>
                                             <textarea class="textarea"></textarea>
                                         </div>
                                         <div class="add__diagnosis-form-row">
-                                            <label class="add__diagnosis-form-label">Choroby:</label>
-                                            <select id="js-select-diseases" name="diseases" multiple="" class="ui fluid dropdown search selection">
+                                            <label class="add__diagnosis-form-label">Leczenie</label>
+                                            <div class="select">
+                                                <select id="treatment-type" name="" class="js-treatment-select">
+                                                    <option value="1">Nowe leczenie</option>
+                                                    <option value="2">Wcześniejsze leczenie</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="add__diagnosis-form-row diagnosis__diseases-row js-new-diseases-row">
+                                            <label class="add__diagnosis-form-label">Nowa choroba:</label>
+                                            <input id="js-select-diseases" type="text" class="input">
+                                        </div>
+                                        <div class="add__diagnosis-form-row diagnosis__diseases-row js-old-diseases-row">
+                                            <label class="add__diagnosis-form-label">Stare choroby:</label>
+                                            <select id="js-select-old-diseases" name="old_diseases" multiple="" class="ui fluid dropdown">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
                                             </select>
                                         </div>
                                         <div class="add__diagnosis-form-row">
@@ -113,10 +125,6 @@
                                                 <option value="lek3">Lek 3</option>
                                                 <option value="lek4">Lek 4</option>
                                             </select>
-                                        </div>
-                                        <div class="add__diagnosis-form-row">
-                                            <label class="add__diagnosis-form-label">Uwagi:</label>
-                                            <textarea class="textarea"></textarea>
                                         </div>
                                         <div class="add__diagnosis-form-row has-text-right">
                                             <button class="g__btn">Zapisz</button>

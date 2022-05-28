@@ -8,6 +8,11 @@ django = "*"
 django-phonenumber-field = "*"
 phonenumbers = "*"
 pillow = "*"
+django-simple-captcha = "*"
+django-rest-framework = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
 
 [dev-packages]
 
