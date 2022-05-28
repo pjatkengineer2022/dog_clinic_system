@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="../../css/main.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+    <script src="../../plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
 
     <!-- global scripts -->
     <script src="../../js/global_functions.js"></script>
@@ -90,216 +93,100 @@
                             <h1 class="g__title">Zarezerwuj wizytę</h1>
                         </div>
                         <div class="l-container-small">
-                            <form action="" class="reservation__form">
-                                <div class="reservation__steps-container">
-                                    <div class="reservation__step reservation__step-1">
-                                        <div class="reservation__step-details is-multiline columns">
-                                            <div class="reservation__step-details-left column is-6-desktop is-full-touch">
-                                                <div class="reservation__form-row">
-                                                    <label class="reservation__form-label">Wybierz psa:</label>
-                                                    <div class="reservation__form-select select is-fullwidth">
-                                                        <select>
-                                                            <option>Alex</option>
-                                                            <option>Bruno</option>
-                                                        </select>
+                            <div 
+                                x-data="appData()"
+                                x-init="init()"
+                                class="reservation__app"
+                            >
+                                <form action="" class="reservation__form">
+                                    <div class="reservation__steps-container">
+                                        <div class="reservation__step reservation__step-1">
+                                            <div class="reservation__step-details is-multiline columns">
+                                                <div class="reservation__step-details-left column is-6-desktop is-full-touch">
+                                                    <div class="reservation__form-row">
+                                                        <label class="reservation__form-label">Wybierz psa:</label>
+                                                        <div class="reservation__form-select select is-fullwidth">
+                                                            <select>
+                                                                <option>Alex</option>
+                                                                <option>Bruno</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="reservation__form-row">
+                                                        <label class="reservation__form-label">Wybierz lekarza:</label>
+                                                        <div class="reservation__form-select select is-fullwidth">
+                                                            <select
+                                                                x-on:change="filterDoctor()"
+                                                                x-model="selectedDoctorId"
+                                                            >
+                                                                <option value="">--</option>
+                                                                <option value="1">Marek Pierwszy</option>
+                                                                <option value="2">Marek Idziak</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="reservation__form-row">
-                                                    <label class="reservation__form-label">Wybierz lekarza:</label>
-                                                    <div class="reservation__form-select select is-fullwidth">
-                                                        <select>
-                                                            <option>Jan Kowalski</option>
-                                                            <option>Jan Nowak</option>
-                                                        </select>
+                                                <div class="reservation__step-details-right column is-6-desktop is-full-touch">
+                                                    <div class="reservation__form-row">
+                                                        <label class="reservation__form-label">Uwagi dla lekarza:</label>
+                                                        <textarea class="textarea"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="reservation__step-details-right column is-6-desktop is-full-touch">
-                                                <div class="reservation__form-row">
-                                                    <label class="reservation__form-label">Uwagi dla lekarza:</label>
-                                                    <textarea class="textarea"></textarea>
+                                        </div>
+                                        <div 
+                                            class="reservation__step reservation__step-2"
+                                        >
+                                            <div class="reservation__step-header">
+                                                Wybierz termin wizyty
+                                            </div>
+                                            <div class="terms__slider-wrapper">
+                                                <button type="button" class="terms__slider-arrow --prev js-terms-calendar--prev">
+                                                    <i class="mdi mdi-arrow-left-circle-outline"></i>
+                                                </button>
+                                                <div class="terms__container swiper-container js-terms-calendar">
+                                                    <ul class="term__list swiper-wrapper ">
+                                                        <!-- start term hours column -->
+                                                        <template x-for="shift in shiftsDays">
+                                                            <li class="term__item swiper-slide">
+                                                                <div class="term__item-header">
+                                                                    <div class="term__item-day-name" x-text="shift.date"></div>
+                                                                    <!-- <div class="term__item-date">20 Czer</div> -->
+                                                                </div>
+                                                                <ul class="term__hour-list">
+                                                                    <template x-for="hour in shift.hours">
+                                                                        <li class="term__hour-item">
+                                                                            <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 10:00">
+                                                                                <span x-text="hour.singleDateTime"></span>
+                                                                                <span x-text="hour.textHour"></span>
+                                                                            </button>
+                                                                        </li>
+                                                                    </template>
+                                                                </ul>
+                                                            </li>
+                                                        </template>
+                                                    </ul>
+                                                    <button type="button" @click="setName('nnamdi')">Set Name</button>
+                                                    <div x-text="selectedDoctor.doctorname"></div>
+                                                    <script src="../../js/reservation/reservationApiService.js"></script>
                                                 </div>
+                                                <button type="button" class="terms__slider-arrow --next js-terms-calendar--next">
+                                                    <i class="mdi mdi-arrow-right-circle-outline"></i>
+                                                </button>
+                                                <div class="g__form-row">
+                                                    <div class="reservation__step-header">
+                                                    Wybrany termin
+                                                    </div> 
+                                                    <input type="text" value="" name="" class="js-term-input g__form-input input term__input" disabled>
+                                                </div>    
+                                            </div>
+                                            <div class="reservation__submit-box">
+                                                <button type="submit" class="g__btn">Zarezerwuj</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="reservation__step reservation__step-2">
-                                        <div class="reservation__step-header">
-                                            Wybierz termin wizyty
-                                        </div>
-                                        <div class="terms__slider-wrapper">
-                                            <button type="button" class="terms__slider-arrow --prev js-terms-calendar--prev">
-                                                <i class="mdi mdi-arrow-left-circle-outline"></i>
-                                            </button>
-                                            <div class="terms__container swiper-container js-terms-calendar">
-                                                <ul class="term__list swiper-wrapper ">
-                                                    <!-- start term hours column -->
-                                                    <li class="term__item swiper-slide">
-                                                        <div class="term__item-header">
-                                                            <div class="term__item-day-name">Dziś</div>
-                                                            <div class="term__item-date">20 Czer</div>
-                                                        </div>
-                                                        <ul class="term__hour-list">
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 10:00">10:00</button>
-                                                            </li>
-                     
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 11:00">11:00</button>
-                                                            </li>
-                     
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 12:00">12:00</button>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <!-- end term hours column -->
-                                                    <!-- start term hours column -->
-                                                    <li class="term__item swiper-slide">
-                                                        <div class="term__item-header">
-                                                            <div class="term__item-day-name">Jutro</div>
-                                                            <div class="term__item-date">21 Czer</div>
-                                                        </div>
-                                                        <ul class="term__hour-list">
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="21 czerwca, 10:00">10:00</button>
-                                                            </li>
-                     
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="21 czerwca, 11:00">11:00</button>
-                                                            </li>
-                     
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="21 czerwca, 12:00">12:00</button>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <!-- end term hours column -->
-                                                    <!-- start term hours column -->
-                                                    <li class="term__item swiper-slide">
-                                                        <div class="term__item-header">
-                                                            <div class="term__item-day-name">Dziś</div>
-                                                            <div class="term__item-date">20 Czer</div>
-                                                        </div>
-                                                        <ul class="term__hour-list">
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 10:00">10:00</button>
-                                                            </li>
-                     
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 11:00">11:00</button>
-                                                            </li>
-                     
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 12:00">12:00</button>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <!-- end term hours column -->
-                                                    <!-- start term hours column -->
-                                                    <li class="term__item swiper-slide">
-                                                        <div class="term__item-header">
-                                                            <div class="term__item-day-name">Dziś</div>
-                                                            <div class="term__item-date">20 Czer</div>
-                                                        </div>
-                                                        <ul class="term__hour-list">
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --reserved" data-content="20 czerwca, 10:00">10:00</button>
-                                                            </li>
-                     
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 11:00">11:00</button>
-                                                            </li>
-                     
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --reserved" data-content="20 czerwca, 12:00">12:00</button>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <!-- end term hours column -->
-                                                    <!-- start term hours column -->
-                                                    <li class="term__item swiper-slide">
-                                                        <div class="term__item-header">
-                                                            <div class="term__item-day-name">Dziś</div>
-                                                            <div class="term__item-date">20 Czer</div>
-                                                        </div>
-                                                        <ul class="term__hour-list">
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 10:00">10:00</button>
-                                                            </li>
-                     
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 11:00">11:00</button>
-                                                            </li>
-                     
-                                                            <li class="term__hour-item">
-                                                                <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 12:00">12:00</button>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                            <li class="term__hour-item">
-                                                                <span class="term__hour-item-empty">-</span>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <!-- end term hours column -->
-                                                </ul>
-                                            </div>
-                                            <button type="button" class="terms__slider-arrow --next js-terms-calendar--next">
-                                                <i class="mdi mdi-arrow-right-circle-outline"></i>
-                                            </button>
-                                            <div class="g__form-row">
-                                                <div class="reservation__step-header">
-                                                Wybrany termin
-                                                </div> 
-                                                <input type="text" value="" name="" class="js-term-input g__form-input input term__input" disabled>
-                                            </div>    
-                                        </div>
-                                    </div>
-                                    <div class="reservation__submit-box">
-                                        <button type="submit" class="g__btn">Zarezerwuj</button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </section>

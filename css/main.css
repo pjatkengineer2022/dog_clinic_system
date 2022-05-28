@@ -11560,6 +11560,26 @@ body button:hover, body a:hover {
 .s__shift-list .shift__date {
   font-weight: 800; }
 
+.s__price-list {
+  padding-bottom: 2rem; }
+
+.s__price-list .price__item {
+  padding: .9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  .s__price-list .price__item-content {
+    padding-right: 1.2rem;
+    max-width: 50rem; }
+
+.s__price-list .price__name {
+  font-weight: 800;
+  font-size: 1.3rem; }
+
+.s__price-list .price__value {
+  font-weight: 800;
+  font-size: 1.3rem; }
+
 .c__navigation {
   background-color: #3CDAC9;
   position: fixed;

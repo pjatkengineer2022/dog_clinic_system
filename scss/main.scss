@@ -93,6 +93,9 @@ $gap: 32px;
 .s__shift-list {
     @import 'pages/shift_list/shift_list';
 }
+.s__price-list {
+    @import 'pages/price_list/price_list';
+}
 
 // components
 .c__navigation {
