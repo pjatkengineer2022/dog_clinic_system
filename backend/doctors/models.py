@@ -32,7 +32,7 @@ class Shift(models.Model):
 
 class DoctorShift(models.Model):
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='doctorshift')
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='doctorshifts')
     date = models.DateField(default=None)
     def __str__(self):
         return str(self.date) + ': '+ self.shift.name +' - '+ self.doctor.profile.name

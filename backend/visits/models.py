@@ -23,7 +23,7 @@ class Service(models.Model):
 
 class Visit(models.Model):
     pet = models.ForeignKey(Pet, on_delete = models.CASCADE)
-    doctor = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True)
+    doctor = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True, related_name='visits')
     date = models.DateTimeField(default=timezone.now)
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, blank=True)
     service = models.ManyToManyField(Service)

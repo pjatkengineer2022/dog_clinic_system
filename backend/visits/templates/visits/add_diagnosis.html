@@ -40,7 +40,7 @@
                         </div>
                         <div class="add__diagnosis-form-row">
                             <label class="add__diagnosis-form-label">Leki:</label>
-                            <select required="True" id="js-select-medicines" name="medicines" multiple="" class="ui fluid dropdown">
+                            <select id="js-select-medicines" name="medicines" multiple="" class="ui fluid dropdown">
                                 {% for medicine in allMedicines %}
                                     <option value="{{medicine.id}}">{{medicine.name}}</option>
                                 {% endfor %}

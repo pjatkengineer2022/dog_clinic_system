@@ -1,8 +1,18 @@
+from pets.models import Pet
 from rest_framework import serializers
 from doctors.models import DoctorShift, Doctor, Shift
+from visits.models import Visit
 from users.models import Profile
 
-########### TRZECIE API
+
+
+########### TRZECIE (Właściwe) API
+class VisitSerializer(serializers.ModelSerializer):#track
+    petId = serializers.CharField(source='pet.id')
+    petName = serializers.CharField(source='pet.name')
+    class Meta:
+        model = Visit
+        fields = ['date', 'petId', 'petName']        
 
 class DoctorShiftSerializer(serializers.ModelSerializer):  
     shiftStartTime = serializers.TimeField(read_only=True,source='shift.startTime')
@@ -11,24 +21,25 @@ class DoctorShiftSerializer(serializers.ModelSerializer):
         model = DoctorShift
         fields = ['date', 'shiftStartTime', 'shiftEndTime']
 
-class DoctorSerializer(serializers.ModelSerializer):
+class DoctorSerializer(serializers.ModelSerializer):#album
     doctorname = serializers.CharField(source='profile.name')
-    doctorshift = DoctorShiftSerializer(many=True)
+    doctorshifts = DoctorShiftSerializer(many=True)
+    visits = VisitSerializer(many=True)
     class Meta:
         model = Doctor
-        fields = ['id','doctorname', 'doctorshift']
+        fields = ['id','doctorname', 'doctorshifts', 'visits']
 
 
-########### DRUGIE API
+# ########## DRUGIE API
 
-class DoctorShiftSerializer(serializers.ModelSerializer):
-    doctorname = serializers.CharField(source='doctor.profile.name')
-    doctorid = serializers.CharField(source='doctor.id')
-    shiftStartTime = serializers.TimeField(read_only=True,source='shift.startTime')
-    shiftEndTime = serializers.TimeField(read_only=True, source='shift.endTime')
-    class Meta:
-        model = DoctorShift
-        fields = [  'doctorid', 'doctorname', 'shiftStartTime', 'shiftEndTime','date' ]#'doctor','shift',
+# class DoctorShiftSerializer(serializers.ModelSerializer):
+#     doctorname = serializers.CharField(source='doctor.profile.name')
+#     doctorid = serializers.CharField(source='doctor.id')
+#     shiftStartTime = serializers.TimeField(read_only=True,source='shift.startTime')
+#     shiftEndTime = serializers.TimeField(read_only=True, source='shift.endTime')
+#     class Meta:
+#         model = DoctorShift
+#         fields = [  'doctorid', 'doctorname', 'shiftStartTime', 'shiftEndTime','date' ]#'doctor','shift',
 
 
 

@@ -32,52 +32,49 @@ def add_diagnosis(request, visitid):
         form = DiagnosisCreationForm(request.POST)
         if form.is_valid():
             description = form.cleaned_data.get('description')
-            if len(petMedicines_id) != 0:
-                #Asign old treatment to diagnosis or create new treatment to diagnosis
-                disease = None
-                if treatment_type == '1' and new_disease_name != "":
-                    for d in Disease.objects.all():
-                        if new_disease_name.lower() == d.name.lower():
-                            try:
-                                disease = Disease.objects.get(id=d.id)
-                            except Disease.DoesNotExist:
-                                messages('nie można stworzyć diagnozy -choroba nie istnieje, (nieoczekiwany błąd)')
-                                return redirect('doctor_check_visits')
-                    if disease is not None:
-                        disease = Disease.objects.create(name=new_disease_name, description=" ")
-                    else:
-                        messages.error(request, 'nie wpisano nowej choroby (nieoczekiwany błąd)')
-                        return redirect('doctor_check_visits')   
-                    treatment = Treatment.objects.create(pet=pet, disease=disease)
-                elif treatment_type == '2' and old_disease_treatment_id != "":
-                    try:
-                        treatment = Treatment.objects.get(id=old_disease_treatment_id)
-                    except Treatment.DoesNotExist:
-                        messages('nie można stworzyć diagnozy -treatment(leczenie) nie istnieje, (nieoczekiwany błąd)')
-                        return redirect('doctor_check_visits')
+            #Asign old treatment to diagnosis or create new treatment to diagnosis
+            disease = None
+            if treatment_type == '1' and new_disease_name != "":
+                for d in Disease.objects.all():
+                    if new_disease_name.lower() == d.name.lower():
+                        try:
+                            disease = Disease.objects.get(id=d.id)
+                        except Disease.DoesNotExist:
+                            messages('nie można stworzyć diagnozy -choroba nie istnieje, (nieoczekiwany błąd)')
+                            return redirect('doctor_check_visits')
+                if disease is not None:
+                    disease = Disease.objects.create(name=new_disease_name, description=" ")
                 else:
-                    messages.error(request, 'wpisz nową chorobę lub wybierz starą')
-                    context={'form':form, 'pet':pet, 'petTreatments':petTreatments, 'allMedicines':allMedicines}
-                    return render(request, 'visits/add_diagnosis.html', context)
-                #create MedicineHistory --> assign medicines to treatment
-                for medicine_id in petMedicines_id:
-                    try:
-                        medicine = Medicine.objects.get(id=medicine_id)
-                    except Medicine.DoesNotExist:
-                        messages(request, 'nie można stworzyć diagnozy - lek nie istnieje')
-                        return redirect('doctor_check_visits')
-                    else:
-                        MedicineHistory.objects.create(medicine=medicine, treatment=treatment)
-                #create Diagnosis object
+                    messages.error(request, 'nie wpisano nowej choroby (nieoczekiwany błąd)')
+                    return redirect('doctor_check_visits')   
+                treatment = Treatment.objects.create(pet=pet, disease=disease)
+            elif treatment_type == '2' and old_disease_treatment_id != "":
                 try:
-                    Diagnosis.objects.create(visit= visit,treatment=treatment, description=description)
-                except:
-                    messages.error(request,'nie można stworzyć diagnozy')
-                else:
-                    messages.info(request,'poprawnie utworzono diagnozę')
+                    treatment = Treatment.objects.get(id=old_disease_treatment_id)
+                except Treatment.DoesNotExist:
+                    messages('nie można stworzyć diagnozy -treatment(leczenie) nie istnieje, (nieoczekiwany błąd)')
                     return redirect('doctor_check_visits')
             else:
-                messages.error(request, 'musisz wybrać leki')
+                messages.error(request, 'wpisz nową chorobę lub wybierz starą')
+                context={'form':form, 'pet':pet, 'petTreatments':petTreatments, 'allMedicines':allMedicines}
+                return render(request, 'visits/add_diagnosis.html', context)
+            #create MedicineHistory --> assign medicines to treatment
+            for medicine_id in petMedicines_id:
+                try:
+                    medicine = Medicine.objects.get(id=medicine_id)
+                except Medicine.DoesNotExist:
+                    messages(request, 'nie można stworzyć diagnozy - lek nie istnieje')
+                    return redirect('doctor_check_visits')
+                else:
+                    MedicineHistory.objects.create(medicine=medicine, treatment=treatment)
+            #create Diagnosis object
+            try:
+                Diagnosis.objects.create(visit= visit,treatment=treatment, description=description)
+            except:
+                messages.error(request,'nie można stworzyć diagnozy')
+            else:
+                messages.info(request,'poprawnie utworzono diagnozę')
+                return redirect('doctor_check_visits')
         else:
             messages.error(request, 'musisz opisać objawy')
     context={'form':form, 'pet':pet, 'petTreatments':petTreatments, 'allMedicines':allMedicines}
