@@ -8,9 +8,9 @@ from captcha.fields import CaptchaField
 
 #REGISTER USER (creating profile)
 class UserRegisterForm(UserCreationForm):
-    username = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
-    password1 = forms.CharField(max_length=30, widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'type password','type':"password"}))
-    password2 = forms.CharField(max_length=30,widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'confirm password','type':"password"}))
+    username = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'wpisz swój username','type':"text"}))
+    password1 = forms.CharField(max_length=30, widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'wpisz hasło','type':"password"}))
+    password2 = forms.CharField(max_length=30,widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'potwierdź hasło','type':"password"}))
     captcha = CaptchaField()
     class Meta:
         model=User
@@ -21,29 +21,29 @@ class UserRegisterForm(UserCreationForm):
     #     self.fields['password1'].widget.attrs.update({'class': 'g__form-input input', 'type':"password"})
     #     self.fields['password2'].widget.attrs.update({'class': 'g__form-input input', 'type':"password"})
 class ProfileRegisterForm(forms.ModelForm):
-    mobileNumber = PhoneNumberField(widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'phone number','type':"text"}))#(max_length=15, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
+    mobileNumber = PhoneNumberField(widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'wpisz swój numer telefonu','type':"text"}))#(max_length=15, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
     class Meta:
         model = Profile
         fields = ['mobileNumber']
 
 #LOGIN USER
 class UserAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
-    password = forms.CharField(max_length=30, widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'password','type':"password"}))
+    username = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'wpisz swój username','type':"text"}))
+    password = forms.CharField(max_length=30, widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'wpisz swoje hasło','type':"password"}))
     class Meta:
         model = User
         fields = ['username','password']
 
 # UPDATE PROFILE (&user)
 class UserUpdateForm(forms.ModelForm):
-    username = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
-    email = forms.EmailField(max_length=60, required=False, widget=EmailInput(attrs={'class': 'g__form-input input','placeholder': 'email','type':"email"}))
+    username = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'wpisz swój username','type':"text"}))
+    email = forms.EmailField(max_length=60, required=False, widget=EmailInput(attrs={'class': 'g__form-input input','placeholder': 'wpisz swój email','type':"email"}))
     class Meta:
         model=User
         fields = ['username', 'email']
 class ProfileUpdateForm(forms.ModelForm):
-    name = forms.CharField(max_length=60,required=False, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'name & surname','type':"text"}))
-    mobileNumber = PhoneNumberField(widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'phone number','type':"text"}))#(max_length=15, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
+    name = forms.CharField(max_length=60,required=False, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'wpisz swoje imię i nazwisko','type':"text"}))
+    mobileNumber = PhoneNumberField(widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'wpisz swój numer telefonu','type':"text"}))#(max_length=15, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'username','type':"text"}))
     class Meta:
         model = Profile
         fields = ['name','mobileNumber']
@@ -52,7 +52,7 @@ class ProfileUpdateForm(forms.ModelForm):
 class UserPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label='Email', widget=EmailInput(attrs={
         'class': "g__form-input input",
-        'placeholder': 'type your email',
+        'placeholder': 'wpisz swój email',
         'type': 'email',
         'name': 'email'
         }))

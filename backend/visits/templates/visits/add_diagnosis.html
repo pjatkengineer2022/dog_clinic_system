@@ -13,12 +13,14 @@
                         {% csrf_token %}
                         <div class="add__diagnosis-form-row">
                             <label class="add__diagnosis-form-label">Objawy (diagnoza):</label>
-                            <textarea class="textarea"></textarea>
+                            {{form.description}}
+                            {{form.description.errors}}
+                            <!-- <textarea name="description" class="textarea"></textarea> -->
                         </div>
                         <div class="add__diagnosis-form-row">
                             <label class="add__diagnosis-form-label">Leczenie</label>
                             <div class="select">
-                                <select id="treatment-type" name="" class="js-treatment-select">
+                                <select required="True" name="treatment_type" id="treatment-type" class="js-treatment-select">
                                     <option value="1">Nowe leczenie</option>
                                     <option value="2">Wcześniejsze leczenie</option>
                                 </select>
@@ -26,25 +28,29 @@
                         </div>
                         <div class="add__diagnosis-form-row diagnosis__diseases-row js-new-diseases-row">
                             <label class="add__diagnosis-form-label">Nowa choroba:</label>
-                            <input id="js-select-diseases" type="text" class="input">
+                            <input name="new_disease" id="js-select-diseases" type="text" class="input">
                         </div>
                         <div class="add__diagnosis-form-row diagnosis__diseases-row js-old-diseases-row">
-                            <label class="add__diagnosis-form-label">Stare choroby:</label>
-                            <select id="js-select-old-diseases" name="old_diseases" multiple="" class="ui fluid dropdown">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                            <label class="add__diagnosis-form-label">Stara choroba (Stare leczenie):</label>
+                            <select name="old_disease" id="js-select-old-diseases" class="ui fluid dropdown">
+                                {% for treatment in petTreatments %}
+                                    <option value="{{ treatment.id }}" >{{ treatment.disease.name }}</option>  <!-- value="1"-->
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="add__diagnosis-form-row">
                             <label class="add__diagnosis-form-label">Leki:</label>
-                            <select id="js-select-medicines" name="medicines" multiple="" class="ui fluid dropdown">
-                                <option value="lek1">Lek 1</option>
-                                <option value="lek2">Lek 2</option>
-                                <option value="lek3">Lek 3</option>
-                                <option value="lek4">Lek 4</option>
+                            <select required="True" id="js-select-medicines" name="medicines" multiple="" class="ui fluid dropdown">
+                                {% for medicine in allMedicines %}
+                                    <option value="{{medicine.id}}">{{medicine.name}}</option>
+                                {% endfor %}
                             </select>
                         </div>
+                        <!-- <div class="add__diagnosis-form-row">
+                            <label class="add__diagnosis-form-label">Leki:</label>
+                            {{form.medicines}}
+                            {{form.medicines.errors}}
+                        </div> -->
                         <div class="add__diagnosis-form-row has-text-right">
                             <button type="submit" class="g__btn">Zapisz</button>
                         </div>
@@ -55,24 +61,36 @@
                         <div class="g__patient-text-wrapper add__diagnosis-patient-intro-text-wrapper">
                             <div class="g__patient-text-row">
                                 <span class="g__patient-text-label">Imię:</span>
-                                <span class="g__patient-text-value">Alex</span>
+                                <span class="g__patient-text-value">{{pet.name}}</span>
                             </div>
                             <div class="g__patient-text-row">
                                 <span class="g__patient-text-label">Rasa:</span>
-                                <span class="g__patient-text-value">Mieszaniec</span>
+                                {% if pet.race %}
+                                <span class="g__patient-text-value">{{pet.race}}</span>
+                                {% else %}
+                                <span class="g__patient-text-value">---------------</span>
+                                {% endif %}
                             </div>
                             <div class="g__patient-text-row">
-                                <span class="g__patient-text-label">Data urodzenia:</span>
-                                <span class="g__patient-text-value">20.12.2016</span>
+                                <span class="g__patient-text-label">Rok urodzenia:</span>
+                                {% if pet.year_birth %}
+                                <span class="g__patient-text-value">{{pet.year_birth}}</span>
+                                {% else %}
+                                <span class="g__patient-text-value">---------------</span>
+                                {% endif %}
                             </div>
                             <div class="g__patient-text-row">
                                 <span class="g__patient-text-label">Właściciel:</span>
-                                <span class="g__patient-text-value">Jan Kowalski</span>
+                                {% if pet.owner.profile.name %}
+                                <span class="g__patient-text-value">{{pet.owner.profile.name}}</span>
+                                {% else %}
+                                <span class="g__patient-text-value">{{pet.owner.profile.user.username}}</span>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="g__patient-photo-wrapper">
                             <div class="g__avatar-box patient__photo-box">
-                                <img src="../../assets/svg/dog_avatar.svg" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
+                                <img src="{{pet.avatar.url}}" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
                             </div>
                         </div>
                     </div>

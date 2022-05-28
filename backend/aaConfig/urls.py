@@ -27,6 +27,7 @@ urlpatterns = [
     path('users/', include("users.urls")),
     path('pets/', include("pets.urls")),
     path('doctors/', include("doctors.urls")),
+    path('visits/', include("visits.urls")),
 ]
 urlpatterns += [
     path('captcha/', include('captcha.urls')),
