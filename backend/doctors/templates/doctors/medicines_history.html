@@ -50,7 +50,7 @@
         <div class="visits__container">
             <ul class="visit__list">
                 {% for treatment in treatments %}
-                    {% for medicinehistory in treatment.medicinehistory_set.all %}
+                    {% for medicinehistory in treatment.medicinehistory_set.all %} 
                     <li class="g__row-box">
                         <h2 class="g__row-box-header">
                             {{medicinehistory.medicine.name}} - producent:{{medicinehistory.medicine.producer.name}}
