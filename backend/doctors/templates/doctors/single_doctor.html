@@ -17,6 +17,16 @@
             <div class="doctor__desc">
                 {{doctor.description}}
             </div>
+            <div class="doctor__desc">
+                SPECJALNOŚCI:
+                <ul>
+                    <li>
+                        {% for service in doctor.service.all %}
+                            {{service.name}}
+                        {% endfor %}
+                    </li>
+                </ul>   
+            </div>
         </div>
     </div>
 </section>

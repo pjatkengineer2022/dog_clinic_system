@@ -14,19 +14,11 @@ class Status(models.Model):
     def __str__(self):
         return self.name
 
-class Service(models.Model):
-    name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    description = models.CharField(max_length=100)
-    def __str__(self):
-        return self.name
-
 class Visit(models.Model):
     pet = models.ForeignKey(Pet, on_delete = models.CASCADE)
     doctor = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True, related_name='visits')
     date = models.DateTimeField(default=timezone.now)
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, blank=True)
-    service = models.ManyToManyField(Service)
     ownerComment = models.CharField(max_length=2000, null=True, blank=True)
     def __str__(self):
         return str(self.date) + " : " + self.pet.name

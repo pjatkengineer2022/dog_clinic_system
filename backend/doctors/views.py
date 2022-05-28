@@ -160,7 +160,12 @@ def add_medicines(request):
     if request.method == "POST":
         form = MedicineCreationForm(request.POST)
         if form.is_valid():
-            medicine = form.save()
+            medicine = form.save(commit=False)
+            for m in Medicine.objects.all():
+                if m.name.lower() == medicine.name.lower():
+                    messages.error(request, 'lek już istnieje')
+                    return redirect('add_medicines')
+            medicine.save()
             messages.info(request, 'lek poprawnie dodano')
             return redirect('add_medicines')
         else:

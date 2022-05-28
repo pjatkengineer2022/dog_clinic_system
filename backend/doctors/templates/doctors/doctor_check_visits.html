@@ -26,7 +26,7 @@
                                 {{ visit.date|date:'H:i'}}
                             </div>
                         </div>
-                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                        <div class="g__row-box-column column is-1-desktop is-full-touch">
                             <div class="g__row-box-subheader">
                                 Pacjent: 
                             </div>
@@ -46,20 +46,6 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="g__row-box-column column is-2-desktop is-full-touch">
-                            <div class="g__row-box-subheader">
-                                Lista usług:
-                            </div>
-                            <div class="g__row-box-desc">
-                                {% if visit.service %}
-                                {% for service in visit.service_set.all %}
-                                    <p><span class="g__patient-text-value">{{visit.service.all}}</span></p>
-                                {% endfor %}
-                                {% else %}
-                                <span class="g__patient-text-value">------------------</span>
-                                {% endif %}
-                            </div>
-                        </div>
                         <div class="g__row-box-column column is-3-desktop is-full-touch">
                             <div class="g__row-box-subheader">
                                 Uwagi właściciela:
@@ -70,6 +56,20 @@
                                 {% else %}
                                     ---------------
                                 {% endif %}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-3-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Diagnozy do wizyty:
+                            </div>
+                            <div class="g__row-box-desc">
+                                {% if visit.diagnosis_set.all %}
+                                    {% for diagnosis in visit.diagnosis_set.all %}
+                                        <p><span class="g__patient-text-value">{{ visit.date|date:"Y-m-d"}}: {{diagnosis.description}}</span></p>
+                                    {% endfor %}
+                                    {% else %}
+                                        <span class="g__patient-text-value">------------------</span>
+                                    {% endif %}
                             </div>
                         </div>
                         <div class="g__row-box-column column is-2-desktop is-full-touch">
