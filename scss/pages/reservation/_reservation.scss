@@ -42,12 +42,13 @@
 
 .reservation__submit-box {
     text-align: center;
+    margin-top: 1rem;
 }
 
 .terms__slider-wrapper {
     position: relative;
     padding: 0 3rem;
-    max-width: 40rem;
+    max-width: 45rem;
     margin: 0 auto;
 }
 
@@ -76,7 +77,7 @@
 .term__item {
     text-align: center;
     padding: 0 .5rem;
-
+    min-width: 8.5rem;
     &-date {
         font-size: .75rem;
         color: $gray_primary;
@@ -87,6 +88,16 @@
     }
 }
 
+.terms__empty {
+    font-weight: 700;
+    text-align: center;
+}
+
+.term__list {
+    display: flex;
+    overflow: auto;
+}
+
 .term__hour-item {
     margin-bottom: .5rem;
 
@@ -95,6 +106,7 @@
         border: 1px solid $main_color;
         border-radius: 4px;
         padding: .1rem .3rem;
+        min-width: 3.3125rem;
 
         &.--reserved {
             background-color: $gray_light;
@@ -124,6 +136,8 @@
     text-align: center;
     font-weight: 800;
 }
+
+
 
 @include phone-until{
 

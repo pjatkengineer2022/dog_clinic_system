@@ -9,6 +9,7 @@ function appData() {
         selectedDoctor: {},
         showCalendar: false,
         shiftsDays: [],
+        selectedTermDataTime: '',
 
         setName: function (name) {
             this.name = name;
@@ -21,41 +22,9 @@ function appData() {
         },
 
         filterDoctor() {
+            this.selectedTermDataTime = '';
+         
             if (this.selectedDoctorId) {
-                // var swiperTermsCalendar = new Swiper('.js-terms-calendar', {
-                //     //watchOverflow: true,
-                //     // spaceBetween: 0,
-                //     // centeredSlides: true,
-                //     // loop: true,
-                //     slidesPerView: 2,
-                //     // slidesPerGroup: 2,  
-                //     navigation: {
-                //         prevEl: '.js-terms-calendar--prev',
-                //         nextEl: '.js-terms-calendar--next',
-                //     },
-                //     breakpoints: {
-                //         551: {
-                //         slidesPerView: 3,
-                //         slidesPerGroup: 4,
-                //         // spaceBetween: 60,
-                //         },
-                //         850: {
-                //         slidesPerView: 4,
-                //         slidesPerGroup: 4,
-                //         //spaceBetween: 30,
-                //         },
-                //         1024: {
-                //         slidesPerView: 4,
-                //         slidesPerGroup: 4,
-                //         //spaceBetween: 30,
-                //         },
-                //         1201: {
-                //         slidesPerView: 4,
-                //         slidesPerGroup: 4,
-                //             //spaceBetween: 30,
-                //         },
-                //     }             
-                // });
                 this.showCalendar = true;
                 console.log('filterDoctor');
                 this.selectedDoctor = this.doctors.find(doctor => {
@@ -63,28 +32,35 @@ function appData() {
                 });
 
                 this.shiftsDays = this.selectedDoctor.doctorshifts.map((day) => {
-                    const startValue = day.shiftStartTime.split(":")[0].replace(/^0+/, '');
-                    const endValue = day.shiftEndTime.split(":")[0].replace(/^0+/, '');
-
+                    const startValue = parseInt(day.shiftStartTime.split(":")[0].replace(/^0+/, ''));
+                    const endValue = parseInt(day.shiftEndTime.split(":")[0].replace(/^0+/, ''));
                     
                     const hours = [];
-                    console.log(startValue);
+                    const plannedVisitsTerms = this.selectedDoctor.visits.map((item) => {
+                        const dateZoneString = item.date.split("Z")[0];
+                        const dateTimeObject = new Date(dateZoneString);
+
+                        return dateTimeObject.toLocaleString();
+                    });
+
+                    console.log('plannedVisitsTerms', plannedVisitsTerms);
 
                     for (let i = startValue; i <= endValue; i++) {
-                        let prefix = ''
+                        let prefix = '';
                         if (i < 10) {
                             prefix = '0';
                         } 
 
                         const singleDateTime = new Date(`${day.date}T${prefix}${i}:00:00`);
                         // const singleDateTime = new Date(`${day.date}T12:00:00`);
-                        console.log('i:', i);
+                        const isReserved = plannedVisitsTerms.includes(singleDateTime.toLocaleString());
+
 
                         const hourObject = {
                             singleDateTime: singleDateTime.toLocaleString(),
-                            status: true,
+                            isReserved: isReserved,
                             textHour: `${i}:00`,
-                        }
+                        };
                         hours.push(hourObject);
                     }
 
@@ -99,6 +75,13 @@ function appData() {
                 // swiperTermsCalendar.update();
             } else {
                 this.showCalendar = false;
+            }
+        },
+        checkVisitsExists() {
+            if (this.selectedDoctor.visits) {
+                return true;
+            } else {
+                return false;
             }
         }
     };

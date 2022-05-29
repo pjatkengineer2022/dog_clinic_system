@@ -135,20 +135,21 @@
                                             </div>
                                         </div>
                                         <div 
+                                            x-show="showCalendar"
                                             class="reservation__step reservation__step-2"
                                         >
                                             <div class="reservation__step-header">
                                                 Wybierz termin wizyty
                                             </div>
                                             <div class="terms__slider-wrapper">
-                                                <button type="button" class="terms__slider-arrow --prev js-terms-calendar--prev">
+                                                <!-- <button type="button" class="terms__slider-arrow --prev js-terms-calendar--prev">
                                                     <i class="mdi mdi-arrow-left-circle-outline"></i>
-                                                </button>
-                                                <div class="terms__container swiper-container js-terms-calendar">
-                                                    <ul class="term__list swiper-wrapper ">
+                                                </button> -->
+                                                <div class="terms__container">
+                                                    <ul class="term__list">
                                                         <!-- start term hours column -->
                                                         <template x-for="shift in shiftsDays">
-                                                            <li class="term__item swiper-slide">
+                                                            <li class="term__item">
                                                                 <div class="term__item-header">
                                                                     <div class="term__item-day-name" x-text="shift.date"></div>
                                                                     <!-- <div class="term__item-date">20 Czer</div> -->
@@ -156,8 +157,8 @@
                                                                 <ul class="term__hour-list">
                                                                     <template x-for="hour in shift.hours">
                                                                         <li class="term__hour-item">
-                                                                            <button type="button" class="term__hour-item-btn --active" data-content="20 czerwca, 10:00">
-                                                                                <span x-text="hour.singleDateTime"></span>
+                                                                            <button :class="hour.isReserved ? '--reserved' : ''" x-on:click="selectedTermDataTime = hour.singleDateTime" type="button" class="term__hour-item-btn --active">
+                                                                                <!-- <span x-text="hour.singleDateTime"></span> -->
                                                                                 <span x-text="hour.textHour"></span>
                                                                             </button>
                                                                         </li>
@@ -166,18 +167,19 @@
                                                             </li>
                                                         </template>
                                                     </ul>
-                                                    <button type="button" @click="setName('nnamdi')">Set Name</button>
-                                                    <div x-text="selectedDoctor.doctorname"></div>
+                                                    <!-- <div x-show="checkVisitsExists()" class="terms__empty">
+                                                        Brak dostępnych wizyt
+                                                    </div> -->
                                                     <script src="../../js/reservation/reservationApiService.js"></script>
                                                 </div>
-                                                <button type="button" class="terms__slider-arrow --next js-terms-calendar--next">
+                                                <!-- <button type="button" class="terms__slider-arrow --next js-terms-calendar--next">
                                                     <i class="mdi mdi-arrow-right-circle-outline"></i>
-                                                </button>
+                                                </button> -->
                                                 <div class="g__form-row">
                                                     <div class="reservation__step-header">
                                                     Wybrany termin
                                                     </div> 
-                                                    <input type="text" value="" name="" class="js-term-input g__form-input input term__input" disabled>
+                                                    <input x-model="selectedTermDataTime" type="text" value="" name="" class="js-term-input g__form-input input term__input" disabled>
                                                 </div>    
                                             </div>
                                             <div class="reservation__submit-box">

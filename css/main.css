@@ -11303,12 +11303,13 @@ body button:hover, body a:hover {
     text-align: center; }
 
 .s__reservation .reservation__submit-box {
-  text-align: center; }
+  text-align: center;
+  margin-top: 1rem; }
 
 .s__reservation .terms__slider-wrapper {
   position: relative;
   padding: 0 3rem;
-  max-width: 40rem;
+  max-width: 45rem;
   margin: 0 auto; }
 
 .s__reservation .terms__slider-arrow {
@@ -11328,12 +11329,21 @@ body button:hover, body a:hover {
 
 .s__reservation .term__item {
   text-align: center;
-  padding: 0 .5rem; }
+  padding: 0 .5rem;
+  min-width: 8.5rem; }
   .s__reservation .term__item-date {
     font-size: .75rem;
     color: #666666; }
   .s__reservation .term__item-header {
     margin-bottom: .6rem; }
+
+.s__reservation .terms__empty {
+  font-weight: 700;
+  text-align: center; }
+
+.s__reservation .term__list {
+  display: flex;
+  overflow: auto; }
 
 .s__reservation .term__hour-item {
   margin-bottom: .5rem; }
@@ -11341,7 +11351,8 @@ body button:hover, body a:hover {
     background-color: #3CDAC9;
     border: 1px solid #3CDAC9;
     border-radius: 4px;
-    padding: .1rem .3rem; }
+    padding: .1rem .3rem;
+    min-width: 3.3125rem; }
     .s__reservation .term__hour-item-btn.--reserved {
       background-color: #f3f3f3;
       border: 1px solid #f3f3f3;
