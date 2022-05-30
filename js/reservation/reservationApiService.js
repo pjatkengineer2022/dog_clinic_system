@@ -29,6 +29,8 @@ function appData() {
             this.selectedTermDataTime = '';
             this.selectedTermDataTimeISO = '';
 
+            const currentDateTimeStamp = new Date().setHours(0,0,0,0);
+
             if (this.selectedDoctorId) {
                 this.showCalendar = true;
                 this.selectedDoctor = this.doctors.find(doctor => {
@@ -36,6 +38,7 @@ function appData() {
                 });
 
                 this.shiftsDays = this.selectedDoctor.doctorshifts.map((day) => {
+                    // get int value from hour 
                     const startValue = parseInt(day.shiftStartTime.split(":")[0].replace(/^0+/, ''));
                     const endValue = parseInt(day.shiftEndTime.split(":")[0].replace(/^0+/, ''));
 
@@ -47,6 +50,7 @@ function appData() {
                         return dateTimeObject.toLocaleString();
                     });
                     // console.log('plannedVisitsTerms', plannedVisitsTerms);
+                    // create hours items based on range start and end
                     for (let i = startValue; i <= endValue; i++) {
                         let prefix = '';
                         if (i < 10) {
@@ -56,7 +60,6 @@ function appData() {
                         const singleDateTime = new Date(`${day.date}T${prefix}${i}:00:00`);
                         // const singleDateTime = new Date(`${day.date}T12:00:00`);
                         const isReserved = plannedVisitsTerms.includes(singleDateTime.toLocaleString());
-
 
                         const hourObject = {
                             singleDateTime: singleDateTime.toLocaleString(),
@@ -75,13 +78,17 @@ function appData() {
                         // singleDateTime: singleDateTime.toISOString(),
                     };
                 });
-                // swiperTermsCalendar.update();
+                // filter only today or future dates
+                this.shiftsDays = this.shiftsDays.filter((shift) => {
+                    const shiftDateTimeStamp = new Date(shift.date).setHours(0,0,0,0);
+
+                    return shiftDateTimeStamp >= currentDateTimeStamp;
+                });
             } else {
                 this.showCalendar = false;
             }
         },
         checkVisitsExists() {
-            // console.log(this.selectedDoctor.doctorshifts);
             if (this.selectedDoctor.doctorshifts && this.selectedDoctor.doctorshifts.length) {
                 return true;
             } else {

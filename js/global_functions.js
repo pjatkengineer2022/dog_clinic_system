@@ -24,3 +24,9 @@ function topNavigation() {
     });
 }
 
+function globalMethods() {
+    $('.js-reminder-close-btn').on("click", function() {
+        $('.js-reminder-element').slideUp();
+    });
+}
+
