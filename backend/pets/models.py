@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.db import models
 from users.models import Owner
 from PIL import Image
+from aaConfig.validators import validate_file_size
 
 def year_choices():
     return [(r,r) for r in range(datetime.date.today().year-30, datetime.date.today().year+1)]
@@ -13,7 +14,7 @@ class Pet(models.Model):
     name = models.CharField(max_length=70)
     race = models.CharField(max_length=70, null=True, blank=True)
     year_birth = models.IntegerField(choices=YEAR_CHOICES, null=True, blank=True)#default=datetime.date.today().year)
-    avatar = models.ImageField(upload_to="pet_profile_pics", default='dog_avatar.png')
+    avatar = models.ImageField(upload_to="pet_profile_pics", validators=[validate_file_size], default='dog_avatar.png')
     def __str__(self):
         return self.name
     def save(self, *args, **kwargs):

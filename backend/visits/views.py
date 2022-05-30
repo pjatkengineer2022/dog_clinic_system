@@ -7,6 +7,10 @@ from .forms import DiagnosisCreationForm
 from aaConfig.decorators import doctor_only
 from .models import Diagnosis, Visit
 from pets.models import Pet, Treatment, Medicine, MedicineHistory, Disease
+from doctors.models import Doctor 
+from datetime import datetime
+from dateutil import parser, relativedelta
+import pytz
 # Create your views here.
 
 @login_required(login_url='login_doctor')
@@ -80,3 +84,79 @@ def add_diagnosis(request, visitid):
     context={'form':form, 'pet':pet, 'petTreatments':petTreatments, 'allMedicines':allMedicines}
     return render(request, 'visits/add_diagnosis.html', context)
 
+#function used in 4 below functions
+def visitCreation(request, patients, doctors, renderSite, redirectSite):
+    patients = patients
+    doctors = doctors
+    if request.method == "POST":
+        #pet and doctor 
+        try:
+            patient = Pet.objects.get(id = request.POST.get('visitPatientId'))
+            doctor = Doctor.objects.get(id = request.POST.get('visitDoctorId'))
+        except Pet.DoesNotExist:
+            messages("Zwierzak lub Doktor nie istnieje")
+            return redirect(redirectSite)
+        #owner comment
+        ownerComment = request.POST.get('visitOwnerComment')
+        #convert date & check if already not exist:
+        dateString = request.POST.get('visitDateISO')
+        date = parser.parse(dateString)+relativedelta.relativedelta(hours=3)
+        visitDateNotExisit = True
+        for visit in Visit.objects.all():
+            if visit.date == date and visit.doctor == doctor:
+                visitDateNotExisit = False
+        #error messages or creation 
+        if visitDateNotExisit:
+            if date >= pytz.UTC.localize(datetime.now()):
+                if patient is not None and doctor is not None and ownerComment is not None and date is not None:
+                    if patient in patients:
+                        if doctor in doctors:
+                            Visit.objects.create(pet=patient, doctor = doctor, ownerComment=ownerComment, date=date)
+                            messages.info(request, 'Poprawnie zarezerwowałeś wizytę')
+                            return redirect(redirectSite)
+                        else:
+                            messages.error(request, 'Doktor nie istnieje')
+                    else:
+                        messages.error(request, 'Pacjent nie istnieje')
+                else:
+                    messages.error(request, 'Nie podałeś wszystkich danych')
+            else:
+                messages.error(request, "Data nie może być wcześniejsza niż dzisiaj")
+        else:
+            messages.error(request, "Nie można dodać wizyty gdyż ten termin jest już zajęty")
+    context={'patients':patients, 'doctors':doctors}
+    return render(request, renderSite, context)
+
+
+@login_required
+def owner_book_visit_no_patient(request):
+    patients = Pet.objects.filter(owner=request.user.profile.owner)
+    doctors = Doctor.objects.all()
+    return visitCreation(request=request,patients=patients, doctors=doctors,  renderSite = 'visits/reservation.html', redirectSite='your_dogs')
+
+@login_required(login_url='login_doctor')
+@doctor_only
+def doctor_book_visit_no_patient(request):
+    patients = Pet.objects.all()
+    doctors = request.user.profile.doctor
+    return visitCreation(request=request,patients=patients, doctors=doctors, renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits')
+
+@login_required
+def owner_book_visit_with_patient(request, petid):
+    try:
+        patients = Pet.objects.get(id=petid)
+    except Pet.DoesNotExist:
+        return redirect('your_dogs')
+    doctors = Doctor.objects.all()
+    return visitCreation(request=request,patients=patients, doctors=doctors, renderSite = 'visits/reservation.html', redirectSite='your_dogs')
+    
+@login_required(login_url='login_doctor')
+@doctor_only
+def doctor_book_visit_with_patient(request, petid):
+    try:
+        patients = Pet.objects.get(id=petid)
+    except Pet.DoesNotExist:
+        return redirect('doctor_check_visits')
+    doctors = request.user.profile.doctor
+    return visitCreation(request=request,patients=patients, doctors=doctors,  renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits')
+    

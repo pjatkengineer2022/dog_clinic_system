@@ -13,9 +13,10 @@
                 <div class="nav__links-box">
                     <div class="nav__link-list">
                         <a href="{% url 'home' %}" class="nav__link-item">Home</a>
-                        <a href="../reservation/reservation.html" class="nav__link-item">Zarezerwuj wizytę</a>
+                        <a href="{% url 'owner_add_visit' %}" class="nav__link-item">Zarezerwuj wizytę</a>
                         <a href="{% url 'doctors' %}" class="nav__link-item">Lekarze</a>
                         <a href="{% url 'your_dogs' %}" class="nav__link-item">Pupile</a>
+                        <a href="{% url 'prices' %}" class="nav__link-item">Cennik</a>
                         <a href="{% url 'contact' %}" class="nav__link-item">Kontakt</a>
                         <a href="{% url 'login_doctor' %}" class="nav__link-item">Panel Lekarza</a>
                     </div>

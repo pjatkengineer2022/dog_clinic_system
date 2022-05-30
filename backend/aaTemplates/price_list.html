@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="c__breadcrumb"></section>
+<section class="s__price-list">
+    <div class="l-container-big">
+        <div class="g__head">
+            <h1 class="g__title">Cennik usług</h1>
+        </div>
+        <div class="l-container-small">
+            <ul class="price__list">
+                {% for service in services %}
+                    <li class="price__item box">
+                        <div class="price__item-content">
+                            <div class="price__name">{{ service.name }}</div>
+                            <div class="price__desc">{{ service.description }}</div>
+                        </div>
+                        <div class="price__value">{{ service.price }}</div>
+                    </li>    
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock content %}

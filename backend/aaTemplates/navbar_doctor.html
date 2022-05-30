@@ -14,7 +14,7 @@
                     <div class="nav__link-list">
                         <a href="{% url 'doctor_check_visits' %}" class="nav__link-item">Sprawdź wizyty</a>
                         <a href="{% url 'doctor_browse_patients' %}" class="nav__link-item">Przeglądaj pacjentów</a>
-                        <a href="../reservation/reservation.html" class="nav__link-item">Zarezerwuj wizytę dla pacjenta</a>
+                        <a href="{% url 'doctor_add_visit' %}" class="nav__link-item">Zarezerwuj wizytę dla pacjenta</a>
                         <a href="{% url 'add_medicines' %}" class="nav__link-item">Dodaj lek</a>
                         <a href="{% url 'doctor_shift_list' %}" class="nav__link-item">Dyżury</a>
 
