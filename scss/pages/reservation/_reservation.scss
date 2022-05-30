@@ -86,11 +86,17 @@
     &-header {
         margin-bottom: .6rem;
     }
+
+    &-day-name {
+        font-weight: 700;
+    }
 }
 
 .terms__empty {
     font-weight: 700;
     text-align: center;
+    font-size: 1.25rem;
+    padding-top: 2rem;
 }
 
 .term__list {

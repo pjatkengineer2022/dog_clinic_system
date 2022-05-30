@@ -15,7 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="../../plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
     <script src="../../plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
+    <script defer src="../../plugins/alpine.min.js"></script>
 
     <!-- global scripts -->
     <script src="../../js/global_functions.js"></script>
@@ -93,7 +93,7 @@
                             <h1 class="g__title">Zarezerwuj wizytę</h1>
                         </div>
                         <div class="l-container-small">
-                            <div 
+                            <div
                                 x-data="appData()"
                                 x-init="init()"
                                 class="reservation__app"
@@ -134,8 +134,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div 
-                                            x-show="showCalendar"
+                                        <div
+                                            x-show="showCalendar && checkVisitsExists()"
                                             class="reservation__step reservation__step-2"
                                         >
                                             <div class="reservation__step-header">
@@ -147,7 +147,6 @@
                                                 </button> -->
                                                 <div class="terms__container">
                                                     <ul class="term__list">
-                                                        <!-- start term hours column -->
                                                         <template x-for="shift in shiftsDays">
                                                             <li class="term__item">
                                                                 <div class="term__item-header">
@@ -157,8 +156,13 @@
                                                                 <ul class="term__hour-list">
                                                                     <template x-for="hour in shift.hours">
                                                                         <li class="term__hour-item">
-                                                                            <button :class="hour.isReserved ? '--reserved' : ''" x-on:click="selectedTermDataTime = hour.singleDateTime" type="button" class="term__hour-item-btn --active">
-                                                                                <!-- <span x-text="hour.singleDateTime"></span> -->
+                                                                            <button
+                                                                                :class="[
+                                                                                    hour.isReserved ? '--reserved' : '',
+                                                                                    hour.singleDateTime == selectedTermDataTime ? '--selected' : '',
+                                                                                ]"
+                                                                                x-on:click="handleSelectTime(hour.singleDateTime, hour.singleDateTimeISO)" type="button" class="term__hour-item-btn --active"
+                                                                                >
                                                                                 <span x-text="hour.textHour"></span>
                                                                             </button>
                                                                         </li>
@@ -167,9 +171,7 @@
                                                             </li>
                                                         </template>
                                                     </ul>
-                                                    <!-- <div x-show="checkVisitsExists()" class="terms__empty">
-                                                        Brak dostępnych wizyt
-                                                    </div> -->
+
                                                     <script src="../../js/reservation/reservationApiService.js"></script>
                                                 </div>
                                                 <!-- <button type="button" class="terms__slider-arrow --next js-terms-calendar--next">
@@ -178,13 +180,17 @@
                                                 <div class="g__form-row">
                                                     <div class="reservation__step-header">
                                                     Wybrany termin
-                                                    </div> 
+                                                    </div>
                                                     <input x-model="selectedTermDataTime" type="text" value="" name="" class="js-term-input g__form-input input term__input" disabled>
-                                                </div>    
+                                                    <input x-model="selectedTermDataTimeISO" type="hidden" value="" name="" class="js-term-input g__form-input input term__input" disabled>
+                                                </div>
                                             </div>
                                             <div class="reservation__submit-box">
                                                 <button type="submit" class="g__btn">Zarezerwuj</button>
                                             </div>
+                                        </div>
+                                        <div x-show="showCalendar && !checkVisitsExists()" class="terms__empty">
+                                            Brak wizyt przypisanych do wybranego lekarza
                                         </div>
                                     </div>
                                 </form>
