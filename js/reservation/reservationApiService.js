@@ -84,6 +84,15 @@ function appData() {
 
                     return shiftDateTimeStamp >= currentDateTimeStamp;
                 });
+                // sort by date
+                this.shiftsDays.sort((a, b) => {
+                    const aDate = new Date(a.date).setHours(0,0,0,0);
+                    const bDate = new Date(b.date).setHours(0,0,0,0);
+                    
+                    return aDate - bDate;
+                });
+
+
             } else {
                 this.showCalendar = false;
             }

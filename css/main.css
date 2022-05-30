@@ -10969,6 +10969,32 @@ body button:hover, body a:hover {
   background-color: white;
   text-align: center; }
 
+.g__search-wrapper {
+  max-width: 40rem;
+  margin: 0 auto;
+  margin-bottom: 1.5rem; }
+  .g__search-wrapper form i {
+    font-size: 2rem; }
+
+.pagination-wrapper {
+  margin-top: 1.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; }
+  .pagination-wrapper a {
+    background-color: #ffffff;
+    min-width: 2.5rem;
+    border: 1px solid #000000;
+    padding: .5rem;
+    border-radius: 4px;
+    display: inline-block;
+    text-align: center;
+    font-weight: 600;
+    margin: .2rem; }
+    .pagination-wrapper a.paginate--current {
+      background-color: #3CDAC9; }
+
 @keyframes shadow-pulse {
   0% {
     box-shadow: 0 0 0 0px rgba(60, 218, 201, 0.3); }
@@ -12444,3 +12470,43 @@ body button:hover, body a:hover {
 
 .c__reminder .reminder__value {
   font-weight: 600; }
+
+.c__notification {
+  background-color: #fcfcaf;
+  width: 100%;
+  position: fixed;
+  top: 4rem;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 9999;
+  box-shadow: 0 0 8px 0px #00000061;
+  max-width: 50rem;
+  text-align: center;
+  font-weight: 700;
+  min-height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+  font-size: 1.2rem;
+  margin: 0 1rem; }
+  .c__notification.--active {
+    opacity: 1;
+    pointer-events: auto;
+    top: 6rem; }
+  .c__notification.--success {
+    background-color: #50c76c;
+    color: #ffffff; }
+  .c__notification.--error {
+    background-color: #f15c6b;
+    color: #ffffff; }
+
+@-webkit-keyframes fadeinout {
+  30% {
+    opacity: 1; } }
+
+@keyframes fadeinout {
+  30% {
+    opacity: 1; } }
