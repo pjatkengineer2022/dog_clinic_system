@@ -17,7 +17,8 @@
 --medicines -----------------------> +zrobić wyszukiwarkę
 --medicines_history----------------> +zrobić wyszukiwarkę
 -------------register
-reservation  +  link w navbarach do rezerwacji 
+-------------reservation  +  link w navbarach do rezerwacji 
+-------------cennik
 -------------single_doctor
 --visits --------------------------> +zrobić wyszukiwarkę
 --visits_history-------------------> +zrobić wyszukiwarkę
@@ -27,12 +28,17 @@ reservation  +  link w navbarach do rezerwacji
 -------------doctor_shift_list
 
 
+
+
+
+
 -----------------------------------------------------------------------------------------------------------
 -------------utworzyć klasę Medicine_History
 -------------poprawa stronek
 -------------zainkludowanie nowych stronek
-zbudowanie i podłączenie API 
+-------------zbudowanie i podłączenie API 
 
 wyszukiwarka na stronkach z listą
-upload zdjęć -> walidacja rozmiaru
+-------------upload zdjęć -> walidacja rozmiaru
 -------------podłączyć wszedzie tam gdzie trzeba dekoratory
+
