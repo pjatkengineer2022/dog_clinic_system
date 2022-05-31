@@ -16,7 +16,7 @@
                     <ul class="doctors__list is-multiline columns">
                         {% for doctor in doctors %}
                         <li class="doctor__item column is-3-desktop is-6-tablet">
-                            <a href="../single_doctor/single_doctor.html" class="box doctor__item-box">
+                            <a href="{% url 'single_doctor' doctor.id %}" class="box doctor__item-box">
                                 <div class="g__avatar-box doctor__item-photo-box">
                                     <img src="{{doctor.image.url}}" alt="avatar" class="g__avatar-img-uploaded doctor__item-img-uploaded">
                                 </div>

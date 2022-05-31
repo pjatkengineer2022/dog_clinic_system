@@ -9,7 +9,7 @@
                 <h1 class="g__title">Twoje psy</h1>
             </div>
             <div class="g__head-right column is-6-desktop is-full-touch has-text-right">
-                <a href="../add_dog/add_dog.html" class="dogs__btn-add">
+                <a href="{% url 'add_dog' %}" class="dogs__btn-add">
                     <div class="dogs__btn-text">Dodaj nowego psa</div>
                     <div class="dogs__btn-icon">
                         <i class="mdi mdi-plus-circle-outline"></i>
@@ -46,15 +46,15 @@
                                 </div>
                                 <div class="dog__actions column is-5-desktop is-full-touch">
                                     <div class="dog__actions-btns-wrapper">
-                                        <a href="../visits/visits.html" class="dog__actions-link --red">
+                                        <a href="{% url 'dog_visits' pet.id %}" class="dog__actions-link --red">
                                             <div class="dog__actions-link-text">WIZYTY</div>
                                             <i class="mdi mdi-calendar-month-outline"></i>
                                         </a>
-                                        <a href="../diseases/diseases.html" class="dog__actions-link --blue">
+                                        <a href="{% url 'dog_diseases' pet.id %}" class="dog__actions-link --blue">
                                             <div class="dog__actions-link-text">CHOROBY</div>
                                             <i class="mdi mdi-virus-outline"></i>
                                         </a>
-                                        <a href="../medicines/medicines.html" class="dog__actions-link --yellow">
+                                        <a href="{% url 'dog_medicines' pet.id %}" class="dog__actions-link --yellow">
                                             <div class="dog__actions-link-text">LEKI</div>
                                             <i class="mdi mdi-pill"></i>
                                         </a>
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="dog__bottom">
-                                <a href="../add_dog/add_dog.html" class="g__btn">Edytuj</a>
+                                <a href="{% url 'edit_dog' pet.id %}" class="g__btn">Edytuj</a>
                             </div>
                         </div>
                     </li>

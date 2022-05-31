@@ -13,11 +13,11 @@
                 <div class="nav__links-box">
                     <div class="nav__link-list">
                         <a href="{% url 'home' %}" class="nav__link-item">Home</a>
-                        <a href="{% url 'owner_add_visit' %}" class="nav__link-item">Zarezerwuj wizytę</a>
                         <a href="{% url 'doctors' %}" class="nav__link-item">Lekarze</a>
-                        <a href="{% url 'your_dogs' %}" class="nav__link-item">Pupile</a>
                         <a href="{% url 'prices' %}" class="nav__link-item">Cennik</a>
                         <a href="{% url 'contact' %}" class="nav__link-item">Kontakt</a>
+                        <a href="{% url 'your_dogs' %}" class="nav__link-item">Pupile</a>
+                        <a href="{% url 'owner_add_visit' %}" class="nav__link-item">Zarezerwuj wizytę</a>
                         <a href="{% url 'login_doctor' %}" class="nav__link-item">Panel Lekarza</a>
                     </div>
                 </div>
@@ -48,11 +48,11 @@
                         <div class="menu-mobile__container">
                             <div class="menu__page-list">
                                 <a href="{% url 'home' %}" class="menu__page-link">Home</a>
-                                <a href="{% url 'owner_add_visit' %}" class="menu__page-link">Zarezerwuj wizytę</a>
                                 <a href="{% url 'doctors' %}" class="menu__page-link">Lekarze</a>
-                                <a href="{% url 'your_dogs' %}" class="menu__page-link">Pupile</a>
                                 <a href="{% url 'prices' %}" class="menu__page-link">Cennik</a>
                                 <a href="{% url 'contact' %}" class="menu__page-link">Kontakt</a>
+                                <a href="{% url 'your_dogs' %}" class="menu__page-link">Pupile</a>
+                                <a href="{% url 'owner_add_visit' %}" class="menu__page-link">Zarezerwuj wizytę</a>
                                 <a href="{% url 'login_doctor' %}" class="menu__page-link">Panel Lekarza</a>
                             </div>
                             {% if request.user.is_authenticated %}

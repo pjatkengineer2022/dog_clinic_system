@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 from .forms import DiagnosisCreationForm
 from aaConfig.decorators import doctor_only
@@ -84,6 +85,22 @@ def add_diagnosis(request, visitid):
             messages.error(request, 'musisz opisać objawy')
     context={'form':form, 'pet':pet, 'petTreatments':petTreatments, 'allMedicines':allMedicines}
     return render(request, 'visits/add_diagnosis.html', context)
+
+@login_required(login_url='login_doctor')
+@doctor_only
+def add_diagnosis_no_visit(request, petid):
+    try:
+        pet=Pet.objects.get(id=petid)
+    except Pet.DoesNotExist:
+        messages.error('nie można dodać diagnozy do psa który nie istnieje')
+        return redirect('doctor_check_visit')
+    try:
+        visit = Visit.objects.create(pet=pet, doctor = request.user.profile.doctor)
+    except:
+        messages.error('nie można utworzyćwizyty w celu utworzenia diagnozy')
+        return redirect('doctor_check_visit')
+    return redirect(reverse('add_diagnosis', kwargs={'visitid':visit.id}))
+
 
 #function used in 4 below functions
 def visitCreation(request, patients, doctors, renderSite, redirectSite, nearVisit=None):

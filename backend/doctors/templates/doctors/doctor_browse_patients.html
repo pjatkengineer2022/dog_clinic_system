@@ -75,19 +75,19 @@
                             </div> -->
                             <ul class="g__actions-grid-box">
                                 <li class="g__actions-grid-item">
-                                    <a class="g__btn-action --red" href="../reservation/reservation.html">Zaplanuj wizytę</a>
+                                    <a class="g__btn-action --red" href="{% url 'doctor_add_visit_patient' pet.id %}">Zaplanuj wizytę</a>
                                 </li>
                                 <li class="g__actions-grid-item">
-                                    <a class="g__btn-action --green" href="../visits_history/visits_history.html">Historia wizyt</a>
+                                    <a class="g__btn-action --green" href="{% url 'dog_history_visits' pet.id %}">Historia wizyt</a>
                                 </li>
                                 <li class="g__actions-grid-item">
-                                    <a class="g__btn-action --yellow" href="../diseases_history/diseases_history.html">Historia chorób</a>
+                                    <a class="g__btn-action --yellow" href="{% url 'diseases_history' pet.id %}">Historia chorób</a>
                                 </li>
                                 <li class="g__actions-grid-item">
-                                    <a class="g__btn-action --blue" href="../medicines_history/medicines_history.html">Historia leków</a>
+                                    <a class="g__btn-action --blue" href="{% url 'medicines_history' pet.id %}">Historia leków</a>
                                 </li>
                                 <li class="g__actions-grid-item">
-                                    <a class="g__btn-action" href="../add_diagnosis/add_diagnosis.html">Dodaj diagnozę</a>
+                                    <a class="g__btn-action" href="{% url 'add_diagnosis_no_visit' pet.id %}">Dodaj diagnozę</a>
                                 </li>
                             </ul>
                         </div>
