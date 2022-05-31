@@ -1,7 +1,6 @@
 function appData() {
     const baseUrl = window.location.origin;
 
-
     return {
         name: "",
         doctors: [],
@@ -12,17 +11,23 @@ function appData() {
         selectedTermDataTime: '',
         selectedTermDataTimeISO: '',
 
-        setName: function (name) {
-            this.name = name;
-        },
-
-        init() {
-            fetch(`${baseUrl}/api/doctor_with_shift_list`)
+        async init() {
+            await fetch(`${baseUrl}/api/doctor_with_shift_list`)
                 .then((response) => response.json())
                 .then((json) => this.doctors = json)
                 .catch((error) => {
                     console.log(error);
                 });
+
+            await this.$nextTick(() => {
+                const autoSelectedOptionOneOption = document.querySelector(".js-doctor-select option[selected]");
+
+                // auto select doctor with option attribute 'selected'
+                if (autoSelectedOptionOneOption) {
+                    this.selectedDoctorId = autoSelectedOptionOneOption.value;
+                    this.filterDoctor();
+                }
+            });
         },
 
         filterDoctor() {
@@ -38,7 +43,7 @@ function appData() {
                 });
 
                 this.shiftsDays = this.selectedDoctor.doctorshifts.map((day) => {
-                    // get int value from hour 
+                    // get int value from hour
                     const startValue = parseInt(day.shiftStartTime.split(":")[0].replace(/^0+/, ''));
                     const endValue = parseInt(day.shiftEndTime.split(":")[0].replace(/^0+/, ''));
 
@@ -88,7 +93,7 @@ function appData() {
                 this.shiftsDays.sort((a, b) => {
                     const aDate = new Date(a.date).setHours(0,0,0,0);
                     const bDate = new Date(b.date).setHours(0,0,0,0);
-                    
+
                     return aDate - bDate;
                 });
 

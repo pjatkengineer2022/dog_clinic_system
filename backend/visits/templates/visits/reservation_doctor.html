@@ -13,6 +13,10 @@
                 x-data="appData()"
                 x-init="init()"
                 class="reservation__app"
+                x-data="{
+                    selected: $el.querySelector('option[selected]').value,
+                    inputValue: $el.querySelector('input').value
+                  }"
             >
                 <form method="POST" action="" class="reservation__form">
                     {% csrf_token %}
