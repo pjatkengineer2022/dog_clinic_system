@@ -11,6 +11,7 @@ from doctors.models import Doctor
 from datetime import datetime
 from dateutil import parser, relativedelta
 import pytz
+from django.db.models import Q	
 # Create your views here.
 
 @login_required(login_url='login_doctor')
@@ -46,7 +47,7 @@ def add_diagnosis(request, visitid):
                         except Disease.DoesNotExist:
                             messages.error(request, 'nie można stworzyć diagnozy -choroba nie istnieje, (nieoczekiwany błąd)')
                             return redirect('doctor_check_visits')
-                if disease is not None:
+                if disease is None:
                     disease = Disease.objects.create(name=new_disease_name, description=" ")
                 else:
                     messages.error(request, 'nie wpisano nowej choroby (nieoczekiwany błąd)')
@@ -85,7 +86,7 @@ def add_diagnosis(request, visitid):
     return render(request, 'visits/add_diagnosis.html', context)
 
 #function used in 4 below functions
-def visitCreation(request, patients, doctors, renderSite, redirectSite):
+def visitCreation(request, patients, doctors, renderSite, redirectSite, nearVisit=None):
     patients = patients
     doctors = doctors
     if request.method == "POST":
@@ -124,7 +125,7 @@ def visitCreation(request, patients, doctors, renderSite, redirectSite):
                 messages.error(request, "Data nie może być wcześniejsza niż dzisiaj")
         else:
             messages.error(request, "Nie można dodać wizyty gdyż ten termin jest już zajęty")
-    context={'patients':patients, 'doctors':doctors}
+    context={'patients':patients, 'doctors':doctors, 'nearVisit':nearVisit}
     return render(request, renderSite, context)
 
 
@@ -132,31 +133,34 @@ def visitCreation(request, patients, doctors, renderSite, redirectSite):
 def owner_book_visit_no_patient(request):
     patients = Pet.objects.filter(owner=request.user.profile.owner)
     doctors = Doctor.objects.all()
-    return visitCreation(request=request,patients=patients, doctors=doctors,  renderSite = 'visits/reservation.html', redirectSite='your_dogs')
+    nearVisit = Visit.objects.filter(Q(pet__owner=request.user.profile.owner)).order_by('date').first()
+    return visitCreation(request=request,patients=patients, doctors=doctors,  renderSite = 'visits/reservation.html', redirectSite='your_dogs', nearVisit=nearVisit)
 
 @login_required(login_url='login_doctor')
 @doctor_only
 def doctor_book_visit_no_patient(request):
     patients = Pet.objects.all()
-    doctors = request.user.profile.doctor
+    doctors = [request.user.profile.doctor]
     return visitCreation(request=request,patients=patients, doctors=doctors, renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits')
 
 @login_required
 def owner_book_visit_with_patient(request, petid):
     try:
-        patients = Pet.objects.get(id=petid)
+        patients = [Pet.objects.get(id=petid)]
     except Pet.DoesNotExist:
         return redirect('your_dogs')
     doctors = Doctor.objects.all()
-    return visitCreation(request=request,patients=patients, doctors=doctors, renderSite = 'visits/reservation.html', redirectSite='your_dogs')
+    nearVisit = Visit.objects.filter(Q(pet__id=petid)).order_by('date').first()
+    return visitCreation(request=request,patients=patients, doctors=doctors, renderSite = 'visits/reservation.html', redirectSite='your_dogs', nearVisit=nearVisit)
     
 @login_required(login_url='login_doctor')
 @doctor_only
 def doctor_book_visit_with_patient(request, petid):
     try:
-        patients = Pet.objects.get(id=petid)
+        patients = [Pet.objects.get(id=petid)]
     except Pet.DoesNotExist:
         return redirect('doctor_check_visits')
-    doctors = request.user.profile.doctor
-    return visitCreation(request=request,patients=patients, doctors=doctors,  renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits')
+    doctors = [request.user.profile.doctor]
+    nearVisit = Visit.objects.filter(Q(pet__id=petid)).order_by('date').first()
+    return visitCreation(request=request,patients=patients, doctors=doctors,  renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits', nearVisit=nearVisit)
     

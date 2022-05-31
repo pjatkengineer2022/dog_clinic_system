@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
-from visits.models import Visit
 
+from visits.models import Visit
 from .models import Medicine, Pet
 from .forms import PetCreateUpdateForm  #, PetAvatarCreateUpdateForm, PetCreateForm
 
@@ -25,6 +25,10 @@ class PetListView(LoginRequiredMixin, ListView):
         except:  
             messages.error(self.request, "nie można otworzyć strony twoich pupilów")
             return redirect('home')
+    def get_context_data(self,**kwargs):
+        context = super(PetListView, self).get_context_data(**kwargs)
+        context['nearVisit'] = Visit.objects.filter(pet__owner=self.request.user.profile.owner).order_by('date').first()
+        return context
        
 @login_required
 def edit_dog_profile(request, id):

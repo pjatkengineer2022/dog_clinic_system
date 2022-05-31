@@ -47,12 +47,13 @@
                 </div>
             </div>
         </div>
-        <div>
+        <!-- <div class="g__search-wrapper">
             <form method="GET" action="{% url 'diseases_history' pet.id %}">
-                <input type="text" name="q" placeholder="Search treatment..."/ >
+                <input class="input" type="text" name="q" placeholder="Search treatment..."/ >
                 <input type="submit" hidden />
             </form>
-        </div>
+        </div> -->
+        {% include "searching.html" with url_variable='diseases_history' url_variable_id='pet.id'%}
         <div class="visits__container">
             <ul class="visit__list">
                 {% for treatment in treatments %}

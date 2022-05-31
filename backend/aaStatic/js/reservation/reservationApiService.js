@@ -17,7 +17,7 @@ function appData() {
         },
 
         init() {
-            fetch(`${baseUrl}/api/test.json`)
+            fetch(`${baseUrl}/api/doctor_with_shift_list`)
                 .then((response) => response.json())
                 .then((json) => this.doctors = json)
                 .catch((error) => {
