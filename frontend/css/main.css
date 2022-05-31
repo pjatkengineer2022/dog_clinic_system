@@ -10808,11 +10808,14 @@ body button:hover, body a:hover {
     flex-direction: column; }
     .g__form-row:not(:last-of-type) {
       margin-bottom: 1rem; }
+    .g__form-row select {
+      width: 100%; }
   .g__form-row-submit {
     margin-top: 2.7rem; }
   .g__form-label {
     font-size: 1.25rem;
-    font-weight: 700; }
+    font-weight: 700;
+    margin-bottom: .4rem; }
   .g__form-input {
     background-color: #ffffff;
     border: none;
@@ -10961,6 +10964,36 @@ body button:hover, body a:hover {
 .g__patient-text-label {
   font-weight: 700;
   margin-right: .5rem; }
+
+.datepicker-dropdown {
+  background-color: white;
+  text-align: center; }
+
+.g__search-wrapper {
+  max-width: 40rem;
+  margin: 0 auto;
+  margin-bottom: 1.5rem; }
+  .g__search-wrapper form i {
+    font-size: 2rem; }
+
+.pagination-wrapper {
+  margin-top: 1.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; }
+  .pagination-wrapper a {
+    background-color: #ffffff;
+    min-width: 2.5rem;
+    border: 1px solid #000000;
+    padding: .5rem;
+    border-radius: 4px;
+    display: inline-block;
+    text-align: center;
+    font-weight: 600;
+    margin: .2rem; }
+    .pagination-wrapper a.paginate--current {
+      background-color: #3CDAC9; }
 
 @keyframes shadow-pulse {
   0% {
@@ -11232,6 +11265,18 @@ body button:hover, body a:hover {
     display: inline-flex;
     flex-direction: column; }
 
+.s__your-dogs .dog__item-row {
+  display: flex;
+  flex-wrap: wrap; }
+
+.s__your-dogs .dog__item-label {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-right: .6rem; }
+
+.s__your-dogs .dog__item-value {
+  font-size: 1.4rem; }
+
 .s__add-dog {
   padding-bottom: 2rem; }
 
@@ -11247,10 +11292,15 @@ body button:hover, body a:hover {
   align-items: center; }
 
 .s__add-dog .dog__bottom {
-  text-align: center; }
+  text-align: right;
+  margin-top: 2rem; }
 
 .s__add-dog .dog__wrapper {
   margin-bottom: 4rem; }
+
+.s__add-dog .dog__inputs-wrapper {
+  max-width: 28.375rem;
+  margin-left: auto; }
 
 .s__reservation {
   padding-bottom: 3.5rem; }
@@ -11279,12 +11329,13 @@ body button:hover, body a:hover {
     text-align: center; }
 
 .s__reservation .reservation__submit-box {
-  text-align: center; }
+  text-align: center;
+  margin-top: 1rem; }
 
 .s__reservation .terms__slider-wrapper {
   position: relative;
   padding: 0 3rem;
-  max-width: 40rem;
+  max-width: 45rem;
   margin: 0 auto; }
 
 .s__reservation .terms__slider-arrow {
@@ -11304,12 +11355,25 @@ body button:hover, body a:hover {
 
 .s__reservation .term__item {
   text-align: center;
-  padding: 0 .5rem; }
+  padding: 0 .5rem;
+  min-width: 8.5rem; }
   .s__reservation .term__item-date {
     font-size: .75rem;
     color: #666666; }
   .s__reservation .term__item-header {
     margin-bottom: .6rem; }
+  .s__reservation .term__item-day-name {
+    font-weight: 700; }
+
+.s__reservation .terms__empty {
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.25rem;
+  padding-top: 2rem; }
+
+.s__reservation .term__list {
+  display: flex;
+  overflow: auto; }
 
 .s__reservation .term__hour-item {
   margin-bottom: .5rem; }
@@ -11317,7 +11381,8 @@ body button:hover, body a:hover {
     background-color: #3CDAC9;
     border: 1px solid #3CDAC9;
     border-radius: 4px;
-    padding: .1rem .3rem; }
+    padding: .1rem .3rem;
+    min-width: 3.3125rem; }
     .s__reservation .term__hour-item-btn.--reserved {
       background-color: #f3f3f3;
       border: 1px solid #f3f3f3;
@@ -11430,6 +11495,13 @@ body button:hover, body a:hover {
 .s__add-diagnosis .add__diagnosis-form-row {
   margin-bottom: 1rem; }
 
+.s__add-diagnosis .diagnosis__diseases-row {
+  opacity: .4;
+  pointer-events: none; }
+  .s__add-diagnosis .diagnosis__diseases-row.--active {
+    opacity: 1;
+    pointer-events: auto; }
+
 .s__add-diagnosis .g__patient-text-row {
   font-size: 20px; }
 
@@ -11473,6 +11545,81 @@ body button:hover, body a:hover {
 .s__single-doctor .doctor__container {
   max-width: 48rem;
   margin: 0 auto; }
+
+.s__add-visit-hours {
+  padding-bottom: 2rem; }
+
+.s__add-visit-hours .visit__hours-form-fields {
+  margin-bottom: 1rem; }
+
+.s__add-visit-hours .visit__hours-form-submit-wrapper {
+  text-align: right; }
+
+.s__add-visit-hours .datepicker {
+  background-color: white; }
+
+.s__add-visit-hours .visit__hours-form {
+  max-width: 50rem;
+  margin: 0 auto; }
+
+.s__add-medicines {
+  padding-bottom: 2rem; }
+
+.s__add-medicines .add__medicines-form {
+  max-width: 50rem;
+  margin: 0 auto; }
+
+.s__shift-list {
+  padding-bottom: 2rem; }
+
+.s__shift-list .shift__list {
+  font-size: 1.2rem; }
+
+.s__shift-list .shift__item {
+  display: flex;
+  justify-content: space-between; }
+  .s__shift-list .shift__item:not(:last-of-type) {
+    margin-bottom: 1rem; }
+  .s__shift-list .shift__item-content {
+    padding-right: 1rem; }
+  .s__shift-list .shift__item-delete-btn {
+    background-color: #FF3C53;
+    box-shadow: 0 1px 13px 0px #00000040;
+    padding: 0.2rem 1rem;
+    color: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center; }
+    .s__shift-list .shift__item-delete-btn i {
+      font-size: 1.3rem;
+      margin-left: .5rem; }
+
+.s__shift-list .shift__add-box {
+  text-align: right;
+  margin-bottom: 1.5rem; }
+
+.s__shift-list .shift__date {
+  font-weight: 800; }
+
+.s__price-list {
+  padding-bottom: 2rem; }
+
+.s__price-list .price__item {
+  padding: .9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  .s__price-list .price__item-content {
+    padding-right: 1.2rem;
+    max-width: 50rem; }
+
+.s__price-list .price__name {
+  font-weight: 800;
+  font-size: 1.3rem; }
+
+.s__price-list .price__value {
+  font-weight: 800;
+  font-size: 1.3rem; }
 
 .c__navigation {
   background-color: #3CDAC9;
@@ -12290,3 +12437,76 @@ body button:hover, body a:hover {
   @media screen and (max-width: 1023px) {
     .c__parallax .intro__title {
       font-size: 1.6rem; } }
+
+.c__reminder {
+  margin-bottom: 1.5rem; }
+
+.c__reminder .reminder__close-btn {
+  font-size: 1.5rem;
+  position: absolute;
+  top: .1rem;
+  right: .5rem; }
+
+.c__reminder .reminder__wrapper {
+  position: relative; }
+
+@media screen and (max-width: 1023px) {
+  .c__reminder .reminder__content {
+    text-align: center; } }
+
+.c__reminder .reminder__header {
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-bottom: 1rem; }
+  @media screen and (max-width: 1023px) {
+    .c__reminder .reminder__header {
+      text-align: center; } }
+
+.c__reminder .reminder__label {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #3CDAC9;
+  margin-bottom: .5rem; }
+
+.c__reminder .reminder__value {
+  font-weight: 600; }
+
+.c__notification {
+  background-color: #fcfcaf;
+  width: 100%;
+  position: fixed;
+  top: 4rem;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 9999;
+  box-shadow: 0 0 8px 0px #00000061;
+  max-width: 50rem;
+  text-align: center;
+  font-weight: 700;
+  min-height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+  font-size: 1.2rem;
+  margin: 0 1rem; }
+  .c__notification.--active {
+    opacity: 1;
+    pointer-events: auto;
+    top: 6rem; }
+  .c__notification.--success {
+    background-color: #50c76c;
+    color: #ffffff; }
+  .c__notification.--error {
+    background-color: #f15c6b;
+    color: #ffffff; }
+
+@-webkit-keyframes fadeinout {
+  30% {
+    opacity: 1; } }
+
+@keyframes fadeinout {
+  30% {
+    opacity: 1; } }

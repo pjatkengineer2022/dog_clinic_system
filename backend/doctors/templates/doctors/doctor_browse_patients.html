@@ -1,0 +1,107 @@
+{% extends 'base_doctor.html' %}
+{% block content %}
+<section 
+    class="c__intro" 
+    style="background-image: url('../../assets/img/browse_patients_bg.jpg');">
+    <div class="intro__content">
+        <h1 class="intro__title animated fadeInDown">Przeglądaj pacjentów</h1>
+    </div>
+</section>
+<section class="s__doctor-browse-patients">
+    <div class="l-container-big">
+        <div class="g__head"></div>
+        {% include "searching.html" with url_variable='doctor_browse_patients' my_placeholder="Wyszukaj pacjenta..." %}   
+        <div class="patients__container">
+            <ul class="patient__list">
+                {% for pet in pets %}
+                <li class="g__row-box">
+                    <div class="g__row-box-content is-multiline columns">
+                        <div class="g__row-box-column column is-3-desktop is-full-touch">
+                            <div class="patient__intro">
+                                <div class="patient__avatar-wrapper">
+                                    <div class="g__avatar-box patient__photo-box">
+                                        <img src="{{pet.avatar.url}}" alt="avatar" class="g__avatar-img-no-photo dogs__item-img-no-photo">
+                                    </div>
+                                </div>   
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-5-desktop is-full-touch">
+                            <div class="patient__data-wrapper">
+                                <div class="patient__data-row">
+                                    <span class="patient__data-label">Imię:</span>
+                                    {% if pet.name %}
+                                    <span class="patient__data-value">{{pet.name}}</span>
+                                    {% else %}
+                                    <span class="patient__data-value"> --------------- </span>
+                                    {% endif %}
+                                </div>
+                                <div class="patient__data-row">
+                                    <span class="patient__data-label">Rok urodzenia:</span>
+                                    {% if pet.year_birth %}
+                                    <span class="patient__data-value">{{pet.year_birth}}</span>
+                                    {% else %}
+                                    <span class="patient__data-value"> --------------- </span>
+                                    {% endif %}
+                                </div>
+                                <div class="patient__data-row">
+                                    <span class="patient__data-label">Właściciel:</span>
+                                    {% if pet.owner.profile.name %}
+                                    <span class="patient__data-value">{{pet.owner.profile.name}}</span>
+                                    {% else %}
+                                    <span class="patient__data-value">{{pet.owner.profile.user.username}}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="patient__data-row">
+                                    <span class="patient__data-label">Numer tel do właściciela:</span>
+                                    {% if pet.owner.profile.mobileNumber %}
+                                    <span class="patient__data-value">{{pet.owner.profile.mobileNumber}}</span>
+                                    {% else %}
+                                    <span class="patient__data-value"> --------------- </span>
+                                    {% endif %}
+                                </div>
+                                <div class="patient__data-row">
+                                    <span class="patient__data-label">Adres email do właściciela:</span>
+                                    {% if pet.owner.profile.user.email %}
+                                    <span class="patient__data-value">{{pet.owner.profile.user.email}}</span>
+                                    {% else %}
+                                    <span class="patient__data-value"> --------------- </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-4-desktop is-full-touch">
+                            <!-- <div class="g__row-box-subheader">
+                                Akcje:
+                            </div> -->
+                            <ul class="g__actions-grid-box">
+                                <li class="g__actions-grid-item">
+                                    <a class="g__btn-action --red" href="../reservation/reservation.html">Zaplanuj wizytę</a>
+                                </li>
+                                <li class="g__actions-grid-item">
+                                    <a class="g__btn-action --green" href="../visits_history/visits_history.html">Historia wizyt</a>
+                                </li>
+                                <li class="g__actions-grid-item">
+                                    <a class="g__btn-action --yellow" href="../diseases_history/diseases_history.html">Historia chorób</a>
+                                </li>
+                                <li class="g__actions-grid-item">
+                                    <a class="g__btn-action --blue" href="../medicines_history/medicines_history.html">Historia leków</a>
+                                </li>
+                                <li class="g__actions-grid-item">
+                                    <a class="g__btn-action" href="../add_diagnosis/add_diagnosis.html">Dodaj diagnozę</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                {% include "pagination.html" with variable=pets %}
+                
+            </ul>
+        </div>
+    </div>
+</section>
+<section 
+    class="c__parallax" 
+    style="background-image: url('../../assets/img/parallax6.jpg');">
+</section>
+{% endblock content %}

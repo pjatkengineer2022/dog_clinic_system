@@ -84,7 +84,18 @@ $gap: 32px;
 .s__single-doctor {
     @import 'pages/single_doctor/single_doctor';
 }
-
+.s__add-visit-hours {
+    @import 'pages/add_visit_hours/add_visit_hours';
+}
+.s__add-medicines {
+    @import 'pages/add_medicines/add_medicines';
+}
+.s__shift-list {
+    @import 'pages/shift_list/shift_list';
+}
+.s__price-list {
+    @import 'pages/price_list/price_list';
+}
 
 // components
 .c__navigation {
@@ -104,4 +115,10 @@ $gap: 32px;
 }
 .c__parallax {
     @import 'components/_parallax';
+}
+.c__reminder {
+    @import 'components/_reminder';
+}
+.c__notification {
+    @import 'components/_notification';
 }

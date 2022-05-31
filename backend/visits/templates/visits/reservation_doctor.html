@@ -1,0 +1,123 @@
+{% extends "base_doctor.html" %}
+{% block content %}
+{% load static %}
+<section class="c__breadcrumb"></section>
+{% include 'near_visit.html' %}
+<section class="s__reservation">
+    <div class="l-container-big">
+        <div class="g__head">
+            <h1 class="g__title">Zarezerwuj wizytę</h1>
+        </div>
+        <div class="l-container-small">
+            <div
+                x-data="appData()"
+                x-init="init()"
+                class="reservation__app"
+                x-data="{
+                    selected: $el.querySelector('option[selected]').value,
+                    inputValue: $el.querySelector('input').value
+                  }"
+            >
+                <form method="POST" action="" class="reservation__form">
+                    {% csrf_token %}
+                    <div class="reservation__steps-container">
+                        <div class="reservation__step reservation__step-1">
+                            <div class="reservation__step-details is-multiline columns">
+                                <div class="reservation__step-details-left column is-6-desktop is-full-touch">
+                                    <div class="reservation__form-row">
+                                        <label class="reservation__form-label">Wybierz psa:</label>
+                                        <div class="reservation__form-select select is-fullwidth">
+                                            <select name="visitPatientId">
+                                                {% for pet in patients %}
+                                                    <option value="{{pet.id}}">{{pet.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="reservation__form-row">
+                                        <label class="reservation__form-label">Wybierz lekarza:</label>
+                                        <div class="reservation__form-select select is-fullwidth">
+                                            <select
+                                                class="js-doctor-select" 
+                                                x-on:change="filterDoctor()"
+                                                x-model="selectedDoctorId"
+                                                name="visitDoctorId"
+                                            >
+                                                <option selected value="{{doctors.id}}">{{doctors.profile.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="reservation__step-details-right column is-6-desktop is-full-touch">
+                                    <div class="reservation__form-row">
+                                        <label class="reservation__form-label">Uwagi dla lekarza:</label>
+                                        <textarea class="textarea" name="visitOwnerComment"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            x-show="showCalendar && checkVisitsExists()"
+                            class="reservation__step reservation__step-2"
+                        >
+                            <div class="reservation__step-header">
+                                Wybierz termin wizyty
+                            </div>
+                            <div class="terms__slider-wrapper">
+                                <!-- <button type="button" class="terms__slider-arrow --prev js-terms-calendar--prev">
+                                    <i class="mdi mdi-arrow-left-circle-outline"></i>
+                                </button> -->
+                                <div class="terms__container">
+                                    <ul class="term__list">
+                                        <template x-for="shift in shiftsDays">
+                                            <li class="term__item">
+                                                <div class="term__item-header">
+                                                    <div class="term__item-day-name" x-text="shift.date"></div>
+                                                    <!-- <div class="term__item-date">20 Czer</div> -->
+                                                </div>
+                                                <ul class="term__hour-list">
+                                                    <template x-for="hour in shift.hours">
+                                                        <li class="term__hour-item">
+                                                            <button
+                                                                :class="[
+                                                                    hour.isReserved ? '--reserved' : '',
+                                                                    hour.singleDateTime == selectedTermDataTime ? '--selected' : '',
+                                                                ]"
+                                                                x-on:click="handleSelectTime(hour.singleDateTime, hour.singleDateTimeISO)" type="button" class="term__hour-item-btn --active"
+                                                                >
+                                                                <span x-text="hour.textHour"></span>
+                                                            </button>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </li>
+                                        </template>
+                                    </ul>
+
+                                    <script src="{% static 'js/reservation/reservationApiService.js' %}"></script>
+                                </div>
+                                <!-- <button type="button" class="terms__slider-arrow --next js-terms-calendar--next">
+                                    <i class="mdi mdi-arrow-right-circle-outline"></i>
+                                </button> -->
+                                <div class="g__form-row">
+                                    <div class="reservation__step-header">
+                                    Wybrany termin
+                                    </div>
+                                    <input x-model="selectedTermDataTime" type="text" value="" name="visitDate" class="js-term-input g__form-input input term__input" disabled>
+                                    <input x-model="selectedTermDataTimeISO" type="hidden" value="" name="visitDateISO" class="js-term-input g__form-input input term__input" >
+                                </div>
+                            </div>
+                            <div class="reservation__submit-box">
+                                <button type="submit" class="g__btn">Zarezerwuj</button>
+                            </div>
+                        </div>
+                        <div x-show="showCalendar && !checkVisitsExists()" class="terms__empty">
+                            Brak wizyt przypisanych do wybranego lekarza
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

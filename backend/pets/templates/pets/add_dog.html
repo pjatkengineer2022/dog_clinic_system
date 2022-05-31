@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="c__breadcrumb"></section>
+<section class="s__add-dog">
+    <div class="l-container-big">
+        <div class="g__head">
+            <h1 class="g__title">Dodawanie nowego psa</h1>
+        </div>
+        <div class="dog__container">
+            <div class="dog__wrapper">
+                <form method="POST" action="" class=" is-multiline columns" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="dog__avatar column is-5-desktop is-full-touch">
+                        <div class="g__avatar-box dog__photo-box">
+                            <img src="/media/dog_avatar.png" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
+                        </div>
+                        {{profile_form.avatar}}
+                        {{profile_form.avatar.errors}}
+                    </div>
+                    <div class="column is-7-desktop is-full-touch">
+                        <div class="dog__inputs-wrapper">
+                            <div class="g__form-row">
+                                <label class="g__form-label">Imię</label>
+                                {{profile_form.name}}
+                                {{profile_form.name.errors}}
+                                <!-- <input type="text" name="" class="g__form-input input" required> -->
+                            </div>
+                            <div class="g__form-row">
+                                <label class="g__form-label">Rasa</label>
+                                {{profile_form.race}}
+                                {{profile_form.race.errors}}
+                                <!-- <input type="text" name="" class="g__form-input input" required> -->
+                            </div>
+                            <div class="g__form-row">
+                                <label class="g__form-label">Rok urodzenia</label>
+                                {{profile_form.year_birth}}
+                                {{profile_form.year_birth.errors}}
+                                <!-- <input type="number" name="" class="g__form-input input" required> -->
+                            </div>
+                        </div>
+                        <div class="dog__bottom">
+                            <button type="submit" class="g__btn">Dodaj psa</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>       
+</section>
+{% endblock content %}

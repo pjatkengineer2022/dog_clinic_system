@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="c__breadcrumb"></section>
+<section class="s__single-doctor">
+    <div class="l-container-big">
+        <div class="doctor__container">
+            <div class="doctor__head">
+                <div class="doctor__photo-wrapper">
+                    <div class="g__avatar-box doctor__photo-box">
+                        <img src="{{doctor.image.url}}" alt="avatar" class="g__avatar-img-no-photo doctor__img-no-photo">
+                    </div>
+                </div>
+                <div class="doctor__name">
+                    Dr. {{doctor.profile.name}}
+                </div>
+            </div>
+            <div class="doctor__desc">
+                {{doctor.description}}
+            </div>
+            <div class="doctor__desc">
+                SPECJALNOŚCI:
+                <ul>
+                    <li>
+                        {% for service in doctor.service.all %}
+                            {{service.name}}
+                        {% endfor %}
+                    </li>
+                </ul>   
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

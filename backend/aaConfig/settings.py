@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*+*7yh5aq5ii(57=b1pfm@n3xhr^!40#%^xzc7m3wdbt)memrq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True#False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []#'127.0.0.1','localhost']
 
 
 # Application definition
@@ -38,7 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+    'pets.apps.PetsConfig',
+    'doctors.apps.DoctorsConfig',
+    'visits.apps.VisitsConfig',
+    'api.apps.ApiConfig',
+    'captcha',
     'phonenumber_field',
+    'rest_framework',
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -128,6 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PHONENUMBER_DEFAULT_REGION = "PL"
 PHONENUMBER_DEFAULT_FORMAT = "NATIONAL"
 
+LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login_user'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -136,3 +145,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'engineer2022db@gmail.com'
 EMAIL_HOST_PASSWORD =  'nqqlcoiyoisejfir' #'ngcjsuuqibifcqzd'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'aaMedia')
+MEDIA_URL = '/media/'

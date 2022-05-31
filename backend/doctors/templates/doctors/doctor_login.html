@@ -1,0 +1,35 @@
+{% extends 'base_doctor.html' %}
+{% block content %}
+<section class="c__breadcrumb"></section>
+<section class="s__doctor-login">
+    <div class="l-container-big">
+        <div class="g__head login__head has-text-centered">
+            <h1 class="g__title">Zaloguj się - Lekarz</h1>
+        </div>
+        <div class="g__form-wrapper login__form-wrapper">
+            <form method="POST" action="" class="g__form">
+                {% csrf_token %}
+                <div class="g__form-row">
+                    <label class="g__form-label">Nazwa Użytkownika</label>
+                    {{form.username}}
+                    {{form.username.errors}}
+                    <!-- <input type="text" name="username" class="g__form-input input" required> -->
+                </div>
+                <div class="g__form-row">
+                    <label class="g__form-label">Hasło</label>
+                    {{form.password}}
+                    {{form.password.errors}}
+                    <!-- <input type="password" name="password" class="g__form-input input" required> -->
+                </div>
+                {% if request.GET.next %}
+                    <input type="hidden" name="next" value="{{request.GET.next}}">
+                {% endif %}
+                <div class="g__form-row g__form-row-submit">
+                    <button type="submit" class="g__form-btn">Zaloguj</button>
+                    <!-- <a href="../your_dogs/your_dogs.html" class="g__form-btn">Zaloguj</a> -->
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}

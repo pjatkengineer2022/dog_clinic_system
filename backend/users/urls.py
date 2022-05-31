@@ -5,6 +5,7 @@ from django.urls import path
 urlpatterns = [
     path('register/', views.registerUser, name='register_user'),
     path('login/', views.loginUser, name='login_user'),
+    #path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login_user'),
     path('logout/', views.logoutUser, name='logout_user'),
     path('profile/', views.updateProfile, name='update_profile'),
     path('reset_password/',auth_views.PasswordResetView.as_view(

@@ -1,0 +1,44 @@
+& {
+    padding-bottom: 2rem;
+}
+
+// .visit__hours-container {
+//     @import 'plugins/bootstrap.min';
+// }
+
+.visit__hours-form-fields {
+    margin-bottom: 1rem;
+}
+
+.visit__hours-form-submit-wrapper {
+    text-align: right;
+}
+
+.datepicker {
+    background-color: white;
+}
+
+.visit__hours-form {
+    max-width: 50rem;
+    margin: 0 auto;
+}
+
+@include phone-until{
+
+}
+
+@include from($tablet) {
+
+}
+
+@include until($desktop) {
+
+}
+
+@include from($desktop) {
+
+}
+
+@include from($fullhd) {
+
+}

@@ -42,4 +42,9 @@ $(document).ready(function(){
 
         $('.js-term-input').val(selectedTerm);
     });
+
+    // $('select').on('change', function(){
+    //     swiperTermsCalendar.update();
+    // });
 });
+

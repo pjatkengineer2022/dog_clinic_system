@@ -1,26 +1,40 @@
 -------------account_edit
-add_diagnosis
-add_dog
-contact
-diseases
-diseases_history
-doctor_browse_patients
-doctor_check_visits--------------> w dekoratorach zmienić dla doctor_only przekierowanie z 'home' na 'doctor_check_visits'
-doctor_login
-doctors
+-------------add_diagnosis
+-------------add_dog
+-------------edit_dog
+-------------contact
+-------------disease
+-------------diseases_history
+-------------doctor_browse_patients
+-------------doctor_check_visits
+-------------doctor_login
+-------------doctors
 -------------password reset sites
--------------navbar---------------> zmienić belkę dla lekarza
--------------base
+-------------navbar navbar_doctor
+-------------base base_doctor
 -------------home
--------------login-> we views.py  zmienić przekierowanie z 'home' na stronę 'twoje psy'
-medicines
-medicines_history
--------------register-> we views.py po rejestracji zrobić przekierowanie  z 'home' na stronę 'twoje psy'
-reservation
-single_doctor
-visits
-visits_history
-your_dogs
+-------------login
+-------------medicines
+-------------medicines_history
+-------------register
+-------------reservation  +  link w navbarach do rezerwacji 
+-------------cennik
+-------------single_doctor
+-------------visits
+-------------visits_history
+-------------your_dogs
+-------------add_medicines
+-------------add_doctor_shift
+-------------doctor_shift_list
 
-------------------------------------------------
-po podłączeniu postgresa trzeba będzie jeszcze raz dodać grupy; owner, doctor
+
+
+-----------------------------------------------------------------------------------------------------------
+-------------utworzyć klasę Medicine_History
+-------------poprawa stronek
+-------------zainkludowanie nowych stronek
+-------------zbudowanie i podłączenie API 
+
+-------------wyszukiwarka na stronkach z listą
+-------------upload zdjęć -> walidacja rozmiaru
+-------------podłączyć wszedzie tam gdzie trzeba dekoratory

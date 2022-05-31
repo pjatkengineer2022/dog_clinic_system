@@ -112,6 +112,13 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="g__search-wrapper">
+                            <form method="GET" action="{% url 'diseases_history' pet.id %}">
+                                <input class="input" type="text" name="q" placeholder="Search treatment..."/ >
+                                <input type="submit" hidden />
+                            </form>
+                        </div>
                         <div class="visits__container">
                             <ul class="visit__list">
                                 <li class="g__row-box">
@@ -119,80 +126,46 @@
                                         Choroba 1
                                     </h2>
                                     <div class="g__row-box-content is-multiline columns">
-                                        <div class="g__row-box-column column is-3-desktop is-full-touch">
+                                        <div class="g__row-box-column column is-7-desktop is-full-touch">
                                             <div class="g__row-box-subheader">
-                                                Uwagi pacjenta:
+                                               Opis choroby:
                                             </div>
                                             <div class="g__row-box-desc">
                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et commodo turpis. Nullam quis enim maximus, dignissim nibh feugiat, auctor justo. Sed congue dictum accumsan.
                                             </div>
                                         </div>
-                                        <div class="g__row-box-column column is-3-desktop is-full-touch">
-                                            <div class="g__row-box-subheader">
-                                                Diagnoza:
-                                            </div>
-                                            <div class="g__row-box-desc">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et commodo turpis. Nullam quis enim maximus
-                                            </div>
-                                        </div>
-                                        <div class="g__row-box-column column is-3-desktop is-full-touch">
+                                        <div class="g__row-box-column column is-5-desktop is-full-touch">
                                             <div class="g__row-box-subheader">
                                                 Okres choroby:
                                             </div>
                                             <div class="g__row-box-desc">
                                                 Od 20.10.2021 do 24.12.2021
-                                            </div>
-                                        </div>
-                                        <div class="g__row-box-column column is-3-desktop is-full-touch">
-                                            <div class="g__row-box-subheader">
-                                                Zaleceana terapia:
-                                            </div>
-                                            <div class="g__row-box-desc">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et commodo turpis. Nullam quis enim maximus, dignissim nibh feugiat, auctor justo. Sed congue dictum accumsan.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="g__row-box">
-                                    <h2 class="g__row-box-header">
-                                        Choroba 1
-                                    </h2>
-                                    <div class="g__row-box-content is-multiline columns">
-                                        <div class="g__row-box-column column is-3-desktop is-full-touch">
-                                            <div class="g__row-box-subheader">
-                                                Uwagi pacjenta:
-                                            </div>
-                                            <div class="g__row-box-desc">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et commodo turpis. Nullam quis enim maximus, dignissim nibh feugiat, auctor justo. Sed congue dictum accumsan.
-                                            </div>
-                                        </div>
-                                        <div class="g__row-box-column column is-3-desktop is-full-touch">
-                                            <div class="g__row-box-subheader">
-                                                Diagnoza:
-                                            </div>
-                                            <div class="g__row-box-desc">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et commodo turpis. Nullam quis enim maximus
-                                            </div>
-                                        </div>
-                                        <div class="g__row-box-column column is-3-desktop is-full-touch">
-                                            <div class="g__row-box-subheader">
-                                                Okres choroby:
-                                            </div>
-                                            <div class="g__row-box-desc">
-                                                Od 20.10.2021 do 24.12.2021
-                                            </div>
-                                        </div>
-                                        <div class="g__row-box-column column is-3-desktop is-full-touch">
-                                            <div class="g__row-box-subheader">
-                                                Zaleceana terapia:
-                                            </div>
-                                            <div class="g__row-box-desc">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et commodo turpis. Nullam quis enim maximus, dignissim nibh feugiat, auctor justo. Sed congue dictum accumsan.
                                             </div>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
+                            <!-- pagination start -->
+                            {% if visits.has_previous or visits.has_next %}
+                            <div class="pagination-wrapper">
+                                {% if visits.has_previous %} 
+                                    <a href="?page=1">First</a>
+                                    <a href="?page={{ visits.previous_page_number }}">Previous</a>
+                                {% endif %}
+                                {% for num in visits.paginator.page_range %}
+                                    {% if visits.number == num %}
+                                        <a class="paginate--current" href="?page={{ num }}">{{ num }}</a>
+                                    {% elif num > visits.number|add:'-3' and num < visits.number|add:'3' %}
+                                        <a href="?page={{ num }}">{{ num }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if visits.has_next %}
+                                    <a href="?page={{ visits.next_page_number }}">Next</a>
+                                    <a href="?page={{ visits.paginator.num_pages}}">Last</a>
+                                 {% endif %}
+                            </div>
+                            {% endif %}
+                            <!-- pagination end -->
                         </div>
                     </div>
                 </section>

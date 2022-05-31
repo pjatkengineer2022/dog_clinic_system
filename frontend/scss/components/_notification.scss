@@ -1,0 +1,78 @@
+& {
+    
+    // -webkit-animation: fadeinout 3s linear forwards;
+    // animation: fadeinout 3s linear forwards;
+    // opacity: 0;
+    background-color: rgb(252, 252, 175);
+    width: 100%;
+    position: fixed;
+    top: 4rem;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 9999;
+    box-shadow: 0 0 8px 0px #00000061;
+    max-width: 50rem;
+    text-align: center;
+    font-weight: 700;
+    min-height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: .3s;
+    font-size: 1.2rem;
+    margin: 0 1rem;
+
+    &.--active {
+        opacity: 1;
+        pointer-events: auto;
+        top: 6rem;
+    }
+
+    &.--success {
+        background-color: #50c76c; 
+        color: $pure_white;
+    }
+
+    &.--error {
+        background-color: #f15c6b;
+        color: $pure_white;
+    }
+}
+
+
+
+.notification {
+    
+}
+
+
+@include phone-until{
+
+}
+
+@include from($tablet) {
+
+}
+
+@include until($desktop) {
+
+}
+
+@include from($desktop) {
+
+}
+
+@include from($fullhd) {
+
+}
+
+
+@-webkit-keyframes fadeinout {
+  30% { opacity: 1; }
+}
+
+@keyframes fadeinout {
+  30% { opacity: 1; }
+}

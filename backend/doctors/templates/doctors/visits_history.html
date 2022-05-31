@@ -1,0 +1,123 @@
+{% extends "base_doctor.html" %}
+{% block content %}
+<section 
+    class="c__intro" 
+    style="background-image: url('../../assets/img/visits_bg.jpg');">
+    <div class="intro__content">
+        <h1 class="intro__title animated fadeInDown">Pacjent - Historia wizyt</h1>
+    </div>
+</section>
+<section class="s__visits-history">
+    <div class="l-container-big">
+        <div class="g__head"></div>
+        <div class="g__patient-intro">
+            <div class="g__patient-photo-wrapper">
+                <div class="g__avatar-box patient__photo-box">
+                    <img src="{{pet.avatar.url}}" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
+                </div>
+            </div>
+            <div class="g__patient-text-wrapper">
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Imię:</span>
+                    <span class="g__patient-text-value">{{pet.name}}</span>
+                </div>
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Rasa:</span>
+                    {% if pet.race %}
+                    <span class="g__patient-text-value">{{pet.race}}</span>
+                    {% else %}
+                    <span class="g__patient-text-value">---------------</span>
+                    {% endif %}
+                </div>
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Rok urodzenia:</span>
+                    {% if pet.year_birth %}
+                    <span class="g__patient-text-value">{{pet.year_birth}}</span>
+                    {% else %}
+                    <span class="g__patient-text-value">---------------</span>
+                    {% endif %}
+                </div>
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Właściciel:</span>
+                    {% if pet.owner.profile.name %}
+                    <span class="g__patient-text-value">{{pet.owner.profile.name}}</span>
+                    {% else %}
+                    <span class="g__patient-text-value">{{pet.owner.profile.user.username}}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% include "searching.html" with url_variable='visits_history' url_variable_id=pet.id my_placeholder="Wyszukaj wizytę..." %}
+        <div class="visits__container">
+            <ul class="visit__list">
+                {% for visit in visits %}
+                <li class="g__row-box">
+                    <h2 class="g__row-box-header">
+                        Wizyta:  {{ visit.date.date|date:'Y-m-d' }}
+                    </h2>
+                    <div class="g__row-box-content is-multiline columns">
+                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Prowadzący:
+                            </div>
+                            <div class="g__row-box-date">
+                                {% if visit.doctor.profile.name %} 
+                                    Dr. {{ visit.doctor.profile.name }} 
+                                {% else %}
+                                    Dr. {{ visit.doctor.profile.user.username}}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-4-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Lista Diagnoz:
+                            </div>
+                            <div class="g__row-box-desc">
+                                {% if visit.diagnosis_set.all %}
+                                    {% for diagnosis in visit.diagnosis_set.all %}
+                                        <p>{{diagnosis.visit.date.date }} : {{ diagnosis.description }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    ---------------
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Choroby:
+                            </div>
+                            <div class="g__row-box-desc">
+                                {% if visit.diagnosis_set.all %}
+                                    {% for diagnosis in visit.diagnosis_set.all %}
+                                        <p>{{diagnosis.treatment.start}} : {{diagnosis.treatment.disease.name}}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    ---------------
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-4-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Uwagi właściciela:
+                            </div>
+                            <div class="g__row-box-desc">
+                                {% if visit.ownerComment %}
+                                    {{ visit.ownerComment }}
+                                {% else %}
+                                    ---------------
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                {% include "pagination.html" with variable=visits %}
+            </ul>
+        </div>
+    </div>
+</section>
+<section 
+    class="c__parallax" 
+    style="background-image: url('../../assets/img/parallax8.jpg');">
+</section>
+{% endblock content %}

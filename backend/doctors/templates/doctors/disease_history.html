@@ -1,0 +1,121 @@
+{% extends 'base_doctor.html' %}
+{% block content %}
+<section 
+    class="c__intro" 
+    style="background-image: url('../../assets/img/diseases_bg.jpg');">
+    <div class="intro__content">
+        <h1 class="intro__title animated fadeInDown">Pacjent - Historia chorób </h1>
+    </div>
+</section>
+<section class="s__diseases-history">
+    <div class="l-container-big">
+        <div class="g__head"></div>
+        <div class="g__patient-intro">
+            <div class="g__patient-photo-wrapper">
+                <div class="g__avatar-box patient__photo-box">
+                    <img src="{{pet.avatar.url}}" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
+                </div>
+            </div>
+            <div class="g__patient-text-wrapper">
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Imię:</span>
+                    <span class="g__patient-text-value">{{pet.name}}</span>
+                </div>
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Rasa:</span>
+                    {% if pet.race %}
+                    <span class="g__patient-text-value">{{pet.race}}</span>
+                    {% else %}
+                    <span class="g__patient-text-value">---------------</span>
+                    {% endif %}
+                </div>
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Rok urodzenia:</span>
+                    {% if pet.year_birth %}
+                    <span class="g__patient-text-value">{{pet.year_birth}}</span>
+                    {% else %}
+                    <span class="g__patient-text-value">---------------</span>
+                    {% endif %}
+                </div>
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Właściciel:</span>
+                    {% if pet.owner.profile.name %}
+                    <span class="g__patient-text-value">{{pet.owner.profile.name}}</span>
+                    {% else %}
+                    <span class="g__patient-text-value">{{pet.owner.profile.user.username}}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- <div class="g__search-wrapper">
+            <form method="GET" action="{% url 'diseases_history' pet.id %}">
+                <input class="input" type="text" name="q" placeholder="Search treatment..."/ >
+                <input type="submit" hidden />
+            </form>
+        </div> -->
+        {% include "searching.html" with url_variable='diseases_history' url_variable_id=pet.id my_placeholder="Wyszukaj chorobę..." %}
+        <div class="visits__container">
+            <ul class="visit__list">
+                {% for treatment in treatments %}
+                <li class="g__row-box">
+                    <h2 class="g__row-box-header">
+                        {{treatment.disease.name}}
+                    </h2>
+                    <div class="g__row-box-content is-multiline columns">
+                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Start choroby: <!-- {{treatment.start|date:'Y-m-d'}} -->
+                            </div>
+                            <div class="g__row-box-desc">
+                                {{treatment.start|date:'Y-m-d'}}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-3-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Opis choroby: <!-- {{treatment.disease.description}} -->
+                            </div>
+                            <div class="g__row-box-desc">
+                                {{treatment.disease.description}}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-2-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Lista Leków:
+                            </div>
+                            <div class="g__row-box-desc">
+                                {% if treatment.medicinehistory_set.all%}
+                                    {% for medicinehistory in treatment.medicinehistory_set.all %}
+                                        <p>{{ medicinehistory.medicine.name }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    ------------------
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="g__row-box-column column is-5-desktop is-full-touch">
+                            <div class="g__row-box-subheader">
+                                Diagnozy do choroby:
+                            </div>
+                            <div class="g__row-box-desc">
+                                {% if treatment.diagnosis_set.all%}
+                                    {% for diagnosis in treatment.diagnosis_set.all %}
+                                        <p>{{diagnosis.visit.date.date }} : {{ diagnosis.description }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    ------------------
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                {% include "pagination.html" with variable=treatments %}
+            </ul>
+        </div>
+    </div>
+</section>
+<section 
+    class="c__parallax" 
+    style="background-image: url('../../assets/img/parallax3.jpg');">
+</section>
+{% endblock content %}

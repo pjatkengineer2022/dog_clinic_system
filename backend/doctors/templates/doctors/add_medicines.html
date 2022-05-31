@@ -1,0 +1,43 @@
+{% extends "base_doctor.html" %}
+{% block content %}
+<section class="c__breadcrumb"></section>
+<section class="s__add-medicines">
+    <div class="l-container-big">
+        <div class="g__head">
+            <h1 class="g__title">Dodaj lek</h1>
+        </div>
+        <div class="l-container-small">
+            <form method="POST" action="" class="add__medicines-form">
+                {% csrf_token %}
+                <div class="add__medicines-container">
+                    <div class="add__medicines-form-fields">
+                        <div class="g__form-row">
+                            <label class="g__form-label">Nazwa leku</label>
+                            {{form.name}}
+                            {{form.name.errors}}
+                            <!-- <input class="input"></input> -->
+                        </div>
+                        <div class="g__form-row">
+                            <label class="g__form-label">Opis leku</label>
+                            {{form.description}}
+                            {{form.description.errors}}
+                            <!-- <textarea class="textarea"></textarea> -->
+                        </div>
+                        <div class="g__form-row">
+                            <label class="g__form-label">Producent</label>
+                            {{form.producer}}
+                            {{form.producer.errors}}
+                            <!-- <input class="input"></input> -->
+                        </div>
+                        <div class="g__form-row">
+                            <div class="has-text-right add__medicines-form-submit-wrapper">
+                                <button type="submit" class="g__btn">Dodaj</button>
+                            </div>
+                        </div>	
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}

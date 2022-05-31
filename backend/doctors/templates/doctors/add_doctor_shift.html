@@ -1,0 +1,38 @@
+{% extends "base_doctor.html" %}
+{% block content %}
+<section class="c__breadcrumb"></section>
+<section class="s__add-visit-hours">
+    <div class="l-container-big">
+        <div class="g__head">
+            <h1 class="g__title">Dodaj dyżur na najbliższe dni</h1>
+        </div>
+        <div class="l-container-small">
+            <form method="POST" action="" class="visit__hours-form">
+            {% csrf_token %}
+                <div class="visit__hours-container">
+                    <div class="visit__hours-form-fields">
+                        <div class="g__form-row">
+                            <label class="g__form-label">Rodzaj dyżuru</label>
+                            <div class="select">
+                                {{form.shift}}
+                                {{form.shift.errors}}
+                                <!-- <select name="">
+                                    <option value="D">Dzienny</option>
+                                    <option value="W">Wieczorowy</option>
+                                </select> -->
+                            </div>
+                        </div>
+                        <div class="g__form-row">
+                            <label class="g__form-label">Wybierz dni</label>
+                            <input required="True" autocomplete="off" class="input datepicker" name="datepicker" placeholder="wybierz daty do dyżurów">
+                        </div>	
+                    </div>
+                    <div class="visit__hours-form-submit-wrapper">
+                        <button type="submit" class="g__btn">Dodaj</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}

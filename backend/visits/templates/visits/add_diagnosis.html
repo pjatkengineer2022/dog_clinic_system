@@ -1,0 +1,102 @@
+{% extends "base_doctor.html" %}
+{% block content %}
+<section class="c__breadcrumb"></section>
+<section class="s__add-diagnosis">
+    <div class="l-container-big">
+        <div class="g__head">
+            <h1 class="g__title has-text-centered">Dodawanie diagnozy</h1>
+        </div>
+        <div class="l-container-small add__diagnosis-container">
+            <div class="add__diagnosis-wrapper">
+                <div class="add__diagnosis-form-box">
+                    <form method="POST" action="" class="add__diagnosis-form">
+                        {% csrf_token %}
+                        <div class="add__diagnosis-form-row">
+                            <label class="add__diagnosis-form-label">Objawy (diagnoza):</label>
+                            {{form.description}}
+                            {{form.description.errors}}
+                            <!-- <textarea name="description" class="textarea"></textarea> -->
+                        </div>
+                        <div class="add__diagnosis-form-row">
+                            <label class="add__diagnosis-form-label">Leczenie</label>
+                            <div class="select">
+                                <select required="True" name="treatment_type" id="treatment-type" class="js-treatment-select">
+                                    <option value="1">Nowe leczenie</option>
+                                    <option value="2">Wcześniejsze leczenie</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="add__diagnosis-form-row diagnosis__diseases-row js-new-diseases-row">
+                            <label class="add__diagnosis-form-label">Nowa choroba:</label>
+                            <input name="new_disease" id="js-select-diseases" type="text" class="input">
+                        </div>
+                        <div class="add__diagnosis-form-row diagnosis__diseases-row js-old-diseases-row">
+                            <label class="add__diagnosis-form-label">Stara choroba (Stare leczenie):</label>
+                            <select name="old_disease" id="js-select-old-diseases" class="ui fluid dropdown">
+                                {% for treatment in petTreatments %}
+                                    <option value="{{ treatment.id }}" >{{ treatment.disease.name }} - {{treatment.start|date}}</option>  <!-- value="1"-->
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="add__diagnosis-form-row">
+                            <label class="add__diagnosis-form-label">Leki:</label>
+                            <select id="js-select-medicines" name="medicines" multiple="" class="ui fluid dropdown">
+                                {% for medicine in allMedicines %}
+                                    <option value="{{medicine.id}}">{{medicine.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- <div class="add__diagnosis-form-row">
+                            <label class="add__diagnosis-form-label">Leki:</label>
+                            {{form.medicines}}
+                            {{form.medicines.errors}}
+                        </div> -->
+                        <div class="add__diagnosis-form-row has-text-right">
+                            <button type="submit" class="g__btn">Zapisz</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="add__diagnosis-patient-info-box">
+                    <div class="g__patient-intro">
+                        <div class="g__patient-text-wrapper add__diagnosis-patient-intro-text-wrapper">
+                            <div class="g__patient-text-row">
+                                <span class="g__patient-text-label">Imię:</span>
+                                <span class="g__patient-text-value">{{pet.name}}</span>
+                            </div>
+                            <div class="g__patient-text-row">
+                                <span class="g__patient-text-label">Rasa:</span>
+                                {% if pet.race %}
+                                <span class="g__patient-text-value">{{pet.race}}</span>
+                                {% else %}
+                                <span class="g__patient-text-value">---------------</span>
+                                {% endif %}
+                            </div>
+                            <div class="g__patient-text-row">
+                                <span class="g__patient-text-label">Rok urodzenia:</span>
+                                {% if pet.year_birth %}
+                                <span class="g__patient-text-value">{{pet.year_birth}}</span>
+                                {% else %}
+                                <span class="g__patient-text-value">---------------</span>
+                                {% endif %}
+                            </div>
+                            <div class="g__patient-text-row">
+                                <span class="g__patient-text-label">Właściciel:</span>
+                                {% if pet.owner.profile.name %}
+                                <span class="g__patient-text-value">{{pet.owner.profile.name}}</span>
+                                {% else %}
+                                <span class="g__patient-text-value">{{pet.owner.profile.user.username}}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="g__patient-photo-wrapper">
+                            <div class="g__avatar-box patient__photo-box">
+                                <img src="{{pet.avatar.url}}" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

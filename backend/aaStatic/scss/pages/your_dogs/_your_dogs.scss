@@ -144,7 +144,22 @@
     }
 }
 
+.dog__item {
+    &-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
+    &-label {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-right: .6rem;
+    }
+
+    &-value {
+        font-size: 1.4rem;
+    }
+}
 
 
 @include phone-until{

@@ -1,5 +1,4 @@
-from .forms import UserRegisterForm
-from .forms import UserAuthenticationForm, ProfileRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserAuthenticationForm, ProfileRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -14,6 +13,7 @@ def registerUser(request):
             userForm = UserRegisterForm(request.POST)
             profileRegisterForm = ProfileRegisterForm(request.POST) #needed for checking typed data in next line (if profileRegisterForm.is_valid()) 
             if userForm.is_valid() and profileRegisterForm.is_valid():
+                human=True
                 #Save User & create profile by signals
                 user = userForm.save(commit=False)
                 user.username = user.username.lower()
@@ -32,8 +32,8 @@ def registerUser(request):
                     if user is not None:
                         login(request, user)
                         #messages.add_message(request, messages.INFO, 'Użytkownik utworzony i zalogowany')
-                        messages.info(request, 'Użytkownik utworzony i zalogowany')
-                        return redirect('update_profile')
+                        messages.success(request, 'Użytkownik utworzony i zalogowany')
+                        return redirect('your_dogs')
                 except:
                     messages.error(request, 'Użytkownik utworzony ale nie można było się zalogować')
                     return redirect('login_user')
@@ -50,7 +50,10 @@ def loginUser(request):
             if form.is_valid():
                 user = form.get_user()                 
                 login(request, user)
-                return redirect('home')
+                if 'next' in request.POST:
+                    return redirect(request.POST.get('next'))
+                else:
+                    return redirect('your_dogs')
             else:
                 messages.error(request, 'Zła nazwa użytkownika lub hasło')
         context={'form':form}
@@ -68,7 +71,7 @@ def logoutUser(request):
     return redirect('home')
 
 @login_required
-def updateProfile(request,):
+def updateProfile(request):
     userUpdateForm = UserUpdateForm(instance=request.user)
     profileUpdateForm = ProfileUpdateForm(instance=request.user.profile)
     if request.method == 'POST':

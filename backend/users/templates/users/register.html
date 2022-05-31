@@ -32,6 +32,11 @@
                         {{userForm.password2.errors}}
                         <!-- <input type="password" name="password2" class="g__form-input input" required> -->
                     </div>
+                    <div>
+                        <label class="g__form-label">Wpisz tekst z obrazka</label>
+                    </div>
+                    {{ userForm.captcha }}
+                    {{ userForm.captcha.errors }}
                     <div class="g__form-row g__form-row-submit">
                         <button type="submit" class="g__form-btn">Zarejestruj</button>
                         <!-- <a href="../your_dogs/your_dogs.html" class="g__form-btn">Zarejestruj</a> -->

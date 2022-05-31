@@ -16,11 +16,17 @@
 }
 
 .dog__bottom {
-    text-align: center;
+    text-align: right;
+    margin-top: 2rem;
 }
 
 .dog__wrapper {
     margin-bottom: 4rem;
+}
+
+.dog__inputs-wrapper {
+    max-width: 28.375rem;
+    margin-left: auto;
 }
 
 @include phone-until{
