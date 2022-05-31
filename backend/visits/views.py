@@ -44,7 +44,7 @@ def add_diagnosis(request, visitid):
                         try:
                             disease = Disease.objects.get(id=d.id)
                         except Disease.DoesNotExist:
-                            messages('nie można stworzyć diagnozy -choroba nie istnieje, (nieoczekiwany błąd)')
+                            messages.error(request, 'nie można stworzyć diagnozy -choroba nie istnieje, (nieoczekiwany błąd)')
                             return redirect('doctor_check_visits')
                 if disease is not None:
                     disease = Disease.objects.create(name=new_disease_name, description=" ")
@@ -56,7 +56,7 @@ def add_diagnosis(request, visitid):
                 try:
                     treatment = Treatment.objects.get(id=old_disease_treatment_id)
                 except Treatment.DoesNotExist:
-                    messages('nie można stworzyć diagnozy -treatment(leczenie) nie istnieje, (nieoczekiwany błąd)')
+                    messages.error(request, 'nie można stworzyć diagnozy -treatment(leczenie) nie istnieje, (nieoczekiwany błąd)')
                     return redirect('doctor_check_visits')
             else:
                 messages.error(request, 'wpisz nową chorobę lub wybierz starą')
@@ -67,7 +67,7 @@ def add_diagnosis(request, visitid):
                 try:
                     medicine = Medicine.objects.get(id=medicine_id)
                 except Medicine.DoesNotExist:
-                    messages(request, 'nie można stworzyć diagnozy - lek nie istnieje')
+                    messages.error(request, 'nie można stworzyć diagnozy - lek nie istnieje')
                     return redirect('doctor_check_visits')
                 else:
                     MedicineHistory.objects.create(medicine=medicine, treatment=treatment)
@@ -77,7 +77,7 @@ def add_diagnosis(request, visitid):
             except:
                 messages.error(request,'nie można stworzyć diagnozy')
             else:
-                messages.info(request,'poprawnie utworzono diagnozę')
+                messages.success(request,'poprawnie utworzono diagnozę')
                 return redirect('doctor_check_visits')
         else:
             messages.error(request, 'musisz opisać objawy')
@@ -94,7 +94,7 @@ def visitCreation(request, patients, doctors, renderSite, redirectSite):
             patient = Pet.objects.get(id = request.POST.get('visitPatientId'))
             doctor = Doctor.objects.get(id = request.POST.get('visitDoctorId'))
         except Pet.DoesNotExist:
-            messages("Zwierzak lub Doktor nie istnieje")
+            messages.error(request, "Zwierzak lub Doktor nie istnieje")
             return redirect(redirectSite)
         #owner comment
         ownerComment = request.POST.get('visitOwnerComment')
@@ -112,7 +112,7 @@ def visitCreation(request, patients, doctors, renderSite, redirectSite):
                     if patient in patients:
                         if doctor in doctors:
                             Visit.objects.create(pet=patient, doctor = doctor, ownerComment=ownerComment, date=date)
-                            messages.info(request, 'Poprawnie zarezerwowałeś wizytę')
+                            messages.success(request, 'Poprawnie zarezerwowałeś wizytę')
                             return redirect(redirectSite)
                         else:
                             messages.error(request, 'Doktor nie istnieje')

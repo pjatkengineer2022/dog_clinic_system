@@ -1,0 +1,16 @@
+{% if messages %}
+<section class="c__breadcrumb">
+    {% for message in messages %}
+        <!-- 
+            dostępne klasy: --success, --error, bez klasy domyślnie jest neutralny kolor    
+        -->
+        <div class="c__notification js-notification-component box --{{ message.tags }}">
+            <div class="notification__box">
+                <div class="notification__text">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</section>
+{% endif %}

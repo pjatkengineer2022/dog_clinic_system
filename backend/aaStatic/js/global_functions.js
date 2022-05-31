@@ -24,3 +24,15 @@ function topNavigation() {
     });
 }
 
+function globalMethods() {
+    $('.js-reminder-close-btn').on("click", function() {
+        $('.js-reminder-element').slideUp();
+    });
+
+    $(".js-notification-component").addClass('--active');
+
+    setTimeout(function(){
+        $(".js-notification-component").removeClass('--active');
+    }, 4000);
+}
+

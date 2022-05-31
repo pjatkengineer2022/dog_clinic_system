@@ -76,9 +76,15 @@ def dog_diseases_history_list(request, id):
     try:
         pet = Pet.objects.get(id=id)
     except:
-        messages.error(request, 'dog is not exist')
+        messages.error(request, 'pies nie istnieje')
         return redirect('doctor_browse_patients')
-    treatments = pet.treatment_set.all()
+    #searching part:
+    q= request.GET.get('q') if request.GET.get('q') != None else ''
+    treatments = pet.treatment_set.all().filter(
+        Q(disease__name__icontains = q)
+        | Q(start__icontains = q)
+        | Q(medicinehistory__medicine__name__icontains = q)
+    )
     #pagination
     page = request.GET.get('page', 1)
     paginator = Paginator(treatments, 2) # 5 users per page
@@ -99,7 +105,7 @@ def dog_medicines_history_list(request, id):
     try:
         pet = Pet.objects.get(id=id)
     except:
-        messages.error(request, 'dog is not exist')
+        messages.error(request, 'pies nie istnieje')
         return redirect('doctor_browse_patients')
     treatments = pet.treatment_set.all()
     medicines = Medicine.objects.all()
@@ -122,7 +128,7 @@ def dog_visits_history_list(request, id):
     try:
         pet = Pet.objects.get(id=id)
     except:
-        messages.error(request, 'dog is not exist')
+        messages.error(request, 'pies nie istnieje')
         return redirect('doctor_browse_patients')
     visits = Visit.objects.filter(Q(pet = pet))
     #pagination
@@ -166,7 +172,7 @@ def add_medicines(request):
                     messages.error(request, 'lek już istnieje')
                     return redirect('add_medicines')
             medicine.save()
-            messages.info(request, 'lek poprawnie dodano')
+            messages.success(request, 'lek poprawnie dodano')
             return redirect('add_medicines')
         else:
             messages.error(request, 'nie można było dodać leku')
@@ -205,7 +211,7 @@ def add_doctor_shift(request):
                         messages.error(request, f'nie można dodać dyżurów')
                         context = {'form':form}
                         return render(request, "doctors/add_doctor_shift.html", context)
-                messages.info(request, 'poprawnie dodano dyżury')
+                messages.success(request, 'poprawnie dodano dyżury')
                 return redirect('doctor_shift_list')# zmienić na jakąś stronkę co wyswietla wszystkie dyżury 
             else:
                 messages.error(request, 'nie ustawiono dyżurów')

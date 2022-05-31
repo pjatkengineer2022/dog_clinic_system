@@ -31,7 +31,7 @@ def edit_dog_profile(request, id):
     try:
         pet = Pet.objects.get(id=id)
     except:
-        messages.error(request, "can't edit your dog")
+        messages.error(request, "nie można edytować twojego psa")
         return redirect('your_dogs')
     profile_form=PetCreateUpdateForm(instance=pet)
     if request.method == 'POST':
@@ -69,7 +69,7 @@ def dog_diseases_list(request, id):
     try:
         pet = Pet.objects.get(id=id)
     except:
-        messages.error(request, 'dog is not exist')
+        messages.error(request, 'pies nie istnieje')
         return redirect('your_dogs')
     treatments = pet.treatment_set.all()
     #pagination
@@ -89,7 +89,7 @@ def dog_medicines_list(request, id):
     try:
         pet = Pet.objects.get(id=id)
     except:
-        messages.error(request, 'dog is not exist')
+        messages.error(request, 'pies nie istnieje')
         return redirect('your_dogs')
     treatments = pet.treatment_set.all()
     medicines = Medicine.objects.all()
@@ -111,7 +111,7 @@ def dog_visits_list(request, id):
     try:
         pet = Pet.objects.get(id=id)
     except:
-        messages.error(request, 'dog is not exist')
+        messages.error(request, 'pies nie istnieje')
         return redirect('your_dogs')
     visits = Visit.objects.filter(pet = pet)
     #pagination

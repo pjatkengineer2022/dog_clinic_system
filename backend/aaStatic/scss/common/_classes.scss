@@ -269,6 +269,47 @@
   text-align: center;
 }
 
+
+.g__search {
+  &-wrapper {
+    max-width: 40rem;
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+
+    form {
+      // display: flex;
+
+      i {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+.pagination-wrapper {
+  margin-top: 1.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  a {
+    background-color: $pure_white;
+    min-width: 2.5rem;
+    border: 1px solid $pure_black;
+    padding: .5rem;
+    border-radius: 4px;
+    display: inline-block;
+    text-align: center;
+    font-weight: 600;
+    margin: .2rem;
+
+    &.paginate--current {
+      background-color: $main_color;
+    }
+  }
+}
+
 @include phone-until{
 
 }
