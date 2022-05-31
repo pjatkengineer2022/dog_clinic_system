@@ -47,13 +47,13 @@
                 </div>
             </div>
         </div>
+        {% include "searching.html" with url_variable='medicines_history' url_variable_id=pet.id my_placeholder="Wyszukaj lek..." %}
         <div class="visits__container">
             <ul class="visit__list">
-                {% for treatment in treatments %}
-                    {% for medicinehistory in treatment.medicinehistory_set.all %} 
+                {% for medicinehistory in medicine_histories %}
                     <li class="g__row-box">
                         <h2 class="g__row-box-header">
-                            {{medicinehistory.medicine.name}} - producent:{{medicinehistory.medicine.producer.name}}
+                            {{medicinehistory.medicine.name}} - producent: {{medicinehistory.medicine.producer.name}}
                         </h2>
                         <div class="g__row-box-content is-multiline columns">
                             <div class="g__row-box-column column is-2-desktop is-full-touch">
@@ -61,7 +61,7 @@
                                     Start terapii:
                                 </div>
                                 <div class="g__row-box-desc">
-                                    {{treatment.start|date:'Y-m-d'}}
+                                    {{medicinehistory.treatment.start|date:'Y-m-d'}}
                                 </div>
                             </div>
                             <div class="g__row-box-column column is-4-desktop is-full-touch">
@@ -69,7 +69,7 @@
                                     Opis leku:
                                 </div>
                                 <div class="g__row-box-desc">
-                                    {{medicine.description}}
+                                    {{medicinehistory.medicine.description}}
                                 </div>
                             </div>
                             <div class="g__row-box-column column is-2-desktop is-full-touch">
@@ -77,7 +77,7 @@
                                     Choroba:
                                 </div>
                                 <div class="g__row-box-desc">
-                                    {{treatment.disease.name}}
+                                    {{medicinehistory.treatment.disease.name}}
                                 </div>
                             </div>
                             <div class="g__row-box-column column is-4-desktop is-full-touch">
@@ -85,8 +85,8 @@
                                     Diagnozy do choroby:
                                 </div>
                                 <div class="g__row-box-desc">
-                                    {% if treatment.diagnosis_set.all%}
-                                        {% for diagnosis in treatment.diagnosis_set.all %}
+                                    {% if medicinehistory.treatment.diagnosis_set.all%}
+                                        {% for diagnosis in medicinehistory.treatment.diagnosis_set.all %}
                                             <p>{{diagnosis.visit.date.date }} : {{ diagnosis.description }}</p>
                                         {% endfor %}
                                     {% else %}
@@ -96,23 +96,22 @@
                             </div>
                         </div>
                     </li>
-                    {% endfor %}
                 {% endfor %}
-                {% if treatments.has_previous or treatments.has_next %}
-                    {% if treatments.has_previous %}
+                {% if medicine_histories.has_previous or medicine_histories.has_next %}
+                    {% if medicine_histories.has_previous %}
                         <a href="?page=1">First</a>
-                        <a href="?page={{ treatments.previous_page_number }}">Previous</a>
+                        <a href="?page={{ medicine_histories.previous_page_number }}">Previous</a>
                     {% endif %}
-                    {% for num in treatments.paginator.page_range %}
-                        {% if treatments.number == num %}
+                    {% for num in medicine_histories.paginator.page_range %}
+                        {% if medicine_histories.number == num %}
                             <a href="?page={{ num }}">{{ num }}</a>
-                        {% elif num > treatments.number|add:'-3' and num < treatments.number|add:'3' %}
+                        {% elif num > medicine_histories.number|add:'-3' and num < medicine_histories.number|add:'3' %}
                             <a href="?page={{ num }}">{{ num }}</a>
                         {% endif %}
                     {% endfor %}
-                    {% if treatments.has_next %}
-                        <a href="?page={{ treatments.next_page_number }}">Next</a>
-                        <a href="?page={{ treatments.paginator.num_pages}}">Last</a>
+                    {% if medicine_histories.has_next %}
+                        <a href="?page={{ medicine_histories.next_page_number }}">Next</a>
+                        <a href="?page={{ medicine_histories.paginator.num_pages}}">Last</a>
                     {% endif %}
                 {% endif %}
             </ul>

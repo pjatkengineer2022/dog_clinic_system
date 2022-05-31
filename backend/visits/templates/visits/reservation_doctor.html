@@ -34,14 +34,12 @@
                                         <label class="reservation__form-label">Wybierz lekarza:</label>
                                         <div class="reservation__form-select select is-fullwidth">
                                             <select
+                                                class="js-doctor-select" 
                                                 x-on:change="filterDoctor()"
                                                 x-model="selectedDoctorId"
                                                 name="visitDoctorId"
                                             >
-                                                <option value="">--</option>
-                                                {% for doctor in doctors %}
-                                                    <option value="{{doctor.id}}">{{doctor.profile.name}}</option>
-                                                {% endfor %}
+                                                <option selected value="{{doctors.id}}">{{doctors.profile.name}}</option>
                                             </select>
                                         </div>
                                     </div>

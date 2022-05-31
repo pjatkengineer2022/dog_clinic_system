@@ -53,7 +53,7 @@
                 <input type="submit" hidden />
             </form>
         </div> -->
-        {% include "searching.html" with url_variable='diseases_history' url_variable_id='pet.id'%}
+        {% include "searching.html" with url_variable='diseases_history' url_variable_id=pet.id my_placeholder="Wyszukaj chorobę..." %}
         <div class="visits__container">
             <ul class="visit__list">
                 {% for treatment in treatments %}

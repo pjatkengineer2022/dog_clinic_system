@@ -10,6 +10,7 @@
 <section class="s__doctor-check-visits">
     <div class="l-container-big">
         <div class="g__head"></div>
+        {% include "searching.html" with url_variable='doctor_check_visits' my_placeholder="Wyszukaj wizytę..." %} 
         <div class="diseases__container">
             <ul class="disease__list">
                 {% for visit in visits %}

@@ -10,6 +10,7 @@
 <section class="s__doctor-browse-patients">
     <div class="l-container-big">
         <div class="g__head"></div>
+        {% include "searching.html" with url_variable='doctor_browse_patients' my_placeholder="Wyszukaj pacjenta..." %}   
         <div class="patients__container">
             <ul class="patient__list">
                 {% for pet in pets %}

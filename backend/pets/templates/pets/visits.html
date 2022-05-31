@@ -11,6 +11,7 @@
     <div class="l-container-big">
         <div class="g__head">
         </div>
+        {% include "searching.html" with url_variable='visits_history' url_variable_id=pet.id my_placeholder="Wyszukaj wizytę..." %}
         <div class="visits__container">
             <ul class="visit__list">
                 {% for visit in visits %}

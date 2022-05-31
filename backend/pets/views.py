@@ -5,17 +5,19 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q	
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
 from visits.models import Visit
-from .models import Medicine, Pet
+from .models import Medicine, Pet, MedicineHistory
 from .forms import PetCreateUpdateForm  #, PetAvatarCreateUpdateForm, PetCreateForm
+from aaConfig.functions import pagination
 
 class PetListView(LoginRequiredMixin, ListView):
     model=Pet
     context_object_name = 'pets'
-    paginate_by = 2
+    paginate_by = 5
     template_name = 'pets/your_dogs.html'
     def get_queryset(self):
         try:
@@ -75,16 +77,15 @@ def dog_diseases_list(request, id):
     except:
         messages.error(request, 'pies nie istnieje')
         return redirect('your_dogs')
-    treatments = pet.treatment_set.all()
+    #searching part:
+    q= request.GET.get('q') if request.GET.get('q') != None else ''
+    treatments = pet.treatment_set.all().filter(
+        Q(disease__name__icontains = q)
+        | Q(start__icontains = q)
+        | Q(medicinehistory__medicine__name__icontains = q)
+    )
     #pagination
-    page = request.GET.get('page', 1)
-    paginator = Paginator(treatments, 2) # 5 users per page
-    try:
-        treatments = paginator.get_page(page)
-    except PageNotAnInteger:
-        treatments = paginator.page(1)
-    except EmptyPage:
-        treatments = paginator.page(1)
+    treatments = pagination(request, treatments)
     context={'treatments':treatments}
     return render(request, 'pets/disease.html', context)
 
@@ -95,19 +96,18 @@ def dog_medicines_list(request, id):
     except:
         messages.error(request, 'pies nie istnieje')
         return redirect('your_dogs')
-    treatments = pet.treatment_set.all()
-    medicines = Medicine.objects.all()
-    #dog_medicines = [medicine if medicine in treatment.medicine.all() else None for medicine in medicines for treatment in treatments]
+    #searching part
+    q= request.GET.get('q') if request.GET.get('q') != None else ''
+    treatments = pet.treatment_set.all().filter(
+        Q(medicinehistory__medicine__name__icontains = q)
+        | Q(medicinehistory__medicine__producer__name__icontains = q)
+        | Q(start__icontains = q)
+        | Q(disease__name__icontains = q)
+    )
+    medicine_histories = MedicineHistory.objects.filter(treatment__in=treatments)
     #pagination
-    page = request.GET.get('page', 1)
-    paginator = Paginator(treatments, 2) # 5 users per page
-    try:
-        treatments = paginator.get_page(page)
-    except PageNotAnInteger:
-        treatments = paginator.page(1)
-    except EmptyPage:
-        treatments = paginator.page(1)
-    context={'treatments':treatments, 'medicines':medicines}
+    medicine_histories = pagination(request, medicine_histories)
+    context={'medicine_histories':medicine_histories}
     return render(request, 'pets/medicines.html', context)
 
 @login_required
@@ -117,15 +117,15 @@ def dog_visits_list(request, id):
     except:
         messages.error(request, 'pies nie istnieje')
         return redirect('your_dogs')
-    visits = Visit.objects.filter(pet = pet)
+    visits = Visit.objects.filter(Q(pet = pet))
+    #searching part
+    q= request.GET.get('q') if request.GET.get('q') != None else ''
+    visits = visits.filter(
+        Q(doctor__profile__name__icontains = q) |
+        Q(date__icontains = q) |
+        Q(diagnosis__treatment__disease__name__icontains = q)
+    )
     #pagination
-    page = request.GET.get('page', 1)
-    paginator = Paginator(visits, 2) # 5 per page
-    try:
-        visits = paginator.get_page(page)
-    except PageNotAnInteger:
-        visits = paginator.page(1)
-    except EmptyPage:
-        visits = paginator.page(1)
+    visits = pagination(request, visits)
     context={'visits':visits}
     return render(request, 'pets/visits.html', context)

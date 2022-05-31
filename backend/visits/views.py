@@ -140,8 +140,8 @@ def owner_book_visit_no_patient(request):
 @doctor_only
 def doctor_book_visit_no_patient(request):
     patients = Pet.objects.all()
-    doctors = [request.user.profile.doctor]
-    return visitCreation(request=request,patients=patients, doctors=doctors, renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits')
+    doctor = request.user.profile.doctor #[request.user.profile.doctor]
+    return visitCreation(request=request,patients=patients, doctors=doctor, renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits')
 
 @login_required
 def owner_book_visit_with_patient(request, petid):
@@ -160,7 +160,7 @@ def doctor_book_visit_with_patient(request, petid):
         patients = [Pet.objects.get(id=petid)]
     except Pet.DoesNotExist:
         return redirect('doctor_check_visits')
-    doctors = [request.user.profile.doctor]
+    doctor = request.user.profile.doctor #[request.user.profile.doctor]
     nearVisit = Visit.objects.filter(Q(pet__id=petid)).order_by('date').first()
-    return visitCreation(request=request,patients=patients, doctors=doctors,  renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits', nearVisit=nearVisit)
+    return visitCreation(request=request,patients=patients, doctors=doctor,  renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits', nearVisit=nearVisit)
     

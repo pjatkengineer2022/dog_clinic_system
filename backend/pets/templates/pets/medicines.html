@@ -10,10 +10,10 @@
     <div class="l-container-big">
         <div class="g__head">
         </div>
+        {% include "searching.html" with url_variable='medicines_history' url_variable_id=pet.id my_placeholder="Wyszukaj lek..." %}
         <div class="medicines__container">
             <ul class="medicine__list">
-                {% for treatment in treatments %}
-                    {% for medicine in treatment.medicine.all%}
+                {% for medicinehistory in medicine_histories %}
                     <li class="g__row-box">
                         <h2 class="g__row-box-header">
                             {{medicinehistory.medicine.name}} - producent:{{medicinehistory.medicine.producer.name}}
@@ -24,7 +24,7 @@
                                     Start terapii:
                                 </div>
                                 <div class="g__row-box-desc">
-                                    {{treatment.start|date:'Y-m-d'}}
+                                    {{medicinehistory.treatment.start|date:'Y-m-d'}}
                                 </div>
                             </div>
                             <div class="g__row-box-column column is-4-desktop is-full-touch">
@@ -40,7 +40,7 @@
                                     Choroba:
                                 </div>
                                 <div class="g__row-box-desc">
-                                    {{treatment.disease.name}}
+                                    {{medicinehistory.treatment.disease.name}}
                                 </div>
                             </div>
                             <div class="g__row-box-column column is-4-desktop is-full-touch">
@@ -48,8 +48,8 @@
                                     Diagnozy do choroby:
                                 </div>
                                 <div class="g__row-box-desc">
-                                    {% if treatment.diagnosis_set.all%}
-                                        {% for diagnosis in treatment.diagnosis_set.all %}
+                                    {% if medicinehistory.treatment.diagnosis_set.all%}
+                                        {% for diagnosis in medicinehistory.treatment.diagnosis_set.all %}
                                             <p>{{diagnosis.visit.date.date }} : {{ diagnosis.description }}</p>
                                         {% endfor %}
                                     {% else %}
@@ -59,7 +59,6 @@
                             </div>
                         </div>
                     </li>
-                    {% endfor %}
                 {% endfor %}
                 {% if treatments.has_previous or treatments.has_next %}
                     {% if treatments.has_previous %}
