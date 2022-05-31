@@ -156,7 +156,7 @@ def doctor_check_visits_list(request):
 @doctor_only
 def doctor_shift_list(request):
     doctorShifts = DoctorShift.objects.filter(date__gte =datetime.today()).order_by('date','shift__startTime')
-    doctorShifts = pagination(request, doctorShifts, 10)
+    doctorShifts = pagination(request, doctorShifts)
     context={'doctorShifts':doctorShifts}
     return render(request, "doctors/doctor_shift_list.html", context)
 

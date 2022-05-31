@@ -97,23 +97,7 @@
                         </div>
                     </li>
                 {% endfor %}
-                {% if medicine_histories.has_previous or medicine_histories.has_next %}
-                    {% if medicine_histories.has_previous %}
-                        <a href="?page=1">First</a>
-                        <a href="?page={{ medicine_histories.previous_page_number }}">Previous</a>
-                    {% endif %}
-                    {% for num in medicine_histories.paginator.page_range %}
-                        {% if medicine_histories.number == num %}
-                            <a href="?page={{ num }}">{{ num }}</a>
-                        {% elif num > medicine_histories.number|add:'-3' and num < medicine_histories.number|add:'3' %}
-                            <a href="?page={{ num }}">{{ num }}</a>
-                        {% endif %}
-                    {% endfor %}
-                    {% if medicine_histories.has_next %}
-                        <a href="?page={{ medicine_histories.next_page_number }}">Next</a>
-                        <a href="?page={{ medicine_histories.paginator.num_pages}}">Last</a>
-                    {% endif %}
-                {% endif %}
+                {% include "pagination.html" with variable=medicine_histories %}
             </ul>
         </div>
     </div>

@@ -1,0 +1,21 @@
+<!-- pagination start -->
+{% if variable.has_previous or variable.has_next %}
+<div class="pagination-wrapper">
+    {% if variable.has_previous %} 
+        <a href="?page=1">First</a>
+        <a href="?page={{ variable.previous_page_number }}">Previous</a>
+    {% endif %}
+    {% for num in variable.paginator.page_range %}
+        {% if variable.number == num %}
+            <a class="paginate--current" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > variable.number|add:'-3' and num < variable.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+    {% if variable.has_next %}
+        <a href="?page={{ variable.next_page_number }}">Next</a>
+        <a href="?page={{ variable.paginator.num_pages}}">Last</a>
+     {% endif %}
+</div>
+{% endif %}
+<!-- pagination end -->

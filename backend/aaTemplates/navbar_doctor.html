@@ -48,11 +48,12 @@
                                 <div class="menu__page-list">
                                     <a href="{% url 'doctor_check_visits' %}" class="menu__page-link">Sprawdź wizyty</a>
                                     <a href="{% url 'doctor_browse_patients' %}" class="menu__page-link">Przeglądaj pacjentów</a>
-                                    <a href="../reservation/reservation.html" class="menu__page-link">Zarezerwuj wizytę dla pacjenta</a>
+                                    <a href="{% url 'doctor_add_visit' %}" class="menu__page-link">Zarezerwuj wizytę dla pacjenta</a>
                                     <a href="{% url 'add_medicines' %}" class="menu__page-link">Dodaj Lek</a>
+                                    <a href="{% url 'doctor_shift_list' %}" class="menu__page-link">Dyżury</a>
                                 </div>
                                 <div class="menu__account-links">
-                                    <a href="../doctor_login/doctor_login.html" class="menu__page-account-link">Zaloguj</a>
+                                    <a href="{% url 'login_doctor' %}" class="menu__page-account-link">zaloguj</a>
                                 </div>
                             </div>
                             {% if request.user.is_authenticated %}

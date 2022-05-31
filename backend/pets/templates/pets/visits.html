@@ -75,23 +75,7 @@
                     </div>
                 </li>
                 {% endfor %}
-                {% if visits.has_previous or visits.has_next %}
-                    {% if visits.has_previous %}
-                        <a href="?page=1">First</a>
-                        <a href="?page={{ visits.previous_page_number }}">Previous</a>
-                    {% endif %}
-                    {% for num in visits.paginator.page_range %}
-                        {% if visits.number == num %}
-                            <a href="?page={{ num }}">{{ num }}</a>
-                        {% elif num > visits.number|add:'-3' and num < visits.number|add:'3' %}
-                            <a href="?page={{ num }}">{{ num }}</a>
-                        {% endif %}
-                    {% endfor %}
-                    {% if visits.has_next %}
-                        <a href="?page={{ visits.next_page_number }}">Next</a>
-                        <a href="?page={{ visits.paginator.num_pages}}">Last</a>
-                    {% endif %}
-                {% endif %}
+                {% include "pagination.html" with variable=visits %}
             </ul>
         </div>
     </div>
