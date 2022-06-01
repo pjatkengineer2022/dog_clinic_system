@@ -10,43 +10,7 @@
 <section class="s__visits-history">
     <div class="l-container-big">
         <div class="g__head"></div>
-        <div class="g__patient-intro">
-            <div class="g__patient-photo-wrapper">
-                <div class="g__avatar-box patient__photo-box">
-                    <img src="{{pet.avatar.url}}" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
-                </div>
-            </div>
-            <div class="g__patient-text-wrapper">
-                <div class="g__patient-text-row">
-                    <span class="g__patient-text-label">Imię:</span>
-                    <span class="g__patient-text-value">{{pet.name}}</span>
-                </div>
-                <div class="g__patient-text-row">
-                    <span class="g__patient-text-label">Rasa:</span>
-                    {% if pet.race %}
-                    <span class="g__patient-text-value">{{pet.race}}</span>
-                    {% else %}
-                    <span class="g__patient-text-value">---------------</span>
-                    {% endif %}
-                </div>
-                <div class="g__patient-text-row">
-                    <span class="g__patient-text-label">Rok urodzenia:</span>
-                    {% if pet.year_birth %}
-                    <span class="g__patient-text-value">{{pet.year_birth}}</span>
-                    {% else %}
-                    <span class="g__patient-text-value">---------------</span>
-                    {% endif %}
-                </div>
-                <div class="g__patient-text-row">
-                    <span class="g__patient-text-label">Właściciel:</span>
-                    {% if pet.owner.profile.name %}
-                    <span class="g__patient-text-value">{{pet.owner.profile.name}}</span>
-                    {% else %}
-                    <span class="g__patient-text-value">{{pet.owner.profile.user.username}}</span>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+        {% include 'doctors/petData.html' with pet=pet %}
         <div class="visits__future-wrapper has-text-centered">
             <a href="{% url 'dog_future_visits_list' pet.id %}" class="g__btn">Sprawdź przyszłe wizyty</a>
         </div>

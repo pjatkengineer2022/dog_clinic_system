@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, time
 from django.contrib import messages
 from django.contrib.auth import views as auth_views, authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -71,14 +71,14 @@ def doctor_browse_patients(request):
     pets = pets.filter(
         Q(name__icontains = q) | Q(owner__profile__name__icontains = q) | Q(race__icontains = q) | Q(year_birth__icontains = q)
     )
-    pets = pagination(request,pets)
+    pets = pagination(request,pets, 5)
     context={'pets':pets}
     return render(request, 'doctors/doctor_browse_patients.html', context)
 
 @login_required(login_url='login_doctor')
 @doctor_only
 def doctor_check_visits_list(request):
-    visits = Visit.objects.filter(Q(doctor=request.user.profile.doctor) & Q(date__gte=date.today())).order_by('date')
+    visits = Visit.objects.filter(Q(doctor=request.user.profile.doctor) & Q(date__gte=timezone.now()-timezone.timedelta(hours=5))).order_by('date')
     q= request.GET.get('q') if request.GET.get('q') != None else ''
     visits = visits.filter(
         Q(date__icontains = q) |
@@ -87,7 +87,24 @@ def doctor_check_visits_list(request):
     ).order_by('date')
     #pagination
     visits = pagination(request, visits)
-    context={'visits':visits}
+    text, text2, my_url = "Aktualne wizyty", "Sprawdź przeszłe wizyty", 'doctor_check_history_visits'
+    context={'visits':visits, 'text':text, 'text2':text2, 'my_url':my_url}
+    return render(request, 'doctors/doctor_check_visits.html', context)
+
+@login_required(login_url='login_doctor')
+@doctor_only
+def doctor_check_history_visits_list(request):
+    visits = Visit.objects.filter(Q(doctor=request.user.profile.doctor) & Q(date__lte=timezone.now())).order_by('-date')
+    q= request.GET.get('q') if request.GET.get('q') != None else ''
+    visits = visits.filter(
+        Q(date__icontains = q) |
+        Q(pet__owner__profile__name__icontains = q) |
+        Q(pet__name__icontains = q)
+    ).order_by('-date')
+    #pagination
+    visits = pagination(request, visits)
+    text, text2, my_url =  "Przeszłe wizyty","Sprawdź wizyty", 'doctor_check_visits'
+    context={'visits':visits, 'text':text, 'text2':text2, 'my_url':my_url}
     return render(request, 'doctors/doctor_check_visits.html', context)
 
 
@@ -253,7 +270,7 @@ def add_medicines(request):
 @login_required(login_url='login_doctor')
 @doctor_only
 def doctor_shift_list(request):
-    doctorShifts = DoctorShift.objects.filter(date__gte =datetime.today()).order_by('date','shift__startTime')
+    doctorShifts = DoctorShift.objects.filter(Q(date__gte =datetime.today())).order_by('date','shift__startTime')
     doctorShifts = pagination(request, doctorShifts)
     context={'doctorShifts':doctorShifts}
     return render(request, "doctors/doctor_shift_list.html", context)

@@ -1,0 +1,53 @@
+<div class="g__patient-intro">
+    <div class="g__patient-photo-wrapper">
+        <div class="g__avatar-box patient__photo-box">
+            <img src="{{pet.avatar.url}}" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
+        </div>
+    </div>
+    <div class="g__patient-text-wrapper">
+        <div class="g__patient-text-row">
+            <span class="g__patient-text-label">Imię:</span>
+            <span class="g__patient-text-value">{{pet.name}}</span>
+        </div>
+        <div class="g__patient-text-row">
+            <span class="g__patient-text-label">Rasa:</span>
+            {% if pet.race %}
+            <span class="g__patient-text-value">{{pet.race}}</span>
+            {% else %}
+            <span class="g__patient-text-value">---------------</span>
+            {% endif %}
+        </div>
+        <div class="g__patient-text-row">
+            <span class="g__patient-text-label">Rok urodzenia:</span>
+            {% if pet.year_birth %}
+            <span class="g__patient-text-value">{{pet.year_birth}}</span>
+            {% else %}
+            <span class="g__patient-text-value">---------------</span>
+            {% endif %}
+        </div>
+        <div class="g__patient-text-row">
+            <span class="g__patient-text-label">Właściciel:</span>
+            {% if pet.owner.profile.name %}
+            <span class="g__patient-text-value">{{pet.owner.profile.name}}</span>
+            {% else %}
+            <span class="g__patient-text-value">{{pet.owner.profile.user.username}}</span>
+            {% endif %}
+        </div>
+        <div class="g__patient-text-row">
+            <span class="g__patient-text-label">Tel. do właściciela:</span>
+            {% if pet.owner.profile.mobileNumber %}
+            <span class="g__patient-text-value">{{pet.owner.profile.mobileNumber}}</span>
+            {% else %}
+            <span class="g__patient-text-value"> --------------- </span>
+            {% endif %}
+        </div>
+        <div class="g__patient-text-row">
+            <span class="g__patient-text-label">Email do właściciela:</span>
+            {% if pet.owner.profile.user.email %}
+            <span class="g__patient-text-value">{{pet.owner.profile.user.email}}</span>
+            {% else %}
+            <span class="g__patient-text-value"> --------------- </span>
+            {% endif %}
+        </div>
+    </div>
+</div>

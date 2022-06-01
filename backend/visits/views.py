@@ -7,6 +7,7 @@ from datetime import datetime
 from dateutil import parser, relativedelta
 import pytz
 from django.db.models import Q	
+from django.utils import timezone
 
 from .forms import DiagnosisCreationForm
 from aaConfig.decorators import doctor_only
@@ -160,7 +161,7 @@ def visitCreation(request, patients, doctors, renderSite, redirectSite, nearVisi
 def owner_book_visit_no_patient(request):
     patients = Pet.objects.filter(owner=request.user.profile.owner)
     doctors = Doctor.objects.all()
-    nearVisit = Visit.objects.filter(Q(pet__owner=request.user.profile.owner)).order_by('date').first()
+    nearVisit = Visit.objects.filter(Q(pet__owner=request.user.profile.owner) & Q(date__gt=timezone.now())).order_by('date').first()
     return visitCreation(request=request,patients=patients, doctors=doctors,  renderSite = 'visits/reservation.html', redirectSite='your_dogs', nearVisit=nearVisit)
 
 @login_required(login_url='login_doctor')
@@ -178,7 +179,7 @@ def owner_book_visit_with_patient(request, petid):
         return redirect('your_dogs')
     if request.user.profile.owner == Owner.objects.filter(pet__id=petid).first():
         doctors = Doctor.objects.all()
-        nearVisit = Visit.objects.filter(Q(pet__id=petid)).order_by('date').first()
+        nearVisit = Visit.objects.filter(Q(pet__id=petid)  & Q(date__gt=timezone.now())).order_by('date').first()
         return visitCreation(request=request,patients=patients, doctors=doctors, renderSite = 'visits/reservation.html', redirectSite='your_dogs', nearVisit=nearVisit)
     else:
         messages.error(request, 'nie możesz zarezerwować wizyty dla nieswojego psa!')
@@ -193,6 +194,6 @@ def doctor_book_visit_with_patient(request, petid):
     except Pet.DoesNotExist:
         return redirect('doctor_check_visits')
     doctor = request.user.profile.doctor
-    nearVisit = Visit.objects.filter(Q(pet__id=petid)).order_by('date').first()
+    nearVisit = Visit.objects.filter(Q(pet__id=petid)  & Q(date__gt=timezone.now())).order_by('date').first()
     return visitCreation(request=request,patients=patients, doctors=doctor,  renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits', nearVisit=nearVisit)
     
