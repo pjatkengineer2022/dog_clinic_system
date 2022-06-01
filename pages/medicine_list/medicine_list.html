@@ -20,8 +20,6 @@
     <!-- end global scripts -->
 
     <!-- here scripts for only single page -->
-    <link rel="stylesheet" href="../../plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
-    <script src="../../plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
     <!-- end scripts for only single page -->
 </head>
@@ -83,50 +81,31 @@
                         </div>
                     </div>
                 </nav>
-                <section class="c__breadcrumb">
-                    <!-- 
-                        dostępne klasy: --success, --error, bez klasy domyślnie jest neutralny kolor    
-                    -->
-                    <div class="c__notification js-notification-component box --success">
-                        <div class="notification__box">
-                            <div class="notification__text">
-                                Pomyślnie dodano!
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="s__add-medicines">
+                <section class="c__breadcrumb"></section>
+                <section class="s__medicine-list">
                     <div class="l-container-big">
                         <div class="g__head">
-                            <h1 class="g__title">Dodaj lek</h1>
+                            <h1 class="g__title">Lista leków</h1>
                         </div>
                         <div class="l-container-small">
-                            <form action="" class="add__medicines-form">
-                                <div class="medicines__all-btn-wrapper">
-                                    <a href="" class="g__btn">Sprawdź wszystkie leki</a>
-                                </div>
-                                <div class="add__medicines-container">
-                                    <div class="add__medicines-form-fields">
-                                        <div class="g__form-row">
-                                            <label class="g__form-label">Nazwa leku</label>
-                                            <input class="input"></input>
+                            <ul class="medicine__list">
+                                <li class="medicine__item box">
+                                    <div class="medicine__item-content is-multiline columns">
+                                        <div class="medicine__item-column column is-3-desktop is-full-touch">
+                                            <div class="medicine__label">Nazwa leku</div>
+                                            <div class="medicine__value">Lorem ipsum dolor</div>
                                         </div>
-                                        <div class="g__form-row">
-                                            <label class="g__form-label">Opis leku</label>
-                                            <textarea class="textarea"></textarea>
+                                        <div class="medicine__item-column column is-5-desktop is-full-touch">
+                                            <div class="medicine__label">Opis leku</div>
+                                            <div class="medicine__value">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus, ad laboriosam corrupti asperiores aspernatur nesciunt.</div>
                                         </div>
-                                        <div class="g__form-row">
-                                            <label class="g__form-label">Producent</label>
-                                            <input class="input"></input>
+                                        <div class="medicine__item-column column is-4-desktop is-full-touch">
+                                            <div class="medicine__label">Producent</div>
+                                            <div class="medicine__value">Lorem ipsum dolor</div>
                                         </div>
-                                        <div class="g__form-row">
-                                            <div class="has-text-right add__medicines-form-submit-wrapper">
-                                                <button class="g__btn">Dodaj</button>
-                                            </div>
-                                        </div>	
                                     </div>
-                                </div>
-                            </form>
+                                </li>   
+                            </ul>
                         </div>
                     </div>
                 </section>

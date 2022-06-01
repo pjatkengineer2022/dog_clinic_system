@@ -1,16 +1,12 @@
-& {
+&{
     padding-bottom: 2rem;
 }
 
-.add__medicines-form {
-    max-width: 50rem;
-    margin: 0 auto;
-}
-
-.medicines__all-btn-wrapper {
-    margin-top: 1rem;
-    margin-bottom: .5rem;
-    text-align: right;
+.future-visits-delete-box {
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 @include phone-until{

@@ -97,6 +97,10 @@
                                 x-data="appData()"
                                 x-init="init()"
                                 class="reservation__app"
+                                x-data="{
+                                    selected: $el.querySelector('option[selected]').value,
+                                    inputValue: $el.querySelector('input').value
+                                  }"
                             >
                                 <form action="" class="reservation__form">
                                     <div class="reservation__steps-container">
@@ -118,10 +122,11 @@
                                                             <select
                                                                 x-on:change="filterDoctor()"
                                                                 x-model="selectedDoctorId"
+                                                                class="js-doctor-select"
                                                             >
-                                                                <option value="">--</option>
-                                                                <option value="1">Marek Pierwszy</option>
-                                                                <option value="2">Marek Idziak</option>
+                                                                <!-- <option value="">--</option> -->
+                                                                <option selected value="1">Marek Pierwszy</option>
+                                                                <!-- <option value="2">Marek Idziak</option> -->
                                                             </select>
                                                         </div>
                                                     </div>
