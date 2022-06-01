@@ -130,6 +130,9 @@
         &.--yellow {
             background-color: $yellow_dark; 
         }
+        &.--black {
+            background-color: $pure_black; 
+        }
 
         i {
             margin-left: .6rem;

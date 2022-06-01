@@ -11008,6 +11008,18 @@ body button:hover, body a:hover {
     .pagination-wrapper a.paginate--current {
       background-color: #3CDAC9; }
 
+.g__delete-btn {
+  background-color: #FF3C53;
+  box-shadow: 0 1px 13px 0px #00000040;
+  padding: 0.2rem 1rem;
+  color: #ffffff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center; }
+  .g__delete-btn i {
+    font-size: 1.3rem;
+    margin-left: .5rem; }
+
 @keyframes shadow-pulse {
   0% {
     box-shadow: 0 0 0 0px rgba(60, 218, 201, 0.3); }
@@ -11270,6 +11282,8 @@ body button:hover, body a:hover {
       background-color: #3CADFF; }
     .s__your-dogs .dog__actions-link.--yellow {
       background-color: #FFBC10; }
+    .s__your-dogs .dog__actions-link.--black {
+      background-color: #000000; }
     .s__your-dogs .dog__actions-link i {
       margin-left: .6rem;
       font-size: 1.5rem;
@@ -11441,6 +11455,9 @@ body button:hover, body a:hover {
 .s__visits {
   padding-bottom: 3rem; }
 
+.s__visits .visits__future-wrapper {
+  margin-bottom: 1.5rem; }
+
 .s__doctor-login {
   padding-bottom: 2rem; }
 
@@ -11525,6 +11542,9 @@ body button:hover, body a:hover {
 .s__visits-history {
   padding-bottom: 2rem; }
 
+.s__visits-history .visits__future-wrapper {
+  margin-bottom: 1.5rem; }
+
 .s__medicines-history {
   padding-bottom: 2rem; }
 
@@ -11582,6 +11602,11 @@ body button:hover, body a:hover {
   max-width: 50rem;
   margin: 0 auto; }
 
+.s__add-medicines .medicines__all-btn-wrapper {
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+  text-align: right; }
+
 .s__shift-list {
   padding-bottom: 2rem; }
 
@@ -11634,6 +11659,32 @@ body button:hover, body a:hover {
   font-weight: 800;
   font-size: 1.3rem; }
 
+.s__medicine-list {
+  padding-bottom: 2rem; }
+
+.s__medicine-list .medicine__label {
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-bottom: .5rem; }
+
+.s__future-visits-pet {
+  padding-bottom: 2rem; }
+
+.s__future-visits-pet .future-visits-delete-box {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; }
+
+.s__future-visits-doctor {
+  padding-bottom: 2rem; }
+
+.s__future-visits-doctor .future-visits-delete-box {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; }
+
 .c__navigation {
   background-color: #3CDAC9;
   position: fixed;
@@ -11661,7 +11712,7 @@ body button:hover, body a:hover {
 .c__navigation .nav__link-item {
   font-size: 1.15rem;
   font-weight: 700;
-  margin-right: 4vw;
+  margin-right: 2vw;
   position: relative; }
   .c__navigation .nav__link-item::after {
     content: '';

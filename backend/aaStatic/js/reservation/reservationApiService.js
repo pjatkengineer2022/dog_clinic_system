@@ -56,7 +56,7 @@ function appData() {
                     });
                     // console.log('plannedVisitsTerms', plannedVisitsTerms);
                     // create hours items based on range start and end
-                    for (let i = startValue; i <= endValue; i++) {
+                    for (let i = startValue; i < endValue; i++) {
                         let prefix = '';
                         if (i < 10) {
                             prefix = '0';

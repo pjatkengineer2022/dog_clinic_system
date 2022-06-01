@@ -96,6 +96,15 @@ $gap: 32px;
 .s__price-list {
     @import 'pages/price_list/price_list';
 }
+.s__medicine-list {
+    @import 'pages/medicine_list/medicine_list';
+}
+.s__future-visits-pet {
+    @import 'pages/future_visits_pet/future_visits_pet';
+}
+.s__future-visits-doctor {
+    @import 'pages/future_visits_doctor/future_visits_doctor';
+}
 
 // components
 .c__navigation {
