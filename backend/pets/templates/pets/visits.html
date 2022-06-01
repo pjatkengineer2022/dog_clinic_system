@@ -12,7 +12,7 @@
         <div class="g__head">
         </div>
         <div class="visits__future-wrapper has-text-centered">
-            <a href="" class="g__btn">Sprawdź przyszłe wizyty</a>
+            <a href="{% url 'future_visits' pet.id %}" class="g__btn">Sprawdź przyszłe wizyty</a>
         </div>
         {% include "searching.html" with url_variable='visits_history' url_variable_id=pet.id my_placeholder="Wyszukaj wizytę..." %}
         <div class="visits__container">

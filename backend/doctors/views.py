@@ -8,6 +8,8 @@ from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
+from django.utils import timezone
+from django.urls import reverse
 
 from aaConfig.decorators import allowed_users, doctor_only
 from aaConfig.functions import pagination
@@ -58,6 +60,7 @@ def loginDoctor(request):
 #     login_url = 'login_doctor'
 
 
+######################### BROWSE PATIENS & CHECK VISITS ##############################
 
 @login_required(login_url='login_doctor')
 @doctor_only
@@ -71,6 +74,24 @@ def doctor_browse_patients(request):
     pets = pagination(request,pets)
     context={'pets':pets}
     return render(request, 'doctors/doctor_browse_patients.html', context)
+
+@login_required(login_url='login_doctor')
+@doctor_only
+def doctor_check_visits_list(request):
+    visits = Visit.objects.filter(Q(doctor=request.user.profile.doctor) & Q(date__gte=date.today())).order_by('date')
+    q= request.GET.get('q') if request.GET.get('q') != None else ''
+    visits = visits.filter(
+        Q(date__icontains = q) |
+        Q(pet__owner__profile__name__icontains = q) |
+        Q(pet__name__icontains = q)
+    ).order_by('date')
+    #pagination
+    visits = pagination(request, visits)
+    context={'visits':visits}
+    return render(request, 'doctors/doctor_check_visits.html', context)
+
+
+######################### PET HISTORY ##############################
 
 @login_required(login_url='login_doctor')
 @doctor_only
@@ -123,7 +144,7 @@ def dog_visits_history_list(request, id):
     except:
         messages.error(request, 'pies nie istnieje')
         return redirect('doctor_browse_patients')
-    visits = Visit.objects.filter(Q(pet = pet) & Q(date__lte=datetime.now()))
+    visits = Visit.objects.filter(Q(pet = pet) & Q(date__lte=timezone.now()))
     #searching part
     q= request.GET.get('q') if request.GET.get('q') != None else ''
     visits = visits.filter(
@@ -136,21 +157,98 @@ def dog_visits_history_list(request, id):
     context={'visits':visits, 'pet':pet}
     return render(request, 'doctors/visits_history.html', context)
 
+
+
+
+######################### FUTURE VISITS ##############################
+
 @login_required(login_url='login_doctor')
 @doctor_only
-def doctor_check_visits_list(request):
-    visits = Visit.objects.filter(Q(doctor=request.user.profile.doctor) & Q(date__gte=date.today())).order_by('date')
-    q= request.GET.get('q') if request.GET.get('q') != None else ''
-    visits = visits.filter(
-        Q(date__icontains = q) |
-        Q(pet__owner__profile__name__icontains = q) |
-        Q(pet__name__icontains = q)
-    ).order_by('date')
-    #pagination
-    visits = pagination(request, visits)
-    context={'visits':visits}
-    return render(request, 'doctors/doctor_check_visits.html', context)
+def dog_future_visits_list(request, petid):
+    try:
+        pet = Pet.objects.get(id=petid)
+    except:
+        messages.error(request, 'pies nie istnieje')
+        return redirect('doctor_browse_patients')
+    visits = Visit.objects.filter(Q(pet = pet) & Q(date__gte=timezone.now())).order_by('date')
+    context={'visits':visits, 'pet':pet}
+    return render(request, 'doctors/future_visits_doctor.html', context)
 
+@login_required(login_url='login_doctor')
+@doctor_only
+def remove_dog_future_visit(request,petid, visitid): 
+    try:
+        visit = Visit.objects.get(id=visitid)
+        if visit.pet.id ==petid:
+            visit.delete()
+        else:
+            messages.error(request, 'nie można usunąc wizyty innego pacjenta')
+            return redirect('doctor_browse_patients')
+    except Visit.DoesNotExist:
+        messages.error(request, 'wizyta nie istnieje')
+    except:
+        messages.error(request, 'nie można usunąć wizyty')
+    else:
+        messages.info(request,'wizyta została usunięta')
+    return redirect(reverse('dog_future_visits_list', kwargs={'petid':petid}))
+
+
+
+######################### MEDICINES ##############################
+
+@login_required(login_url='login_doctor')
+@doctor_only
+def medicine_list(request):
+    medicines = Medicine.objects.all().order_by('name')
+    #searching
+    q= request.GET.get('q') if request.GET.get('q') != None else ''
+    medicines = medicines.filter(
+        Q(name__icontains = q) |
+        Q(description__icontains = q) |
+        Q(producer__name__icontains = q)
+    )
+    #pagination
+    medicines = pagination(request, medicines)
+    context={'medicines':medicines}
+    return render(request, "doctors/medicine_list.html", context)
+
+@login_required(login_url='login_doctor')
+@doctor_only
+def remove_medicine(request, medicineid):
+    try:
+        medicine = Medicine.objects.get(id=medicineid)
+        medicine.delete()
+    except Medicine.DoesNotExist:
+        messages.error(request, 'lek nie istnieje')
+    except:
+        messages.error(request, 'nie można usunąć leku')
+    else:
+        messages.info(request,'lek został usunięty')
+    return redirect('medicine_list')
+
+@login_required(login_url='login_doctor')
+@doctor_only
+def add_medicines(request):
+    form = MedicineCreationForm()
+    if request.method == "POST":
+        form = MedicineCreationForm(request.POST)
+        if form.is_valid():
+            medicine = form.save(commit=False)
+            for m in Medicine.objects.all():
+                if m.name.lower() == medicine.name.lower() and m.producer.name == medicine.producer.name:
+                    messages.error(request, 'lek już istnieje')
+                    return redirect('add_medicines')
+            medicine.save()
+            messages.success(request, 'lek poprawnie dodano')
+            return redirect('add_medicines')
+        else:
+            messages.error(request, 'nie można było dodać leku')
+    context={'form':form}
+    return render(request, "doctors/add_medicines.html", context)
+
+
+
+######################### DOCTORSHIFTS ##############################
 
 @login_required(login_url='login_doctor')
 @doctor_only
@@ -216,23 +314,5 @@ def remove_doctor_shift(request, id):
     return redirect('doctor_shift_list')
 
 
-@login_required(login_url='login_doctor')
-@doctor_only
-def add_medicines(request):
-    form = MedicineCreationForm()
-    if request.method == "POST":
-        form = MedicineCreationForm(request.POST)
-        if form.is_valid():
-            medicine = form.save(commit=False)
-            for m in Medicine.objects.all():
-                if m.name.lower() == medicine.name.lower():
-                    messages.error(request, 'lek już istnieje')
-                    return redirect('add_medicines')
-            medicine.save()
-            messages.success(request, 'lek poprawnie dodano')
-            return redirect('add_medicines')
-        else:
-            messages.error(request, 'nie można było dodać leku')
-    context={'form':form}
-    return render(request, "doctors/add_medicines.html", context)
+
 

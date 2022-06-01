@@ -10,7 +10,7 @@
             <form method="POST" action="" class="add__medicines-form">
                 {% csrf_token %}
                 <div class="medicines__all-btn-wrapper">
-                    <a href="" class="g__btn">Sprawdź wszystkie leki</a>
+                    <a href="{% url 'medicine_list' %}" class="g__btn">Sprawdź wszystkie leki</a>
                 </div>
                 <div class="add__medicines-container">
                     <div class="add__medicines-form-fields">

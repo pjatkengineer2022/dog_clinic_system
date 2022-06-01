@@ -9,12 +9,16 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q	
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
+from django.utils import timezone
 
 from visits.models import Visit
 from .models import Medicine, Pet, MedicineHistory
 from .forms import PetCreateUpdateForm  #, PetAvatarCreateUpdateForm, PetCreateForm
 from aaConfig.functions import pagination
 from users.models import Owner
+
+
+######################## DOG PROFILE ##########################
 
 class PetListView(LoginRequiredMixin, ListView):
     model=Pet
@@ -76,6 +80,9 @@ def add_dog_profile(request):
     context={ 'profile_form': profile_form }
     return render(request, 'pets/add_dog.html', context)
 
+
+###################### DOG HISTORY: DISEASES, MEDICINES, VISITS #########################
+
 @login_required
 def dog_diseases_list(request, id):
     try:
@@ -132,7 +139,7 @@ def dog_visits_list(request, id):
         messages.error(request, 'pies nie istnieje')
         return redirect('your_dogs')
     if request.user.profile.owner == Owner.objects.filter(pet__id=id).first():
-        visits = Visit.objects.filter(Q(pet = pet) & Q(date__lte=datetime.now()))
+        visits = Visit.objects.filter(Q(pet = pet) & Q(date__lte=timezone.now()))
         #searching part
         q= request.GET.get('q') if request.GET.get('q') != None else ''
         visits = visits.filter(
@@ -142,8 +149,46 @@ def dog_visits_list(request, id):
         )
         #pagination
         visits = pagination(request, visits)
-        context={'visits':visits}
+        context={'visits':visits,'pet':pet}
         return render(request, 'pets/visits.html', context)
     else:
         messages.error(request, 'nie możesz sprawdzić wizyt dla nieswojego psa!')
+        return redirect('your_dogs')
+
+######################### FUTURE VISITS ##############################
+@login_required
+def future_visits_list(request, petid):
+    try:
+        pet = Pet.objects.get(id=petid)
+    except:
+        messages.error(request, 'pies nie istnieje')
+        return redirect('your_dogs')
+    visits = Visit.objects.filter(Q(pet = pet) & Q(date__gte=timezone.now())).order_by('date')
+    context={'visits':visits, 'pet':pet}
+    return render(request, 'pets/future_visits.html', context)
+
+@login_required
+def remove_future_visit(request, petid, visitid): 
+    try:
+        pet = Pet.objects.get(id=petid)
+    except:
+        messages.error(request, 'pies nie istnieje')
+        return redirect('your_dogs')
+    if request.user.profile.owner == pet.owner:
+        try:
+            visit = Visit.objects.get(id=visitid)
+            if visit.pet.id ==petid:
+                visit.delete()
+            else:
+                messages.error(request, 'nie można usunąc wizyty innego z twoich psów')
+                return redirect('your_dogs')
+        except Visit.DoesNotExist:
+            messages.error(request, 'wizyta nie istnieje')
+        except:
+            messages.error(request, 'nie można usunąć wizyty')
+        else:
+            messages.info(request,'wizyta została usunięta')
+        return redirect(reverse('future_visits', kwargs={'petid':petid}))
+    else:
+        messages.error(request, 'nie można usunąc wizyty nieswojego psa')
         return redirect('your_dogs')

@@ -1,0 +1,79 @@
+{% extends "base_doctor.html" %}
+{% block content %}
+<section class="c__breadcrumb"></section>
+<section class="s__future-visits-pet">
+    <div class="l-container-big">
+        <div class="g__head">
+            <h1 class="g__title">Przyszłe wizyty</h1>
+        </div>
+        <div class="g__patient-intro">
+            <div class="g__patient-photo-wrapper">
+                <div class="g__avatar-box patient__photo-box">
+                    <img src="{{pet.avatar.url}}" alt="avatar" class="g__avatar-img-no-photo dog__img-no-photo">
+                </div>
+            </div>
+            <div class="g__patient-text-wrapper">
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Imię:</span>
+                    <span class="g__patient-text-value">{{pet.name}}</span>
+                </div>
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Rasa:</span>
+                    {% if pet.race %}
+                    <span class="g__patient-text-value">{{pet.race}}</span>
+                    {% else %}
+                    <span class="g__patient-text-value">---------------</span>
+                    {% endif %}
+                </div>
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Rok urodzenia:</span>
+                    {% if pet.year_birth %}
+                    <span class="g__patient-text-value">{{pet.year_birth}}</span>
+                    {% else %}
+                    <span class="g__patient-text-value">---------------</span>
+                    {% endif %}
+                </div>
+                <div class="g__patient-text-row">
+                    <span class="g__patient-text-label">Właściciel:</span>
+                    {% if pet.owner.profile.name %}
+                    <span class="g__patient-text-value">{{pet.owner.profile.name}}</span>
+                    {% else %}
+                    <span class="g__patient-text-value">{{pet.owner.profile.user.username}}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="l-container-small">
+            <ul class="future-visits__list">
+                {% for visit in visits %}
+                <li class="future-visits__item box">
+                    <div class="future-visits__item-content is-multiline columns">
+                        <div class="future-visits__item-column column is-3-desktop is-full-touch">
+                            <div class="g__row-box-subheader future-visits__label">Data i godzina</div>
+                            <div class="g__row-box-desc future-visits__value">{{ visit.date|date:'Y-m-d H:i' }}</div>
+                        </div>
+                        <div class="future-visits__item-column column is-3-desktop is-full-touch">
+                            <div class="g__row-box-subheader future-visits__label">Lekarz</div>
+                            <div class="g__row-box-desc future-visits__value">
+                                {% if visit.doctor.profile.name %} 
+                                Dr. {{ visit.doctor.profile.name }} 
+                                {% else %}
+                                Dr. {{ visit.doctor.profile.user.username}}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="future-visits__item-column column is-3-desktop is-full-touch">
+                            <div class="future-visits-delete-box">
+                                <button class="g__delete-btn future-visits-delete-btn">
+                                    <a href="{% url 'remove_dog_future_visit' pet.id visit.id %}">Usuń<i class="mdi mdi-trash-can-outline"></i></a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </li>   
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock content %}

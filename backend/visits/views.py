@@ -135,13 +135,13 @@ def visitCreation(request, patients, doctors, renderSite, redirectSite, nearVisi
             if date >= pytz.UTC.localize(datetime.now()):
                 if patient is not None and doctor is not None and ownerComment is not None and date is not None:
                     if patient in patients:    
-                        if doctor in doctors:
+                        if doctor in Doctor.objects.all():
                             if len(Visit.objects.filter(Q(pet=patient) & Q(date__gte=datetime.now()))) <3:
                                 Visit.objects.create(pet=patient, doctor = doctor, ownerComment=ownerComment, date=date)
                                 messages.success(request, 'Poprawnie zarezerwowałeś wizytę')
                                 return redirect(redirectSite)    
                             else:
-                                messages.error(request, 'nie można utworzyć więcej wizyt niż 3')
+                                messages.error(request, 'nie można utworzyć więcej wizyt niż 3 dla jednego psa')
                         else:
                             messages.error(request, 'Doktor nie istnieje')
                     else:
@@ -149,7 +149,7 @@ def visitCreation(request, patients, doctors, renderSite, redirectSite, nearVisi
                 else:
                     messages.error(request, 'Nie podałeś wszystkich danych')
             else:
-                messages.error(request, "Data nie może być wcześniejsza niż dzisiaj")
+                messages.error(request, "Data nie może być wcześniejsza niż dzisiejszy dzień i aktualna godzina")
         else:
             messages.error(request, "Nie można dodać wizyty gdyż ten termin jest już zajęty")
     context={'patients':patients, 'doctors':doctors, 'nearVisit':nearVisit}
@@ -167,7 +167,7 @@ def owner_book_visit_no_patient(request):
 @doctor_only
 def doctor_book_visit_no_patient(request):
     patients = Pet.objects.all()
-    doctor = request.user.profile.doctor #[request.user.profile.doctor]
+    doctor = request.user.profile.doctor
     return visitCreation(request=request,patients=patients, doctors=doctor, renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits')
 
 @login_required
@@ -192,7 +192,7 @@ def doctor_book_visit_with_patient(request, petid):
         patients = [Pet.objects.get(id=petid)]
     except Pet.DoesNotExist:
         return redirect('doctor_check_visits')
-    doctor = request.user.profile.doctor #[request.user.profile.doctor]
+    doctor = request.user.profile.doctor
     nearVisit = Visit.objects.filter(Q(pet__id=petid)).order_by('date').first()
     return visitCreation(request=request,patients=patients, doctors=doctor,  renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits', nearVisit=nearVisit)
     

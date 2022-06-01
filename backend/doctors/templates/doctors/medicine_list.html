@@ -1,0 +1,42 @@
+{% extends "base_doctor.html" %}
+{% block content %}
+<section class="c__breadcrumb"></section>
+<section class="s__medicine-list">
+    <div class="l-container-big">
+        <div class="g__head">
+            <h1 class="g__title">Lista leków</h1>
+        </div>
+        {% include "searching.html" with url_variable='medicine_list' my_placeholder="Wyszukaj lek..." %}
+        <div class="l-container-small">
+            <ul class="medicine__list">
+                {% for medicine in medicines %}
+                <li class="medicine__item box">
+                    <div class="medicine__item-content is-multiline columns">
+                        <div class="medicine__item-column column is-2-desktop is-full-touch">
+                            <div class="medicine__label">Nazwa leku</div>
+                            <div class="medicine__value">{{medicine.name}}</div>
+                        </div>
+                        <div class="medicine__item-column column is-2-desktop is-full-touch">
+                            <div class="medicine__label">Producent</div>
+                            <div class="medicine__value">{{medicine.producer.name}}</div>
+                        </div>
+                        <div class="medicine__item-column column is-5-desktop is-full-touch">
+                            <div class="medicine__label">Opis leku</div>
+                            <div class="medicine__value">{{medicine.description}}</div>
+                        </div>
+                        <div class="future-visits__item-column column is-3-desktop is-full-touch">
+                            <div class="future-visits-delete-box">
+                                <button class="g__delete-btn future-visits-delete-btn">
+                                    <a href="{% url 'remove_medicine' medicine.id %}">Usuń<i class="mdi mdi-trash-can-outline"></i></a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </li>   
+                {% endfor %}
+                {% include "pagination.html" with variable=medicines %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock content%}

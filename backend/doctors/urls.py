@@ -13,13 +13,21 @@ urlpatterns =[
     path('doctor/<pk>/', views.SingleDoctorDetail.as_view(), name='single_doctor'),
     # path('doctor_browse_patients/', views.DoctorBrowsePatientListView.as_view(), name='doctor_browse_patients'),
     path('doctor_browse_patients/', views.doctor_browse_patients, name='doctor_browse_patients'),
+    path('doctor_check_visits/', views.doctor_check_visits_list, name='doctor_check_visits'),
+    #pet history: diseases, medicines, visits
     path('diseases_history/<int:id>/', views.dog_diseases_history_list, name='diseases_history'),
     path('medicines_history/<int:id>/', views.dog_medicines_history_list, name='medicines_history'),
     path('visits_history/<int:id>/', views.dog_visits_history_list, name='dog_history_visits'),
-    path('doctor_check_visits/', views.doctor_check_visits_list, name='doctor_check_visits'),
+    #pet future visits
+    path('future_visits/<int:petid>/', views.dog_future_visits_list, name='dog_future_visits_list'),
+    path('remove_future_visit/<int:petid>/<int:visitid>/', views.remove_dog_future_visit, name='remove_dog_future_visit'),
+    #Medicines
+    path('medicine_list/', views.medicine_list, name='medicine_list'),
     path('add_medicines/', views.add_medicines, name='add_medicines'),
+    path('remove_medicine/<int:medicineid>/', views.remove_medicine, name='remove_medicine'),
+    #DoctorShifts
+    path('doctor_shift_list/',views.doctor_shift_list, name='doctor_shift_list'),
     path('add_doctor_shift/', views.add_doctor_shift, name='add_doctor_shift'),
     path('remove_doctor_shift/<int:id>/',views.remove_doctor_shift, name='remove_doctor_shift'),
-    path('doctor_shift_list/',views.doctor_shift_list, name='doctor_shift_list'),
     
 ]
