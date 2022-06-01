@@ -123,7 +123,7 @@ def dog_visits_history_list(request, id):
     except:
         messages.error(request, 'pies nie istnieje')
         return redirect('doctor_browse_patients')
-    visits = Visit.objects.filter(Q(pet = pet))
+    visits = Visit.objects.filter(Q(pet = pet) & Q(date__lte=datetime.now()))
     #searching part
     q= request.GET.get('q') if request.GET.get('q') != None else ''
     visits = visits.filter(

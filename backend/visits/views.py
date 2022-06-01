@@ -42,18 +42,23 @@ def add_diagnosis(request, visitid):
             disease = None
             if treatment_type == '1' and new_disease_name != "":
                 for d in Disease.objects.all():
-                    if new_disease_name.lower() == d.name.lower():
+                    if new_disease_name.lower().__eq__(d.name.lower()):
                         try:
                             disease = Disease.objects.get(id=d.id)
                         except Disease.DoesNotExist:
                             messages.error(request, 'nie można stworzyć diagnozy -choroba nie istnieje, (nieoczekiwany błąd)')
                             return redirect('doctor_check_visits')
                 if disease is None:
-                    disease = Disease.objects.create(name=new_disease_name, description=" ")
-                else:
-                    messages.error(request, 'nie wpisano nowej choroby (nieoczekiwany błąd)')
+                    try:
+                        disease = Disease.objects.create(name=new_disease_name, description=" ")
+                    except:
+                        messages.error(request, 'nie udało się utworzyć nowej choroby (nieoczekiwany błąd)')
+                        return redirect('doctor_check_visits')   
+                try:
+                    treatment = Treatment.objects.create(pet=pet, disease=disease)
+                except:
+                    messages.error(request, 'nie udało się utworzyć nowego leczenia (nieoczekiwany błąd)')
                     return redirect('doctor_check_visits')   
-                treatment = Treatment.objects.create(pet=pet, disease=disease)
             elif treatment_type == '2' and old_disease_treatment_id != "":
                 try:
                     treatment = Treatment.objects.get(id=old_disease_treatment_id)
@@ -123,15 +128,19 @@ def visitCreation(request, patients, doctors, renderSite, redirectSite, nearVisi
         for visit in Visit.objects.all():
             if visit.date == date and visit.doctor == doctor:
                 visitDateNotExisit = False
+        
         #error messages or creation 
         if visitDateNotExisit:
             if date >= pytz.UTC.localize(datetime.now()):
                 if patient is not None and doctor is not None and ownerComment is not None and date is not None:
-                    if patient in patients:
+                    if patient in patients:    
                         if doctor in doctors:
-                            Visit.objects.create(pet=patient, doctor = doctor, ownerComment=ownerComment, date=date)
-                            messages.success(request, 'Poprawnie zarezerwowałeś wizytę')
-                            return redirect(redirectSite)
+                            if len(Visit.objects.filter(Q(pet=patient) & Q(date__gte=datetime.now()))) <3:
+                                Visit.objects.create(pet=patient, doctor = doctor, ownerComment=ownerComment, date=date)
+                                messages.success(request, 'Poprawnie zarezerwowałeś wizytę')
+                                return redirect(redirectSite)    
+                            else:
+                                messages.error(request, 'nie można utworzyć więcej wizyt niż 3')
                         else:
                             messages.error(request, 'Doktor nie istnieje')
                     else:
