@@ -14,6 +14,7 @@ from visits.models import Visit
 from .models import Medicine, Pet, MedicineHistory
 from .forms import PetCreateUpdateForm  #, PetAvatarCreateUpdateForm, PetCreateForm
 from aaConfig.functions import pagination
+from users.models import Owner
 
 class PetListView(LoginRequiredMixin, ListView):
     model=Pet
@@ -38,22 +39,26 @@ def edit_dog_profile(request, id):
     try:
         pet = Pet.objects.get(id=id)
     except:
-        messages.error(request, "nie można edytować twojego psa")
+        messages.error(request, "nie można edytować psa")
         return redirect('your_dogs')
-    profile_form=PetCreateUpdateForm(instance=pet)
-    if request.method == 'POST':
-        profile_form=PetCreateUpdateForm(request.POST, request.FILES, instance=pet)
-        if profile_form.is_valid():
-            profile_form.save()
-            messages.success(request, f'Profil dla {pet.name} został updatowany')
-            return redirect(reverse('edit_dog', kwargs={'id':id})) 
-        else:
-            messages.error(request, f'Profil dla {pet.name} nie został updatowany')
-    context={
-        'pet':pet,
-        'profile_form': profile_form,
-    }
-    return render(request, 'pets/edit_dog.html', context)
+    if request.user.profile.owner == Owner.objects.filter(pet__id=id).first():
+        profile_form=PetCreateUpdateForm(instance=pet)
+        if request.method == 'POST':
+            profile_form=PetCreateUpdateForm(request.POST, request.FILES, instance=pet)
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, f'Profil dla {pet.name} został updatowany')
+                return redirect(reverse('edit_dog', kwargs={'id':id})) 
+            else:
+                messages.error(request, f'Profil dla {pet.name} nie został updatowany')
+        context={
+            'pet':pet,
+            'profile_form': profile_form,
+        }
+        return render(request, 'pets/edit_dog.html', context)
+    else:
+        messages.error(request, 'nie możesz edytować profilu nieswojego psa!')
+        return redirect('your_dogs')
 
 @login_required
 def add_dog_profile(request):
@@ -78,17 +83,21 @@ def dog_diseases_list(request, id):
     except:
         messages.error(request, 'pies nie istnieje')
         return redirect('your_dogs')
-    #searching part:
-    q= request.GET.get('q') if request.GET.get('q') != None else ''
-    treatments = pet.treatment_set.all().filter(
-        Q(disease__name__icontains = q)
-        | Q(start__icontains = q)
-        | Q(medicinehistory__medicine__name__icontains = q)
-    )
-    #pagination
-    treatments = pagination(request, treatments)
-    context={'treatments':treatments}
-    return render(request, 'pets/disease.html', context)
+    if request.user.profile.owner == Owner.objects.filter(pet__id=id).first():
+        #searching part:
+        q= request.GET.get('q') if request.GET.get('q') != None else ''
+        treatments = pet.treatment_set.all().filter(
+            Q(disease__name__icontains = q)
+            | Q(start__icontains = q)
+            | Q(medicinehistory__medicine__name__icontains = q)
+        )
+        #pagination
+        treatments = pagination(request, treatments)
+        context={'treatments':treatments}
+        return render(request, 'pets/disease.html', context)
+    else:
+        messages.error(request, 'nie możesz sprawdzić chorób dla nieswojego psa!')
+        return redirect('your_dogs')
 
 @login_required
 def dog_medicines_list(request, id):
@@ -97,19 +106,23 @@ def dog_medicines_list(request, id):
     except:
         messages.error(request, 'pies nie istnieje')
         return redirect('your_dogs')
-    #searching part
-    q= request.GET.get('q') if request.GET.get('q') != None else ''
-    treatments = pet.treatment_set.all().filter(
-        Q(medicinehistory__medicine__name__icontains = q)
-        | Q(medicinehistory__medicine__producer__name__icontains = q)
-        | Q(start__icontains = q)
-        | Q(disease__name__icontains = q)
-    )
-    medicine_histories = MedicineHistory.objects.filter(treatment__in=treatments)
-    #pagination
-    medicine_histories = pagination(request, medicine_histories)
-    context={'medicine_histories':medicine_histories}
-    return render(request, 'pets/medicines.html', context)
+    if request.user.profile.owner == Owner.objects.filter(pet__id=id).first():
+        #searching part
+        q= request.GET.get('q') if request.GET.get('q') != None else ''
+        treatments = pet.treatment_set.all().filter(
+            Q(medicinehistory__medicine__name__icontains = q)
+            | Q(medicinehistory__medicine__producer__name__icontains = q)
+            | Q(start__icontains = q)
+            | Q(disease__name__icontains = q)
+        )
+        medicine_histories = MedicineHistory.objects.filter(treatment__in=treatments)
+        #pagination
+        medicine_histories = pagination(request, medicine_histories)
+        context={'medicine_histories':medicine_histories}
+        return render(request, 'pets/medicines.html', context)
+    else:
+        messages.error(request, 'nie możesz sprawdzić leków dla nieswojego psa!')
+        return redirect('your_dogs')
 
 @login_required
 def dog_visits_list(request, id):
@@ -118,15 +131,19 @@ def dog_visits_list(request, id):
     except:
         messages.error(request, 'pies nie istnieje')
         return redirect('your_dogs')
-    visits = Visit.objects.filter(Q(pet = pet) & Q(date__lte=datetime.now()))
-    #searching part
-    q= request.GET.get('q') if request.GET.get('q') != None else ''
-    visits = visits.filter(
-        Q(doctor__profile__name__icontains = q) |
-        Q(date__icontains = q) |
-        Q(diagnosis__treatment__disease__name__icontains = q)
-    )
-    #pagination
-    visits = pagination(request, visits)
-    context={'visits':visits}
-    return render(request, 'pets/visits.html', context)
+    if request.user.profile.owner == Owner.objects.filter(pet__id=id).first():
+        visits = Visit.objects.filter(Q(pet = pet) & Q(date__lte=datetime.now()))
+        #searching part
+        q= request.GET.get('q') if request.GET.get('q') != None else ''
+        visits = visits.filter(
+            Q(doctor__profile__name__icontains = q) |
+            Q(date__icontains = q) |
+            Q(diagnosis__treatment__disease__name__icontains = q)
+        )
+        #pagination
+        visits = pagination(request, visits)
+        context={'visits':visits}
+        return render(request, 'pets/visits.html', context)
+    else:
+        messages.error(request, 'nie możesz sprawdzić wizyt dla nieswojego psa!')
+        return redirect('your_dogs')

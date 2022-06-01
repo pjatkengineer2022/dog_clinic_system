@@ -3,16 +3,17 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from datetime import datetime
+from dateutil import parser, relativedelta
+import pytz
+from django.db.models import Q	
 
 from .forms import DiagnosisCreationForm
 from aaConfig.decorators import doctor_only
 from .models import Diagnosis, Visit
 from pets.models import Pet, Treatment, Medicine, MedicineHistory, Disease
 from doctors.models import Doctor 
-from datetime import datetime
-from dateutil import parser, relativedelta
-import pytz
-from django.db.models import Q	
+from users.models import Owner
 # Create your views here.
 
 @login_required(login_url='login_doctor')
@@ -175,10 +176,15 @@ def owner_book_visit_with_patient(request, petid):
         patients = [Pet.objects.get(id=petid)]
     except Pet.DoesNotExist:
         return redirect('your_dogs')
-    doctors = Doctor.objects.all()
-    nearVisit = Visit.objects.filter(Q(pet__id=petid)).order_by('date').first()
-    return visitCreation(request=request,patients=patients, doctors=doctors, renderSite = 'visits/reservation.html', redirectSite='your_dogs', nearVisit=nearVisit)
-    
+    if request.user.profile.owner == Owner.objects.filter(pet__id=petid).first():
+        doctors = Doctor.objects.all()
+        nearVisit = Visit.objects.filter(Q(pet__id=petid)).order_by('date').first()
+        return visitCreation(request=request,patients=patients, doctors=doctors, renderSite = 'visits/reservation.html', redirectSite='your_dogs', nearVisit=nearVisit)
+    else:
+        messages.error(request, 'nie możesz zarezerwować wizyty dla nieswojego psa!')
+        return redirect('your_dogs')
+
+
 @login_required(login_url='login_doctor')
 @doctor_only
 def doctor_book_visit_with_patient(request, petid):
