@@ -103,7 +103,7 @@ def doctor_remove_visit(request, visitid):
         messages.error(request, 'nie można usunąć wyzyty')
     else:
         messages.info(request,'wizyta została usunięta')
-    return redirect('doctor_shift_list')
+    return redirect('doctor_check_visits')
 
 @login_required(login_url='login_doctor')
 @doctor_only
