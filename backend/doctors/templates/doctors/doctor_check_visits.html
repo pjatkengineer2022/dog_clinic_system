@@ -79,12 +79,14 @@
                             </div>
                         </div>
                         <div class="g__row-box-column column is-2-desktop is-full-touch">
-                            <div class="g__row-box-subheader">
-                                Akcje:
-                            </div>
                             <div class="g__actions-box">
                                 <a class="g__btn-action" href="{% url 'add_diagnosis' visit.id %}">Dodaj diagnozę</a>
                             </div>
+                            {% if my_url == 'doctor_check_history_visits' %}
+                                <div class="g__actions-box">
+                                    <a class="g__btn-action" href="{% url 'doctor_remove_visit' visit.id %}">Usun wizytę</a>
+                                </div>
+                            {% endif%}
                         </div>
                     </div>
                 </li>

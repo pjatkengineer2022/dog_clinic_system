@@ -93,6 +93,20 @@ def doctor_check_visits_list(request):
 
 @login_required(login_url='login_doctor')
 @doctor_only
+def doctor_remove_visit(request, visitid):
+    try:
+        visit = Visit.objects.get(id=visitid)
+        visit.delete()
+    except Visit.DoesNotExist:
+        messages.error(request, 'wizyta nie istnieje')
+    except:
+        messages.error(request, 'nie można usunąć wyzyty')
+    else:
+        messages.info(request,'wizyta została usunięta')
+    return redirect('doctor_shift_list')
+
+@login_required(login_url='login_doctor')
+@doctor_only
 def doctor_check_history_visits_list(request):
     visits = Visit.objects.filter(Q(doctor=request.user.profile.doctor) & Q(date__lte=timezone.now())).order_by('-date')
     q= request.GET.get('q') if request.GET.get('q') != None else ''

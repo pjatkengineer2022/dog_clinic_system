@@ -14,6 +14,7 @@ urlpatterns =[
     # path('doctor_browse_patients/', views.DoctorBrowsePatientListView.as_view(), name='doctor_browse_patients'),
     path('doctor_browse_patients/', views.doctor_browse_patients, name='doctor_browse_patients'),
     path('doctor_check_visits/', views.doctor_check_visits_list, name='doctor_check_visits'),
+    path('doctor_remove_visit/<int:visitid>/', views.doctor_remove_visit, name='doctor_remove_visit'),
     path('doctor_check_history_visits/', views.doctor_check_history_visits_list, name='doctor_check_history_visits'),
     #pet history: diseases, medicines, visits
     path('diseases_history/<int:id>/', views.dog_diseases_history_list, name='diseases_history'),
