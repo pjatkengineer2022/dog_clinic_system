@@ -33,7 +33,7 @@ class Disease(models.Model):
 
 class Producer(models.Model):
     name = models.CharField(max_length=70)
-    address = models.CharField(max_length=1000, null=True, blank=True)
+    mail = models.EmailField(max_length=1000, null=True, blank=True)
     def __str__(self):
         return self.name
 
