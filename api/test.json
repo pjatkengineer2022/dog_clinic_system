@@ -4,7 +4,7 @@
        "doctorname":"Marek Pierwszy",
        "doctorshifts":[
           {
-             "date":"2022-05-10",
+             "date":"2022-06-03",
              "shiftStartTime":"06:00:00",
              "shiftEndTime":"14:00:00"
           },
@@ -19,7 +19,7 @@
              "shiftEndTime":"22:00:00"
           },
           {
-             "date":"2022-06-03",
+             "date":"2022-06-06",
              "shiftStartTime":"14:00:00",
              "shiftEndTime":"22:00:00"
           },
@@ -61,30 +61,30 @@
        "id":2,
        "doctorname":"Marek Idziak",
        "doctorshifts":[
-          
+
        ],
        "visits":[
-          
+
        ]
     },
     {
        "id":3,
        "doctorname":"",
        "doctorshifts":[
-          
+
        ],
        "visits":[
-          
+
        ]
     },
     {
        "id":4,
        "doctorname":"",
        "doctorshifts":[
-          
+
        ],
        "visits":[
-          
+
        ]
     }
  ]
