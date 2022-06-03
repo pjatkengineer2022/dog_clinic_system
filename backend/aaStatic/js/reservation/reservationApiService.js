@@ -12,6 +12,7 @@ function appData() {
         selectedTermDataTimeISO: '',
 
         async init() {
+            // await fetch(`${baseUrl}/api/test.json`)
             await fetch(`${baseUrl}/api/doctor_with_shift_list`)
                 .then((response) => response.json())
                 .then((json) => this.doctors = json)
@@ -35,6 +36,7 @@ function appData() {
             this.selectedTermDataTimeISO = '';
 
             const currentDateTimeStamp = new Date().setHours(0,0,0,0);
+            const currentHour = new Date().getHours();
 
             if (this.selectedDoctorId) {
                 this.showCalendar = true;
@@ -72,7 +74,15 @@ function appData() {
                             isReserved: isReserved,
                             textHour: `${i}:00`,
                         };
-                        hours.push(hourObject);
+                        const shiftDateTimeStamp = new Date(day.date).setHours(0,0,0,0);
+                        // if today push only hours bigger than current
+                        if (shiftDateTimeStamp == currentDateTimeStamp) {
+                            if (i > currentHour) {
+                                hours.push(hourObject);
+                            }
+                        } else {
+                            hours.push(hourObject);
+                        }
                     }
 
                     return {
