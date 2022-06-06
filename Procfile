@@ -1,0 +1,1 @@
+web: gunicorn dog-clinic-system.wsgi --log-file -
