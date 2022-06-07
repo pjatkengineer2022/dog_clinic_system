@@ -1,1 +1,1 @@
-web: python manage.py runserver
+web: gunicorn dog-clinic-system.wsgi --log-file -
