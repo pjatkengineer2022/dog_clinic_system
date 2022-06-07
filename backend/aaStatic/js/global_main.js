@@ -4,8 +4,11 @@ $(document).ready(function(){
 
     $('.datepicker').datepicker({
         format: 'yyyy-mm-dd',
-        startDate: '0d',
+        startDate: '-1d',
         multidate: true,
-    });    
+        weekStart: 1,
+        locale: 'pl',
+        language:'pl'
+    });     
 });
   
