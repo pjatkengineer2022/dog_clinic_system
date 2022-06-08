@@ -1,1 +1,1 @@
-web: gunicorn backend.wsgi:application --log-file -
+web: gunicorn backend.aaconfig.wsgi:application --log-file -
