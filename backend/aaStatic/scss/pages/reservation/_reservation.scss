@@ -102,6 +102,7 @@
 .term__list {
     display: flex;
     overflow: auto;
+    justify-content: center;
 }
 
 .term__hour-item {

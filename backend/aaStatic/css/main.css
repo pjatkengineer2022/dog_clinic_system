@@ -11400,7 +11400,8 @@ body button:hover, body a:hover {
 
 .s__reservation .term__list {
   display: flex;
-  overflow: auto; }
+  overflow: auto;
+  justify-content: center; }
 
 .s__reservation .term__hour-item {
   margin-bottom: .5rem; }
