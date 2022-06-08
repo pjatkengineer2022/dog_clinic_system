@@ -182,7 +182,7 @@ def dog_visits_history_list(request, id):
         Q(doctor__profile__name__icontains = q) |
         Q(date__icontains = q) |
         Q(diagnosis__treatment__disease__name__icontains = q)
-    )
+    ).order_by('-date')
     #pagination
     visits = pagination(request, visits)
     context={'visits':visits, 'pet':pet}

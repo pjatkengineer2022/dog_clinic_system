@@ -13,87 +13,93 @@
         <div class="medicines__all-btn-wrapper">
             <a href="{% url my_url %}" class="g__btn">{{text2}}</a>
         </div>
-        {% include "searching.html" with url_variable='doctor_check_visits' my_placeholder="Wyszukaj wizytę..." %} 
-        <div class="diseases__container">
-            <ul class="disease__list">
-                {% for visit in visits %}
-                <li class="g__row-box">
-                    <h2 class="g__row-box-header">
-                        Wizyta {{ visit.date|date:'Y-m-d'}}
-                    </h2>
-                    <div class="g__row-box-content is-multiline columns">
-                        <div class="g__row-box-column column is-1-desktop is-full-touch">
-                            <div class="g__row-box-subheader">
-                                Godzina: 
-                            </div>
-                            <div class="g__row-box-desc">
-                                {{ visit.date|date:'H:i'}}
-                            </div>
-                        </div>
-                        <div class="g__row-box-column column is-1-desktop is-full-touch">
-                            <div class="g__row-box-subheader">
-                                Pacjent: 
-                            </div>
-                            <div class="g__row-box-desc">
-                                {{visit.pet.name}}
-                            </div>
-                        </div>
-                        <div class="g__row-box-column column is-2-desktop is-full-touch">
-                            <div class="g__row-box-subheader">
-                                Właściciel:
-                            </div>
-                            <div class="g__row-box-desc">
-                                {% if visit.pet.owner.profile.name %}
-                                <span class="g__patient-text-value">{{visit.pet.owner.profile.name}}</span>
-                                {% else %}
-                                <span class="g__patient-text-value">{{visit.pet.owner.profile.user.username}}</span>
-                                {% endif %}
-                                <div class="g__patient-text-value">{{visit.pet.owner.profile.mobileNumber}}</div>
-                                <div class="g__patient-text-value">{{visit.pet.owner.profile.email}}</div>
-                            </div>
-                        </div>
-                        <div class="g__row-box-column column is-3-desktop is-full-touch">
-                            <div class="g__row-box-subheader">
-                                Uwagi właściciela:
-                            </div>
-                            <div class="g__row-box-desc">
-                                {% if visit.ownerComment %}
-                                    {{ visit.ownerComment }}
-                                {% else %}
-                                    ---------------
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="g__row-box-column column is-3-desktop is-full-touch">
-                            <div class="g__row-box-subheader">
-                                Diagnozy do wizyty:
-                            </div>
-                            <div class="g__row-box-desc">
-                                {% if visit.diagnosis_set.all %}
-                                    {% for diagnosis in visit.diagnosis_set.all %}
-                                        <p><span class="g__patient-text-value">{{ visit.date|date:"Y-m-d"}}: {{diagnosis.description}}</span></p>
-                                    {% endfor %}
-                                    {% else %}
-                                        <span class="g__patient-text-value">------------------</span>
-                                    {% endif %}
-                            </div>
-                        </div>
-                        <div class="g__row-box-column column is-2-desktop is-full-touch">
-                            <div class="g__actions-box mb-2">
-                                <a class="g__btn-action" href="{% url 'add_diagnosis' visit.id %}">Dodaj diagnozę</a>
-                            </div>
-                            {% if my_url == 'doctor_check_history_visits' %}
-                                <div class="g__actions-box">
-                                    <a class="g__btn-action" href="{% url 'doctor_remove_visit' visit.id %}">Usun wizytę</a>
+        {% if visits%}
+            {% include "searching.html" with url_variable='doctor_check_visits' my_placeholder="Wyszukaj wizytę..." %} 
+            <div class="diseases__container">
+                <ul class="disease__list">
+                    {% for visit in visits %}
+                    <li class="g__row-box">
+                        <h2 class="g__row-box-header">
+                            Wizyta {{ visit.date|date:'Y-m-d'}}
+                        </h2>
+                        <div class="g__row-box-content is-multiline columns">
+                            <div class="g__row-box-column column is-1-desktop is-full-touch">
+                                <div class="g__row-box-subheader">
+                                    Godzina: 
                                 </div>
-                            {% endif%}
+                                <div class="g__row-box-desc">
+                                    {{ visit.date|date:'H:i'}}
+                                </div>
+                            </div>
+                            <div class="g__row-box-column column is-1-desktop is-full-touch">
+                                <div class="g__row-box-subheader">
+                                    Pacjent: 
+                                </div>
+                                <div class="g__row-box-desc">
+                                    {{visit.pet.name}}
+                                </div>
+                            </div>
+                            <div class="g__row-box-column column is-2-desktop is-full-touch">
+                                <div class="g__row-box-subheader">
+                                    Właściciel:
+                                </div>
+                                <div class="g__row-box-desc">
+                                    {% if visit.pet.owner.profile.name %}
+                                    <span class="g__patient-text-value">{{visit.pet.owner.profile.name}}</span>
+                                    {% else %}
+                                    <span class="g__patient-text-value">{{visit.pet.owner.profile.user.username}}</span>
+                                    {% endif %}
+                                    <div class="g__patient-text-value">{{visit.pet.owner.profile.mobileNumber}}</div>
+                                    <div class="g__patient-text-value">{{visit.pet.owner.profile.email}}</div>
+                                </div>
+                            </div>
+                            <div class="g__row-box-column column is-3-desktop is-full-touch">
+                                <div class="g__row-box-subheader">
+                                    Uwagi właściciela:
+                                </div>
+                                <div class="g__row-box-desc">
+                                    {% if visit.ownerComment %}
+                                        {{ visit.ownerComment }}
+                                    {% else %}
+                                        ---------------
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="g__row-box-column column is-3-desktop is-full-touch">
+                                <div class="g__row-box-subheader">
+                                    Diagnozy do wizyty:
+                                </div>
+                                <div class="g__row-box-desc">
+                                    {% if visit.diagnosis_set.all %}
+                                        {% for diagnosis in visit.diagnosis_set.all %}
+                                            <p><span class="g__patient-text-value">{{ visit.date|date:"Y-m-d"}}: {{diagnosis.description}}</span></p>
+                                        {% endfor %}
+                                        {% else %}
+                                            <span class="g__patient-text-value">------------------</span>
+                                        {% endif %}
+                                </div>
+                            </div>
+                            <div class="g__row-box-column column is-2-desktop is-full-touch">
+                                <div class="g__actions-box mb-2">
+                                    <a class="g__btn-action" href="{% url 'add_diagnosis' visit.id %}">Dodaj diagnozę</a>
+                                </div>
+                                {% if my_url == 'doctor_check_history_visits' %}
+                                    <div class="g__actions-box">
+                                        <a class="g__btn-action" href="{% url 'doctor_remove_visit' visit.id %}">Usun wizytę</a>
+                                    </div>
+                                {% endif%}
+                            </div>
                         </div>
-                    </div>
-                </li>
-                {% endfor %}
-                {% include "pagination.html" with variable=visits %}
-            </ul>
-        </div>
+                    </li>
+                    {% endfor %}
+                    {% include "pagination.html" with variable=visits %}
+                </ul>
+            </div>
+        {% else %}
+            <div class="g__head">
+                <h1 class="g__title">Brak zaplanowanych wizyt</h1>
+            </div>
+        {% endif %}
     </div>
 </section>
 <section 

@@ -35,7 +35,7 @@ class PetListView(LoginRequiredMixin, ListView):
             return redirect('home')
     def get_context_data(self,**kwargs):
         context = super(PetListView, self).get_context_data(**kwargs)
-        context['nearVisit'] = Visit.objects.filter(pet__owner=self.request.user.profile.owner).order_by('date').first()
+        context['nearVisit'] = Visit.objects.filter(Q(pet__owner=self.request.user.profile.owner) & Q(date__gt=timezone.now())).order_by('date').first()
         return context
        
 @login_required
@@ -146,7 +146,7 @@ def dog_visits_list(request, id):
             Q(doctor__profile__name__icontains = q) |
             Q(date__icontains = q) |
             Q(diagnosis__treatment__disease__name__icontains = q)
-        )
+        ).order_by('-date')
         #pagination
         visits = pagination(request, visits)
         context={'visits':visits,'pet':pet}

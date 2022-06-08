@@ -8,35 +8,41 @@
         </div>
         {% include 'doctors/petData.html' with pet=pet %}
         <div class="l-container-small">
-            <ul class="future-visits__list">
-                {% for visit in visits %}
-                <li class="future-visits__item box">
-                    <div class="future-visits__item-content is-multiline columns">
-                        <div class="future-visits__item-column column is-3-desktop is-full-touch">
-                            <div class="g__row-box-subheader future-visits__label">Data i godzina</div>
-                            <div class="g__row-box-desc future-visits__value">{{ visit.date|date:'Y-m-d H:i' }}</div>
-                        </div>
-                        <div class="future-visits__item-column column is-3-desktop is-full-touch">
-                            <div class="g__row-box-subheader future-visits__label">Lekarz</div>
-                            <div class="g__row-box-desc future-visits__value">
-                                {% if visit.doctor.profile.name %} 
-                                Dr. {{ visit.doctor.profile.name }} 
-                                {% else %}
-                                Dr. {{ visit.doctor.profile.user.username}}
-                                {% endif %}
+            {% if %}
+                <ul class="future-visits__list">
+                    {% for visit in visits %}
+                    <li class="future-visits__item box">
+                        <div class="future-visits__item-content is-multiline columns">
+                            <div class="future-visits__item-column column is-3-desktop is-full-touch">
+                                <div class="g__row-box-subheader future-visits__label">Data i godzina</div>
+                                <div class="g__row-box-desc future-visits__value">{{ visit.date|date:'Y-m-d H:i' }}</div>
+                            </div>
+                            <div class="future-visits__item-column column is-3-desktop is-full-touch">
+                                <div class="g__row-box-subheader future-visits__label">Lekarz</div>
+                                <div class="g__row-box-desc future-visits__value">
+                                    {% if visit.doctor.profile.name %} 
+                                    Dr. {{ visit.doctor.profile.name }} 
+                                    {% else %}
+                                    Dr. {{ visit.doctor.profile.user.username}}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="future-visits__item-column column is-3-desktop is-full-touch">
+                                <div class="future-visits-delete-box">
+                                    <button class="g__delete-btn future-visits-delete-btn">
+                                        <a href="{% url 'remove_dog_future_visit' pet.id visit.id %}">Usuń<i class="mdi mdi-trash-can-outline"></i></a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="future-visits__item-column column is-3-desktop is-full-touch">
-                            <div class="future-visits-delete-box">
-                                <button class="g__delete-btn future-visits-delete-btn">
-                                    <a href="{% url 'remove_dog_future_visit' pet.id visit.id %}">Usuń<i class="mdi mdi-trash-can-outline"></i></a>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </li>   
-                {% endfor %}
-            </ul>
+                    </li>   
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="g__head">
+                    <h5 class="g__title">Brak przyszłych wizyt</h5>
+                </div>
+            {% endif %}
         </div>
     </div>
 </section>

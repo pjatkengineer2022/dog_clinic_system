@@ -21,7 +21,7 @@
                         {{profileUpdateForm.name.errors}}
                     </div>
                     <div class="g__form-row">
-                        <label class="g__form-label">email</label>
+                        <label class="g__form-label">Email</label>
                         {{userUpdateForm.email}}
                         {{userUpdateForm.email.errors}}
                     </div>
@@ -33,8 +33,8 @@
                     <div class="g__form-row g__form-row-submit">
                         <button type="submit" class="g__form-btn">Zapisz</button>
                     </div>
-                    <div class="g__form-row">
-                        <button class="g__form-btn"><a href="{% url 'reset_password' %}">zmień hasło</a></button>
+                    <div class="g__form-row g__form-btn">
+                       <a href="{% url 'reset_password' %}"><span class="g__form-btn">zmień hasło</span></a>
                     </div>
                 </form>
             </div>
