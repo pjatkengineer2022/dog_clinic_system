@@ -29,7 +29,14 @@
                                         <div class="reservation__form-select select is-fullwidth">
                                             <select name="visitPatientId">
                                                 {% for pet in patients %}
-                                                    <option value="{{pet.id}}">{{pet.name}}</option>
+                                                    <option value="{{pet.id}}">
+                                                        {{pet.name}} - 
+                                                        {% if pet.owner.profile.name %}
+                                                            {{ pet.owner.profile.name }}
+                                                        {% else %}
+                                                            {{ pet.owner.profile.user.username}}
+                                                        {% endif %}
+                                                    </option>
                                                 {% endfor %}
                                             </select>
                                         </div>

@@ -167,7 +167,7 @@ def owner_book_visit_no_patient(request):
 @login_required(login_url='login_doctor')
 @doctor_only
 def doctor_book_visit_no_patient(request):
-    patients = Pet.objects.all()
+    patients = Pet.objects.all().order_by('name')
     doctor = request.user.profile.doctor
     return visitCreation(request=request,patients=patients, doctors=doctor, renderSite = 'visits/reservation_doctor.html', redirectSite='doctor_check_visits')
 
