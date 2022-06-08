@@ -1,1 +1,1 @@
-web: gunicorn backend.wsgi
+web: gunicorn dog_clinic_system.wsgi
