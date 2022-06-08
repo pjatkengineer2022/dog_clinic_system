@@ -1,1 +1,1 @@
-web: gunicorn dog_clinic_system:app
+web: gunicorn dog-clinic-system:app
