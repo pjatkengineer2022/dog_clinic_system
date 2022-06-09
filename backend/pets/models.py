@@ -1,7 +1,7 @@
 import datetime
 from django.utils import timezone
 from django.db import models
-from users.models import Owner
+from backend.users.models import Owner
 from PIL import Image
 from aaConfig.validators import validate_file_size
 
