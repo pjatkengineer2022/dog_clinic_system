@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*+*7yh5aq5ii(57=b1pfm@n3xhr^!40#%^xzc7m3wdbt)memrq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['dog-clinic-system.herokuapp.com', '127.0.0.1']#'127.0.0.1','localhost']
 
@@ -67,7 +67,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'backend','aaTemplates')],
+        'DIRS': [os.path.join(BASE_DIR,'aaTemplates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
