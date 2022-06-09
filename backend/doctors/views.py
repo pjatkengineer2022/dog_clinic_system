@@ -13,9 +13,9 @@ from django.urls import reverse
 
 from aaConfig.decorators import allowed_users, doctor_only
 from aaConfig.functions import pagination
-from doctors.models import Doctor, DoctorShift, Shift
-from pets.models import MedicineHistory, Pet, Medicine, Treatment
-from visits.models import Visit
+from backend.doctors.models import Doctor, DoctorShift, Shift
+from backend.pets.models import MedicineHistory, Pet, Medicine, Treatment
+from backend.visits.models import Visit
 from .forms import MedicineCreationForm, DoctorShiftCreationForm
 from users.forms import UserAuthenticationForm
 
