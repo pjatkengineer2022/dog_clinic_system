@@ -146,5 +146,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'engineer2022db@gmail.com'
 EMAIL_HOST_PASSWORD =  'nqqlcoiyoisejfir' #'ngcjsuuqibifcqzd'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'aaMedia')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'backend/aaMedia')
 MEDIA_URL = '/media/'
