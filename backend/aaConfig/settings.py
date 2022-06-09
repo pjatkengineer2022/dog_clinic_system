@@ -131,7 +131,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'backend/aaStatic'
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'aaStatic/'),]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 #models PHONE NUMBER EDIT
 PHONENUMBER_DEFAULT_REGION = "PL"
 PHONENUMBER_DEFAULT_FORMAT = "NATIONAL"
