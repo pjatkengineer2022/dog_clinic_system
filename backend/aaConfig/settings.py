@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-*+*7yh5aq5ii(57=b1pfm@n3xhr^!40#%^xzc7m3wdbt)memrq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['dog-clinic-system.herokuapp.com', '127.0.0.1', 'dog-clinic-system.azurewebsites.net']#'127.0.0.1','localhost']
+ALLOWED_HOSTS = ['dog-clinic-system.herokuapp.com', '127.0.0.1']#'127.0.0.1','localhost']
 
 
 # Application definition
@@ -131,7 +131,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'backend/aaStatic'
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'aaStatic/'),]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 #models PHONE NUMBER EDIT
 PHONENUMBER_DEFAULT_REGION = "PL"
 PHONENUMBER_DEFAULT_FORMAT = "NATIONAL"
