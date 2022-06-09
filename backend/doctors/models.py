@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.urls import reverse
-from users.models import Profile
+from backend.users.models import Profile
 from PIL import Image
 from aaConfig.validators import validate_file_size
 
