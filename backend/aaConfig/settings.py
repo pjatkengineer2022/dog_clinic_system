@@ -129,7 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'aaConfig')
 STATIC_URL = 'static'
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'backend/aaStatic/'),]
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'aaStatic'),]
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
