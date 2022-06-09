@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from pets.models import Pet, Treatment
+from backend.pets.models import Pet, Treatment
 from doctors.models import Doctor
 # Create your models here.
 
