@@ -129,8 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'backend/aaStatic'
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'aaStatic/'), ]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'aaStatic/'),]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #models PHONE NUMBER EDIT
