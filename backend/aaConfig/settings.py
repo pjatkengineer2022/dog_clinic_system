@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'backend.pets',
     'backend.doctors',
     'backend.visits',
-    'api.apps.ApiConfig',
+    'backend.api',
     'captcha',
     'phonenumber_field',
     'rest_framework',
