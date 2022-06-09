@@ -59,7 +59,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'aaConfig.urls'
+ROOT_URLCONF = 'backend.aaConfig.urls'
 
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
