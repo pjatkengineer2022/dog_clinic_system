@@ -66,7 +66,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'aaTemplates')],
+        'DIRS': [os.path.join(BASE_DIR,'backend.aaTemplates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
