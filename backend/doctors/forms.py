@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.widgets import PasswordInput, TextInput, EmailInput, NumberInput, DateInput, FileInput, Select, Textarea
-from pets.models import Medicine, Producer
+from backend.pets.models import Medicine, Producer
 from .models import DoctorShift, Shift
 
 
