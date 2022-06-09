@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.db import models
 from backend.users.models import Owner
 from PIL import Image
-from aaConfig.validators import validate_file_size
+from backend.aaConfig.validators import validate_file_size
 
 def year_choices():
     return [(r,r) for r in range(datetime.date.today().year-30, datetime.date.today().year+1)]
