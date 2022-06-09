@@ -25,11 +25,11 @@ urlpatterns = [
     path('', basicViews.home, name='home'),
     path('contact/', basicViews.contact, name='contact'),
     path('prices/', basicViews.prices, name='prices'),
-    path('users/', include("users.urls")),
-    path('pets/', include("pets.urls")),
-    path('doctors/', include("doctors.urls")),
-    path('visits/', include("visits.urls")),
-    path('api/', include("api.urls")),
+    path('users/', include("backend.users.urls")),
+    path('pets/', include("backend.pets.urls")),
+    path('doctors/', include("backend.doctors.urls")),
+    path('visits/', include("backend.visits.urls")),
+    path('api/', include("backend.api.urls")),
 ]
 urlpatterns += [
     path('captcha/', include('captcha.urls')),
