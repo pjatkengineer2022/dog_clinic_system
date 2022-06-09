@@ -11,8 +11,8 @@ from django.views.generic import ListView, DetailView
 from django.utils import timezone
 from django.urls import reverse
 
-from aaConfig.decorators import allowed_users, doctor_only
-from aaConfig.functions import pagination
+from backend.aaConfig.decorators import allowed_users, doctor_only
+from backend.aaConfig.functions import pagination
 from backend.doctors.models import Doctor, DoctorShift, Shift
 from backend.pets.models import MedicineHistory, Pet, Medicine, Treatment
 from backend.visits.models import Visit

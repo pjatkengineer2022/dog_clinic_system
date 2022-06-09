@@ -14,7 +14,7 @@ from django.utils import timezone
 from backend.visits.models import Visit
 from .models import Medicine, Pet, MedicineHistory
 from .forms import PetCreateUpdateForm  #, PetAvatarCreateUpdateForm, PetCreateForm
-from aaConfig.functions import pagination
+from backend.aaConfig.functions import pagination
 from backend.users.models import Owner
 
 
