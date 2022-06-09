@@ -53,7 +53,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoise.Middleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -131,7 +130,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'backend/aaStatic'
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'aaStatic/'),]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 #models PHONE NUMBER EDIT
 PHONENUMBER_DEFAULT_REGION = "PL"
 PHONENUMBER_DEFAULT_FORMAT = "NATIONAL"
