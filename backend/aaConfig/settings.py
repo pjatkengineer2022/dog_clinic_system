@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from pickle import TRUE
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'captcha',
     'phonenumber_field',
     'rest_framework',
+    'storages'
     
     
 ]
@@ -153,3 +155,17 @@ EMAIL_HOST_PASSWORD =  'nqqlcoiyoisejfir' #'ngcjsuuqibifcqzd'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'aaMedia')
 MEDIA_URL = '/media/'
+
+#S3 BUCKETS CONFIG
+
+AWS_ACCESS_KEY_ID = 'AKIATWY2MSKRLLTIJ344'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'dog-clinic-system-bucket'
+AWS_S3_FILE_OVERWRITE = TRUE
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+
+
+
