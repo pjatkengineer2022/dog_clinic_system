@@ -88,10 +88,10 @@ WSGI_APPLICATION = 'aaConfig.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'vetoffice',
+        'NAME': 'vetofficedb',
         'USER': 'postgres',
-        'PASSWORD':'admin',
-        'HOST' : 'localhost',
+        'PASSWORD':'admin123',
+        'HOST' : 'database-1.cnfr0aw0m4lg.eu-west-2.rds.amazonaws.com',
         'PORT' : '5432'
 
     }
