@@ -168,5 +168,5 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_S3_REGION_NAME = 'eu-west-2'
 AWS_S3_HOST = 's3.eu-west-2.amazonaws.com'
 AWS_S3_ADDRESSING_STYLE = 'virtual'
-
+AWS_S3_SIGNATURE_VERSION ='s3v4'
 
