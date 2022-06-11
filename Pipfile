@@ -16,6 +16,7 @@ django-filter = "*"
 python-dateutil = "*"
 gunicorn = "*"
 whitenoise = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
