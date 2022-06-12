@@ -15,6 +15,7 @@ markdown = "*"
 django-filter = "*"
 python-dateutil = "*"
 gunicorn = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
