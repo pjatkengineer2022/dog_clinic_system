@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='doctor',
             name='image',
-            field=models.ImageField(default='doctor-avatar.png', upload_to='doctor_profile_pics'),
+            field=models.ImageField(default='doctor_avatar.png', upload_to='doctor_profile_pics'),
         ),
         migrations.CreateModel(
             name='DoctorShift',

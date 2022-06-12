@@ -15,7 +15,7 @@ class Service(models.Model):
 class Doctor(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     description = models.CharField(max_length=1000, null=True, blank=True)
-    image = models.ImageField(upload_to="doctor_profile_pics", validators=[validate_file_size], default='doctor-avatar.png')
+    image = models.ImageField(upload_to="doctor_profile_pics", validators=[validate_file_size], default='doctor_avatar.png')
     service = models.ManyToManyField(Service)
     def __str__(self):
         return self.profile.user.username + ' doctor'
