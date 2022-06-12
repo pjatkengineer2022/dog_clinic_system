@@ -1,1 +1,1 @@
-web: gunicorn backend.aaConfig.wsgi:application --preload
+web: gunicorn backend.aaConfig.wsgi --log-file -
