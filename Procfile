@@ -1,0 +1,1 @@
+web: gunicorn backend.aaConfig.wsgi --log-file -
