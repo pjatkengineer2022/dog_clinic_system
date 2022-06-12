@@ -11024,7 +11024,7 @@ body button:hover, body a:hover {
 
 .s__home-main {
   min-height: 100vh;
-  background-image: url("../assets/img/home-bg-img.jpg");
+  background-image: url("../assets/img/home_bg_img.jpg");
   background-size: cover;
   background-position: center;
   padding-top: 6rem;
