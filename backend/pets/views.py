@@ -11,11 +11,11 @@ from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 from django.utils import timezone
 
-from visits.models import Visit
+from backend.visits.models import Visit
 from .models import Medicine, Pet, MedicineHistory
 from .forms import PetCreateUpdateForm  #, PetAvatarCreateUpdateForm, PetCreateForm
-from aaConfig.functions import pagination
-from users.models import Owner
+from backend.aaConfig.functions import pagination
+from backend.users.models import Owner
 
 
 ######################## DOG PROFILE ##########################
