@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='pet',
             name='avatar',
-            field=models.ImageField(default='dog_avatar.png', upload_to='pet_profile_pics', validators=[aaConfig.validators.validate_file_size]),
+            field=models.ImageField(default='dog_avatar.png', upload_to='pet_profile_pics', validators=[backend.aaConfig.validators.validate_file_size]),
         ),
     ]
