@@ -20,7 +20,9 @@ def registerUser(request):
                 user.username = user.username.lower()
                 user2 = user.save()
                 #if signal not working
-                Profile.objects.get_or_create(user=user2)
+                #Profile.objects.get_or_create(user=user2)
+                profile=Profile(user=user2)
+                profile.save()
                 #add to owner group:
                 group = Group.objects.get(name='owner')
                 user.groups.add(group)
