@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from backend.doctors.models import Service
+from doctors.models import Service
 
 def home(request):
     context={}

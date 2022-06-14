@@ -1,8 +1,8 @@
-from backend.pets.models import Pet
+from pets.models import Pet
 from rest_framework import serializers
-from backend.doctors.models import DoctorShift, Doctor, Shift
-from backend.visits.models import Visit
-from backend.users.models import Profile
+from doctors.models import DoctorShift, Doctor, Shift
+from visits.models import Visit
+from users.models import Profile
 
 
 

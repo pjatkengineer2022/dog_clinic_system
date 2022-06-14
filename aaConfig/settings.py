@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'backend.pets',
-    'backend.doctors',
-    'backend.visits',
-    'backend.api',
-    'backend.users',
+    'pets',
+    'doctors',
+    'visits',
+    'api',
+    'users',
     'captcha',
     'phonenumber_field',
     'rest_framework',
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'backend.aaConfig.urls'
+ROOT_URLCONF = 'aaConfig.urls'
 
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

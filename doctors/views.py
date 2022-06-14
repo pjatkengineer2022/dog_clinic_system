@@ -11,13 +11,13 @@ from django.views.generic import ListView, DetailView
 from django.utils import timezone
 from django.urls import reverse
 
-from backend.aaConfig.decorators import allowed_users, doctor_only
-from backend.aaConfig.functions import pagination
-from backend.doctors.models import Doctor, DoctorShift, Shift
-from backend.pets.models import MedicineHistory, Pet, Medicine, Treatment
-from backend.visits.models import Visit
+from aaConfig.decorators import allowed_users, doctor_only
+from aaConfig.functions import pagination
+from doctors.models import Doctor, DoctorShift, Shift
+from pets.models import MedicineHistory, Pet, Medicine, Treatment
+from visits.models import Visit
 from .forms import MedicineCreationForm, DoctorShiftCreationForm
-from backend.users.forms import UserAuthenticationForm
+from users.forms import UserAuthenticationForm
 
 
 

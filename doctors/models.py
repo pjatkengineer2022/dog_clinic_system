@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.urls import reverse
-from backend.users.models import Profile
+from users.models import Profile
 from PIL import Image
-from backend.aaConfig.validators import validate_file_size
+from aaConfig.validators import validate_file_size
 
 class Service(models.Model):
     name = models.CharField(max_length=100)

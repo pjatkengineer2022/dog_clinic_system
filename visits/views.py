@@ -10,11 +10,11 @@ from django.db.models import Q
 from django.utils import timezone
 
 from .forms import DiagnosisCreationForm
-from backend.aaConfig.decorators import doctor_only
+from aaConfig.decorators import doctor_only
 from .models import Diagnosis, Visit
-from backend.pets.models import Pet, Treatment, Medicine, MedicineHistory, Disease
-from backend.doctors.models import Doctor 
-from backend.users.models import Owner
+from pets.models import Pet, Treatment, Medicine, MedicineHistory, Disease
+from doctors.models import Doctor 
+from users.models import Owner
 # Create your views here.
 
 @login_required(login_url='login_doctor')

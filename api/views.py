@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.generics import (ListAPIView)
 from .serializers import DoctorShiftSerializer, DoctorSerializer
-from backend.doctors.models import DoctorShift, Doctor
+from doctors.models import DoctorShift, Doctor
 from datetime import datetime
 
 

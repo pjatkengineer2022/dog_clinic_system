@@ -3,5 +3,5 @@ from django.apps import AppConfig
 
 class DoctorsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'backend.doctors'
+    name = 'doctors'
     default = False
