@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'doctors',
     'visits',
     'api',
-    'users',
+    'users.apps.UsersConfig',
     'captcha',
     'phonenumber_field',
     'rest_framework',
