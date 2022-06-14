@@ -10,7 +10,6 @@ def registerUser(request):
     if not request.user.is_authenticated:
         userForm = UserRegisterForm()
         profileRegisterForm = ProfileRegisterForm()
-        Profile.objects.get_or_create(user=request.user)
         if request.method == 'POST':
             userForm = UserRegisterForm(request.POST)
             profileRegisterForm = ProfileRegisterForm(request.POST) #needed for checking typed data in next line (if profileRegisterForm.is_valid()) 
@@ -76,6 +75,7 @@ def logoutUser(request):
 def updateProfile(request):
     userUpdateForm = UserUpdateForm(instance=request.user)
     profileUpdateForm = ProfileUpdateForm(instance=request.user.profile)
+    Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         userUpdateForm = UserUpdateForm(request.POST, instance=request.user)
         profileUpdateForm = ProfileUpdateForm(request.POST, instance=request.user.profile) #needed for checking typed data in next line (if profileRegisterForm.is_valid()) 
