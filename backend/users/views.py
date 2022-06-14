@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
-from .models import Profile
 
 def registerUser(request):
     if not request.user.is_authenticated:
@@ -75,7 +74,6 @@ def logoutUser(request):
 def updateProfile(request):
     userUpdateForm = UserUpdateForm(instance=request.user)
     profileUpdateForm = ProfileUpdateForm(instance=request.user.profile)
-    Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         userUpdateForm = UserUpdateForm(request.POST, instance=request.user)
         profileUpdateForm = ProfileUpdateForm(request.POST, instance=request.user.profile) #needed for checking typed data in next line (if profileRegisterForm.is_valid()) 
