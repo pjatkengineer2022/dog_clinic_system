@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'backend.doctors',
     'backend.visits',
     'backend.api',
-    'backend.users.apps.UserConfig',
+    'backend.users',
     'captcha',
     'phonenumber_field',
     'rest_framework',
