@@ -10,6 +10,7 @@ def registerUser(request):
     if not request.user.is_authenticated:
         userForm = UserRegisterForm()
         profileRegisterForm = ProfileRegisterForm()
+        Profile.objects.get_or_create(user=request.user)
         if request.method == 'POST':
             userForm = UserRegisterForm(request.POST)
             profileRegisterForm = ProfileRegisterForm(request.POST) #needed for checking typed data in next line (if profileRegisterForm.is_valid()) 
@@ -18,11 +19,7 @@ def registerUser(request):
                 #Save User & create profile by signals
                 user = userForm.save(commit=False)
                 user.username = user.username.lower()
-                user2 = user.save()
-                #if signal not working
-                #Profile.objects.get_or_create(user=user2)
-                profile=Profile(user=user2)
-                profile.save()
+                user.save()
                 #add to owner group:
                 group = Group.objects.get(name='owner')
                 user.groups.add(group)
