@@ -18,9 +18,9 @@ def registerUser(request):
                 #Save User & create profile by signals
                 user = userForm.save(commit=False)
                 user.username = user.username.lower()
-                user = user.save()
+                user2 = user.save()
                 #if signal not working
-                Profile.objects.get_or_create(user=user)
+                Profile.objects.get_or_create(user=user2)
                 #add to owner group:
                 group = Group.objects.get(name='owner')
                 user.groups.add(group)
