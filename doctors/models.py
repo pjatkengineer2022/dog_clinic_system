@@ -21,11 +21,11 @@ class Doctor(models.Model):
         return self.profile.user.username + ' doctor'
     def save(self, *args, **kwargs):
         super().save( *args, **kwargs)			
-        img = Image.open(self.image.path)		 
+        img = Image.open(self.image.name)		 
         if img.height > 300 or img.width >300:	
             output_size= (300,300)
             img.thumbnail(output_size) 			
-            img.save(self.image.path)
+            img.save(self.image.name)
         group, was_created = Group.objects.get_or_create(name='doctor')
         self.profile.user.groups.add(group)
 
