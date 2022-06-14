@@ -73,7 +73,6 @@ def logoutUser(request):
 
 @login_required
 def updateProfile(request):
-    #Profile.objects.get_or_create(user=request.user)
     userUpdateForm = UserUpdateForm(instance=request.user)
     if request.method == 'POST':
         userUpdateForm = UserUpdateForm(request.POST, instance=request.user)
