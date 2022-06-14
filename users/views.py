@@ -23,7 +23,9 @@ def registerUser(request):
                 group = Group.objects.get(name='owner')
                 user.groups.add(group)
                 #update Profile 
-                profileRegisterForm = ProfileRegisterForm(request.POST, instance=user.profile)  
+                #profileRegisterForm = ProfileRegisterForm(request.POST, instance=user.profile)  
+                profile = profileRegisterForm.save()
+                profile.user = request.user
                 profileRegisterForm.save()
                 #Log In
                 try:
