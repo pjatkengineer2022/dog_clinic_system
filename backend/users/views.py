@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
+from .models import Profile
 
 def registerUser(request):
     if not request.user.is_authenticated:
@@ -17,7 +18,9 @@ def registerUser(request):
                 #Save User & create profile by signals
                 user = userForm.save(commit=False)
                 user.username = user.username.lower()
-                user.save()
+                user = user.save()
+                #if signal not working
+                Profile.objects.get_or_create(user=user)
                 #add to owner group:
                 group = Group.objects.get(name='owner')
                 user.groups.add(group)
