@@ -75,8 +75,8 @@ def logoutUser(request):
 
 @login_required
 def updateProfile(request):
-    userUpdateForm = UserUpdateForm(instance=request.user)
     Profile.objects.get_or_create(user=request.user)
+    #userUpdateForm = UserUpdateForm(instance=request.user)
     if request.method == 'POST':
         userUpdateForm = UserUpdateForm(request.POST, instance=request.user)
         profileUpdateForm = ProfileUpdateForm(request.POST, instance=request.user.profile) #needed for checking typed data in next line (if profileRegisterForm.is_valid()) 
