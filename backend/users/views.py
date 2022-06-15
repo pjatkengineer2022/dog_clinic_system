@@ -86,5 +86,8 @@ def updateProfile(request):
             messages.add_message(request, messages.SUCCESS, 'Twoje konto zostało zaktualizowane')
             return redirect('update_profile')
         messages.error(request, "Twoje konto nie mogło zostać zaktualizowane")
+    else:
+        userUpdateForm = UserUpdateForm(instance=request.user)
+        profileUpdateForm = ProfileUpdateForm(instance=request.user.profile)
     context={'userUpdateForm':userUpdateForm, 'profileUpdateForm': profileUpdateForm}
     return render(request, 'users/account_edit.html', context)
