@@ -130,10 +130,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'aaStatic/'), ]
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -154,11 +154,11 @@ EMAIL_HOST_PASSWORD =  'nqqlcoiyoisejfir' #'ngcjsuuqibifcqzd'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'aaMedia')
 MEDIA_URL = '/media/'
 
-#AWS_ACCESS_KEY_ID = 'AKIATWY2MSKRLLTIJ344'
-#AWS_SECRET_ACCESS_KEY = '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'
-#AWS_STORAGE_BUCKET_NAME = 'dog-clinic-system-bucket'
-#AWS_S3_FILE_OVERWRITE = False
-#AWS_DEFAULT_ACL = None
-#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#AWS_S3_REGION_NAME = 'eu-west-2'
+AWS_ACCESS_KEY_ID = 'AKIATWY2MSKRLLTIJ344'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'dog-clinic-system-bucket'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_REGION_NAME = 'eu-west-2'
