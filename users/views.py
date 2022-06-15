@@ -73,8 +73,8 @@ def logoutUser(request):
 @login_required
 def updateProfile(request):
     userUpdateForm = UserUpdateForm(instance=request.user)
+    global profileUpdateForm
     if request.method == 'POST':
-        global profileUpdateForm
         userUpdateForm = UserUpdateForm(request.POST, instance=request.user)
         profileUpdateForm = ProfileUpdateForm(request.POST, instance=request.user.profile) #needed for checking typed data in next line (if profileRegisterForm.is_valid()) 
         if userUpdateForm.is_valid() and profileUpdateForm.is_valid():
