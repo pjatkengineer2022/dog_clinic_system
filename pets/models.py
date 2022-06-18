@@ -19,11 +19,11 @@ class Pet(models.Model):
         return self.name
     def save(self, *args, **kwargs):
         super().save( *args, **kwargs)			
-        img = Image.open(self.avatar.path)		 
+        img = Image.open(self.avatar.name)		 
         if img.height > 300 or img.width >300:	
             output_size= (300,300)
             img.thumbnail(output_size) 			
-            img.save(self.avatar.path)	
+            img.save(self.avatar.name)	
 
 class Disease(models.Model):
     name = models.CharField(max_length=70)
