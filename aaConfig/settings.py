@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-*+*7yh5aq5ii(57=b1pfm@n3xhr^!40#%^xzc7m3wdbt)memrq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True#False
 
-ALLOWED_HOSTS = ['dog-clinic-system.herokuapp.com','https://dog-clinic-system.azurewebsites.net','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['dog-clinic-system.herokuapp.com','https://dog-clinic-system.azurewebsites.net']#,'127.0.0.1','localhost']
 
 
 # Application definition
@@ -93,9 +93,9 @@ DATABASES = {
     }
 }
 
-# import dj_database_url
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
