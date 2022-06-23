@@ -8,9 +8,9 @@ from .models import year_choices
 YEAR_CHOICES = [(0,0)] + year_choices()
 class PetCreateUpdateForm(forms.ModelForm):
     name = forms.CharField(max_length=30, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'wpisz imię psa','type':"text"}))
-    race = forms.CharField(max_length=30, required=False, widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'wpisz rasę psa','type':"text"}))
-    year_birth = forms.ChoiceField(choices = YEAR_CHOICES,  widget=Select(attrs={'class': 'g__form-input input','type':"number"}))
-    avatar = forms.ImageField(required=False, widget=FileInput())#attrs={'class': "g__btn dog__btn-change-avatar"}))
+    race = forms.CharField(max_length=70, required=False,  widget=TextInput(attrs={'class': 'g__form-input input','placeholder': 'wpisz rasę psa','type':"text"}))
+    year_birth = forms.ChoiceField(choices = YEAR_CHOICES, widget=Select(attrs={'class': 'g__form-input input','type':"number"}), error_messages={'required': 'wybierz rok urodzenia dla psa','invalid_choice': 'Nie można wybrac 0 - wybierz prawidłowy rok urodzenia'})
+    avatar = forms.ImageField(required=False, widget=FileInput(), error_messages={'required': 'zdjęcie wymagane','invalid': 'za duży rozmiar', 'invalid_image': 'za duży rozmiar'})#attrs={'class': "g__btn dog__btn-change-avatar"}))
     class Meta:
         model=Pet
         fields = ['name','race','year_birth','avatar']

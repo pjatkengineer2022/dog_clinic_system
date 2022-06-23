@@ -12,6 +12,11 @@ class UserRegisterForm(UserCreationForm):
     password1 = forms.CharField(max_length=30, widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'wpisz hasło','type':"password"}))
     password2 = forms.CharField(max_length=30,widget=PasswordInput(attrs={'class': 'g__form-input input','placeholder':'potwierdź hasło','type':"password"}))
     captcha = CaptchaField()
+    error_messages = {
+        'unique_username': 'login już istnieje',
+        'duplicate_username': 'login już istnieje',
+        'password_mismatch': "hasła muszą być takie same",
+    }
     class Meta:
         model=User
         fields = ['username','password1','password2']

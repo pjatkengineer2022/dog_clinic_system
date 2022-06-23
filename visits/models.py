@@ -26,7 +26,7 @@ class Visit(models.Model):
 class Diagnosis(models.Model):
     visit = models.ForeignKey(Visit, on_delete=models.CASCADE)
     treatment = models.ForeignKey(Treatment, on_delete=models.SET_NULL, null=True)
-    description = models.CharField(max_length=4000, null=True, blank=True)
+    description = models.CharField(max_length=1000, null=True, blank=True)
     def __str__(self):
         return "visit: "+ str(self.visit.date.date()) +"; treatment: "+ self.treatment.disease.name+", "+ self.treatment.pet.name+", "+self.treatment.pet.owner.profile.name 
 

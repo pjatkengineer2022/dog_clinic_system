@@ -5,7 +5,7 @@ from .models import Diagnosis
 
 
 class DiagnosisCreationForm(forms.ModelForm):
-    description = forms.CharField(max_length=30, required=True, widget=Textarea(attrs={'class': 'textarea','placeholder': 'wpisz swoją diagnozę (w tym objawy choroby)','type':"text"}))
+    description = forms.CharField(max_length=1000, required=True, widget=Textarea(attrs={'class': 'textarea','placeholder': 'wpisz swoją diagnozę (w tym objawy choroby)','type':"text"}))
     class Meta:
         model=Diagnosis
         fields=['description']

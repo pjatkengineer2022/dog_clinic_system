@@ -29,8 +29,8 @@ def add_diagnosis(request, visitid):
     except:
         messages.error('nie można dodać diagnozy do psa który nie istnieje')
         return redirect('doctor_check_visit')
-    petTreatments = Treatment.objects.filter(pet=pet)
-    allMedicines = Medicine.objects.all()
+    petTreatments = Treatment.objects.filter(pet=pet).order_by('-start')
+    allMedicines = Medicine.objects.all().order_by('name')
     form = DiagnosisCreationForm()
     if request.method == "POST":
         treatment_type = request.POST.get('treatment_type')
@@ -159,8 +159,8 @@ def visitCreation(request, patients, doctors, renderSite, redirectSite, nearVisi
 
 @login_required
 def owner_book_visit_no_patient(request):
-    patients = Pet.objects.filter(owner=request.user.profile.owner)
-    doctors = Doctor.objects.all()
+    patients = Pet.objects.filter(owner=request.user.profile.owner).order_by('name')
+    doctors = Doctor.objects.all().order_by('profile__name')
     nearVisit = Visit.objects.filter(Q(pet__owner=request.user.profile.owner) & Q(date__gt=timezone.now())).order_by('date').first()
     return visitCreation(request=request,patients=patients, doctors=doctors,  renderSite = 'visits/reservation.html', redirectSite='your_dogs', nearVisit=nearVisit)
 
@@ -178,7 +178,7 @@ def owner_book_visit_with_patient(request, petid):
     except Pet.DoesNotExist:
         return redirect('your_dogs')
     if request.user.profile.owner == Owner.objects.filter(pet__id=petid).first():
-        doctors = Doctor.objects.all()
+        doctors = Doctor.objects.all().order_by('profile__name')
         nearVisit = Visit.objects.filter(Q(pet__id=petid)  & Q(date__gt=timezone.now())).order_by('date').first()
         return visitCreation(request=request,patients=patients, doctors=doctors, renderSite = 'visits/reservation.html', redirectSite='your_dogs', nearVisit=nearVisit)
     else:

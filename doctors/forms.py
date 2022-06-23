@@ -7,7 +7,7 @@ from .models import DoctorShift, Shift
 class MedicineCreationForm(forms.ModelForm):
     name = forms.CharField(max_length=50, widget=TextInput(attrs={'class': 'input','placeholder': 'wpisz nazwę leku','type':"text"}))
     producer = forms.ModelChoiceField(queryset= Producer.objects.all(),  widget=Select(attrs={'class': 'g__form-input input','type':"text"}))
-    description = forms.CharField(max_length=30, required=False, widget=Textarea(attrs={'class': 'textarea','placeholder': 'wpisz opis leku','type':"text"}))
+    description = forms.CharField(max_length=1000, required=False, widget=Textarea(attrs={'class': 'textarea','placeholder': 'wpisz opis leku','type':"text"}))
     class Meta:
         model=Medicine
         fields = ['name','producer','description']
