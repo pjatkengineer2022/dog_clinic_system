@@ -4,7 +4,6 @@ from django.urls import reverse
 from users.models import Profile
 from PIL import Image
 from aaConfig.validators import validate_file_size
-from django.core.files.storage import default_storage as storage
 
 class Service(models.Model):
     name = models.CharField(max_length=100)
@@ -22,8 +21,7 @@ class Doctor(models.Model):
         return self.profile.user.username + ' doctor'
     def save(self, *args, **kwargs):
         super().save( *args, **kwargs)			
-        #img = Image.open(self.image.name)		 
-        img = Image.open(storage.open(self.image.name))
+        img = Image.open(self.image.name)		 
         if img.height > 300 or img.width >300:	
             output_size= (300,300)
             img.thumbnail(output_size) 			
