@@ -152,8 +152,8 @@ EMAIL_HOST_USER = 'engineer2022db@gmail.com'
 EMAIL_HOST_PASSWORD =  'nqqlcoiyoisejfir' #'ngcjsuuqibifcqzd'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'aaMedia')
-#MEDIA_URL = '/media/'
-MEDIA_URL = 'dog-clinic-system-bucket.s3.amazonaws.com'
+MEDIA_URL = '/media/'
+
 
 AWS_ACCESS_KEY_ID = 'AKIATWY2MSKRLLTIJ344'
 AWS_SECRET_ACCESS_KEY = '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'
