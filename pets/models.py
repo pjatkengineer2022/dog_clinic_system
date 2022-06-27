@@ -4,6 +4,7 @@ from django.db import models
 from users.models import Owner
 from PIL import Image
 from aaConfig.validators import validate_file_size
+from django.core.files.storage import default_storage as storage
 
 def year_choices():
     return [(r,r) for r in range(datetime.date.today().year-30, datetime.date.today().year+1)]
@@ -19,11 +20,11 @@ class Pet(models.Model):
         return self.name
     def save(self, *args, **kwargs):
         super().save( *args, **kwargs)			
-        img = Image.open(self.avatar.name)		 
+        img = Image.open(storage.open(self.avatar.name))		 
         if img.height > 300 or img.width >300:	
             output_size= (300,300)
             img.thumbnail(output_size) 			
-            img.save(self.avatar.name)	
+            img.save(storage.open(self.avatar.name))	
 
 class Disease(models.Model):
     name = models.CharField(max_length=70)
