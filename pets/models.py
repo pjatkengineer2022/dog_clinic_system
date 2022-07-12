@@ -15,7 +15,7 @@ class Pet(models.Model):
     name = models.CharField(max_length=70)
     race = models.CharField(max_length=70, null=True, blank=True)
     year_birth = models.IntegerField(choices=YEAR_CHOICES, null=True, blank=True)#default=datetime.date.today().year)
-    avatar = models.ImageField(upload_to="pet_profile_pics", validators=[validate_file_size], default='dog_avatar.png')
+    avatar = models.ImageField(upload_to="pet_profile_pics", validators=[validate_file_size], default='pet_profile_pics/dog_avatar.png')
     def __str__(self):
         return self.name
     def save(self, *args, **kwargs):
