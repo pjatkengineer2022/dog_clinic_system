@@ -10,7 +10,7 @@ def doctor_only(view_func):
             for group in request.user.groups.all():
                 if group.name == 'doctor':
                     return view_func(request, *args, **kwargs)  
-        messages.info(request,'Nie masz autoryzacji by wejś na tę stronę')
+        messages.info(request,'Nie masz autoryzacji by wejść na tę stronę')
         return redirect('home')
     return wrapper_func		
 
@@ -26,7 +26,7 @@ def allowed_users(allowed_roles=None):
                 for group in request.user.groups.all():
                     if group.name in allowed_roles:
                         return view_func(request, *args, **kwargs)
-            messages.info(request,'Nie masz autoryzacji by wejś na tę stronę')
+            messages.info(request,'Nie masz autoryzacji by wejść na tę stronę')
             return redirect('home')
         return wrapper_func
     return decorator
